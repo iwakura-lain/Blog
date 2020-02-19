@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		<meta name="description" content="">
+		<meta name="author" content="">
+		<title>登录</title>
+		<!-- Bootstrap core CSS -->
+		<link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
+		<link rel="stylesheet" th:href="@{https://cdn.jsdelivr.net/semantic-ui/2.2.4/semantic.min.css}">
+		<!-- Custom styles for this template -->
+		<link th:href="@{/css/signin.css}" rel="stylesheet">
+		<link th:href="@{/css/Index.css}" rel="stylesheet">
+	</head>
+
+	<body class="text-center" id="bg2">
+		<div class="drag" style="width: 250px; height: 500px">
+			<!-- action，点击登录提交action的请求 -->
+			<form th:action="@{/toLogin}" method="post">
+				<!-- 如果message不为空，显示message -->
+				<div th:hidden="${msg!=null ? false:true}" th:text="${msg!=null ? msg:''}" class="ui red message">Red</div>
+				<img class="mb-4" th:src="@{/images/method1.svg}" alt="" width="108" height="108">
+				<h1 class="h3 mb-3 font-weight-normal" th:text="#{login.tip}">Please sign in</h1>
+
+				<input  type="text" name="username" class="form-control" th:placeholder="#{login.username}" required="" autofocus="">
+
+				<input type="password" name="password" class="form-control" th:placeholder="#{login.password}" required="">
+				<div class="checkbox mb-3">
+					<label>
+						<input type="checkbox" name="remember" value="true"> [[#{login.remenber}]]
+					</label>
+				</div>
+				<button class="btn btn-lg btn-primary btn-block" type="submit" >[[#{login.sign}]]</button>
+
+				<!-- /index.html(l=zh_cn), thymeleaf传参，国际化请求 -->
+				<a class="btn btn-sm" th:href="@{/login.html(l=zh_CN)}">中文</a>
+				<a class="btn btn-sm" th:href="@{/login.html(l=en_US)}">English</a>
+				<a class="btn btn-sm" th:href="@{/login.html(l=ja_JP)}">日本语</a>
+			</form>
+		</div>
+
+	</body>
+
+</html>
