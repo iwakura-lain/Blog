@@ -8,4 +8,5 @@ public interface ManagerService {
 
     public Manager getManager(String username);
 
+
 }
