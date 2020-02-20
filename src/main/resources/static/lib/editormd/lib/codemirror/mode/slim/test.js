@@ -36,11 +36,11 @@
      "[tag h1] This is not a / comment ");
 
   MT("attributes",
-     "[tag a]([attribute title]=[string \"test\"]) [attribute th:href]=[string \"link\"]}");
+     "[tag a]([attribute title]=[string \"test\"]) [attribute href]=[string \"link\"]}");
 
   MT("multiLineAttributes",
      "[tag a]([attribute title]=[string \"test\"]",
-     "  ) [attribute th:href]=[string \"link\"]}");
+     "  ) [attribute href]=[string \"link\"]}");
 
   MT("htmlCode",
      "[tag&bracket <][tag h1][tag&bracket >]Title[tag&bracket </][tag h1][tag&bracket >]");

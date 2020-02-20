@@ -63,7 +63,7 @@ CodeMirror.defineMode("markdown", function(cmCfg, modeCfg) {
   ,   linkinline = 'link'
   ,   linkemail = 'link'
   ,   linktext = 'link'
-  ,   linkth:href = 'string'
+  ,   linkhref = 'string'
   ,   em       = 'em'
   ,   strong   = 'strong'
   ,   strikethrough = 'strikethrough';
@@ -259,8 +259,8 @@ CodeMirror.defineMode("markdown", function(cmCfg, modeCfg) {
       return styles.length ? styles.join(' ') : null;
     }
 
-    if (state.linkth:href) {
-      styles.push(linkth:href);
+    if (state.linkHref) {
+      styles.push(linkhref);
       return styles.length ? styles.join(' ') : null;
     }
 
@@ -362,7 +362,7 @@ CodeMirror.defineMode("markdown", function(cmCfg, modeCfg) {
       matchCh = (matchCh+'').replace(/([.?*+^$[\]\\(){}|-])/g, "\\$1");
       var regex = '^\\s*(?:[^' + matchCh + '\\\\]+|\\\\\\\\|\\\\.)' + matchCh;
       if (stream.match(new RegExp(regex), true)) {
-        return linkth:href;
+        return linkhref;
       }
     }
 
@@ -392,7 +392,7 @@ CodeMirror.defineMode("markdown", function(cmCfg, modeCfg) {
 
     if (ch === '!' && stream.match(/\[[^\]]*\] ?(?:\(|\[)/, false)) {
       stream.match(/\[[^\]]*\]/);
-      state.inline = state.f = linkth:href;
+      state.inline = state.f = linkHref;
       return image;
     }
 
@@ -406,7 +406,7 @@ CodeMirror.defineMode("markdown", function(cmCfg, modeCfg) {
       if (modeCfg.highlightFormatting) state.formatting = "link";
       var type = getType(state);
       state.linkText = false;
-      state.inline = state.f = linkth:href;
+      state.inline = state.f = linkHref;
       return type;
     }
 
@@ -549,22 +549,22 @@ CodeMirror.defineMode("markdown", function(cmCfg, modeCfg) {
     return linkinline;
   }
 
-  function linkth:href(stream, state) {
+  function linkHref(stream, state) {
     // Check if space, and return NULL if so (to avoid marking the space)
     if(stream.eatSpace()){
       return null;
     }
     var ch = stream.next();
     if (ch === '(' || ch === '[') {
-      state.f = state.inline = getLinkth:hrefInside(ch === "(" ? ")" : "]");
+      state.f = state.inline = getLinkHrefInside(ch === "(" ? ")" : "]");
       if (modeCfg.highlightFormatting) state.formatting = "link-string";
-      state.linkth:href = true;
+      state.linkHref = true;
       return getType(state);
     }
     return 'error';
   }
 
-  function getLinkth:hrefInside(endChar) {
+  function getLinkHrefInside(endChar) {
     return function(stream, state) {
       var ch = stream.next();
 
@@ -572,7 +572,7 @@ CodeMirror.defineMode("markdown", function(cmCfg, modeCfg) {
         state.f = state.inline = inlineNormal;
         if (modeCfg.highlightFormatting) state.formatting = "link-string";
         var returnState = getType(state);
-        state.linkth:href = false;
+        state.linkHref = false;
         return returnState;
       }
 
@@ -580,7 +580,7 @@ CodeMirror.defineMode("markdown", function(cmCfg, modeCfg) {
         stream.backUp(1);
       }
 
-      state.linkth:href = true;
+      state.linkHref = true;
       return getType(state);
     };
   }
@@ -624,7 +624,7 @@ CodeMirror.defineMode("markdown", function(cmCfg, modeCfg) {
       stream.match(/^(?:\s+(?:"(?:[^"\\]|\\\\|\\.)+"|'(?:[^'\\]|\\\\|\\.)+'|\((?:[^)\\]|\\\\|\\.)+\)))?/, true);
     }
     state.f = state.inline = inlineNormal;
-    return linkth:href;
+    return linkhref;
   }
 
   var savedInlineRE = [];
@@ -656,7 +656,7 @@ CodeMirror.defineMode("markdown", function(cmCfg, modeCfg) {
 
         formatting: false,
         linkText: false,
-        linkth:href: false,
+        linkHref: false,
         linkTitle: false,
         em: false,
         strong: false,

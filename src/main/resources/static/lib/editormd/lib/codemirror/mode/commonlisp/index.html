@@ -7,7 +7,7 @@
 <link rel="stylesheet" href="../../lib/codemirror.css">
 <script src="../../lib/codemirror.js"></script>
 <script src="commonlisp.js"></script>
-<style>.CodeMirror {background: @{#}f8f8f8;}</style>
+<style>.CodeMirror {background: #f8f8f8;}</style>
 <div id=nav>
   <a href="http://codemirror.net"><h1>CodeMirror</h1><img id=logo src="../../doc/logo.png"></a>
 
@@ -18,7 +18,7 @@
   </ul>
   <ul>
     <li><a href="../index.html">Language modes</a>
-    <li><a class=active href="@{#}">Common Lisp</a>
+    <li><a class=active href="#">Common Lisp</a>
   </ul>
 </div>
 
@@ -33,10 +33,10 @@
 (eval-when (:compile-toplevel :load-toplevel :execute)
   (defun integer-reader-name (bytes signed)
     (intern (with-standard-io-syntax
-              (format nil "~a~a~a~a" '@{#}:read- (if signed "" '@{#}:u) '@{#}:int bytes))))
+              (format nil "~a~a~a~a" '#:read- (if signed "" '#:u) '#:int bytes))))
   (defun integer-writer-name (bytes signed)
     (intern (with-standard-io-syntax
-              (format nil "~a~a~a~a" '@{#}:write- (if signed "" '@{#}:u) '@{#}:int bytes)))))
+              (format nil "~a~a~a~a" '#:write- (if signed "" '#:u) '#:int bytes)))))
 
 (defmacro integer-reader (bytes)
   "Create a function to read integers from a binary stream."
@@ -50,7 +50,7 @@
              (generate-reader (signed)
                `(defun ,(integer-reader-name bytes signed) (socket)
                   (declare (type stream socket)
-                           @{#}.*optimize*)
+                           #.*optimize*)
                   ,(if (= bytes 1)
                        `(let ((result (the (unsigned-byte 8) (read-byte socket))))
                           (declare (type (unsigned-byte 8) result))
@@ -81,7 +81,7 @@
       (defun ,(integer-writer-name bytes nil) (socket value)
         (declare (type stream socket)
                  (type (unsigned-byte ,bits) value)
-                 @{#}.*optimize*)
+                 #.*optimize*)
         ,@(if (= bytes 1)
               `((write-byte value socket))
               (loop :for byte :from (1- bytes) :downto 0
@@ -91,7 +91,7 @@
       (defun ,(integer-writer-name bytes t) (socket value)
         (declare (type stream socket)
                  (type (signed-byte ,bits) value)
-                 @{#}.*optimize*)
+                 #.*optimize*)
         ,@(if (= bytes 1)
               `((write-byte (ldb (byte 8 0) value) socket))
               (loop :for byte :from (1- bytes) :downto 0
@@ -114,7 +114,7 @@
   "Write a byte-array to a stream."
   (declare (type stream socket)
            (type (simple-array (unsigned-byte 8)) bytes)
-           @{#}.*optimize*)
+           #.*optimize*)
   (write-sequence bytes socket))
 
 (defun write-str (socket string)
@@ -122,7 +122,7 @@
 support is enabled.)."
   (declare (type stream socket)
            (type string string)
-           @{#}.*optimize*)
+           #.*optimize*)
   (enc-write-string string socket)
   (write-uint1 socket 0))
 
@@ -133,7 +133,7 @@ support is enabled.)."
   "Read a byte array of the given length from a stream."
   (declare (type stream socket)
            (type fixnum length)
-           @{#}.*optimize*)
+           #.*optimize*)
   (let ((result (make-array length :element-type '(unsigned-byte 8))))
     (read-sequence result socket)
     result))
@@ -143,21 +143,21 @@ support is enabled.)."
   "Read a null-terminated string from a stream. Takes care of encoding
 when UTF-8 support is enabled."
   (declare (type stream socket)
-           @{#}.*optimize*)
+           #.*optimize*)
   (enc-read-string socket :null-terminated t))
 
 (defun skip-bytes (socket length)
   "Skip a given number of bytes in a binary stream."
   (declare (type stream socket)
            (type (unsigned-byte 32) length)
-           @{#}.*optimize*)
+           #.*optimize*)
   (dotimes (i length)
     (read-byte socket)))
 
 (defun skip-str (socket)
   "Skip a null-terminated string."
   (declare (type stream socket)
-           @{#}.*optimize*)
+           #.*optimize*)
   (loop :for char :of-type fixnum = (read-byte socket)
         :until (zerop char)))
 

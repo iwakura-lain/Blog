@@ -18,14 +18,14 @@
   </ul>
   <ul>
     <li><a href="../index.html">Language modes</a>
-    <li><a class=active href="@{#}">TOML Mode</a>
+    <li><a class=active href="#">TOML Mode</a>
   </ul>
 </div>
 
 <article>
 <h2>TOML Mode</h2>
 <form><textarea id="code" name="code">
-@{#} This is a TOML document. Boom.
+# This is a TOML document. Boom.
 
 title = "TOML Example"
 
@@ -33,7 +33,7 @@ title = "TOML Example"
 name = "Tom Preston-Werner"
 organization = "GitHub"
 bio = "GitHub Cofounder &amp; CEO\nLikes tater tots and beer."
-dob = 1979-05-27T07:32:00Z @{#} First class dates? Why not?
+dob = 1979-05-27T07:32:00Z # First class dates? Why not?
 
 [database]
 server = "192.168.1.1"
@@ -43,7 +43,7 @@ enabled = true
 
 [servers]
 
-  @{#} You can indent as you please. Tabs or spaces. TOML don't care.
+  # You can indent as you please. Tabs or spaces. TOML don't care.
   [servers.alpha]
   ip = "10.0.0.1"
   dc = "eqdc10"
@@ -55,7 +55,7 @@ enabled = true
 [clients]
 data = [ ["gamma", "delta"], [1, 2] ]
 
-@{#} Line breaks are OK when inside arrays
+# Line breaks are OK when inside arrays
 hosts = [
   "alpha",
   "omega"

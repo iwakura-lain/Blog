@@ -22,7 +22,7 @@
   </ul>
   <ul>
     <li><a href="../index.html">Language modes</a>
-    <li><a class=active href="@{#}">Jade Templating Mode</a>
+    <li><a class=active href="#">Jade Templating Mode</a>
   </ul>
 </div>
 
@@ -50,11 +50,11 @@ doctype html
            else
              img.img-rounded.logo(src="img/placeholder.png")
          h3
-           a(href=spot.hash) @{#}@{#}{spot.hash}
+           a(href=spot.hash) ##{spot.hash}
            if spot.title
-             span.title @{#}{spot.title}
+             span.title #{spot.title}
            if spot.desc
-             div @{#}{spot.desc}
+             div #{spot.desc}
         else
           h3 There are no spots currently available.
 </textarea></form>

@@ -31,7 +31,7 @@
 
   MT("selfclose",
      "[tag&bracket <][tag html][tag&bracket >]",
-     "  [tag&bracket <][tag link] [attribute rel]=[string stylesheet] [attribute th:href]=[string \"/foobar\"][tag&bracket >]",
+     "  [tag&bracket <][tag link] [attribute rel]=[string stylesheet] [attribute href]=[string \"/foobar\"][tag&bracket >]",
      "[tag&bracket </][tag html][tag&bracket >]");
 
   MT("list",

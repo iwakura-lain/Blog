@@ -9,8 +9,8 @@
 <script src="../../addon/edit/matchbrackets.js"></script>
 <script src="smalltalk.js"></script>
 <style>
-      .CodeMirror {border: 2px solid @{#}dee; border-right-width: 10px;}
-      .CodeMirror-gutter {border: none; background: @{#}dee;}
+      .CodeMirror {border: 2px solid #dee; border-right-width: 10px;}
+      .CodeMirror-gutter {border: none; background: #dee;}
       .CodeMirror-gutter pre {color: white; font-weight: bold;}
     </style>
 <div id=nav>
@@ -23,7 +23,7 @@
   </ul>
   <ul>
     <li><a href="../index.html">Language modes</a>
-    <li><a class=active href="@{#}">Smalltalk</a>
+    <li><a class=active href="#">Smalltalk</a>
   </ul>
 </div>
 
@@ -33,7 +33,7 @@
 " 
     This is a test of the Smalltalk code
 "
-Seaside.WAComponent subclass: @{#}MyCounter [
+Seaside.WAComponent subclass: #MyCounter [
     | count |
     MyCounter class &gt;&gt; canBeRoot [ ^true ]
 

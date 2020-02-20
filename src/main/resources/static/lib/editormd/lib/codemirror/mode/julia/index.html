@@ -18,7 +18,7 @@
   </ul>
   <ul>
     <li><a href="../index.html">Language modes</a>
-    <li><a class=active href="@{#}">Julia</a>
+    <li><a class=active href="#">Julia</a>
   </ul>
 </div>
 
@@ -26,7 +26,7 @@
 <h2>Julia mode</h2>
 
     <div><textarea id="code" name="code">
-@{#}numbers
+#numbers
 1234
 1234im
 .234
@@ -36,7 +36,7 @@
 23e2
 0x234
 
-@{#}strings
+#strings
 'a'
 "asdf"
 r"regex"
@@ -46,30 +46,30 @@ b"bytestring"
 multiline string
 """
 
-@{#}identifiers
+#identifiers
 a
 as123
 function_name!
 
-@{#}unicode identifiers
-@{#} a = x\ddot
+#unicode identifiers
+# a = x\ddot
 a⃗ = ẍ
-@{#} a = v\dot
+# a = v\dot
 a⃗ = v̇
-@{#}F\vec = m \cdotp a\vec
+#F\vec = m \cdotp a\vec
 F⃗ = m·a⃗
 
-@{#}literal identifier multiples
+#literal identifier multiples
 3x
 4[1, 2, 3]
 
-@{#}dicts and indexing
+#dicts and indexing
 x=[1, 2, 3]
 x[end-1]
 x={"julia"=>"language of technical computing"}
 
 
-@{#}exception handling
+#exception handling
 try
   f()
 catch
@@ -78,24 +78,24 @@ finally
   g()
 end
 
-@{#}types
+#types
 immutable Color{T<:Number}
   r::T
   g::T
   b::T
 end
 
-@{#}functions
+#functions
 function change!(x::Vector{Float64})
   for i = 1:length(x)
     x[i] *= 2
   end
 end
 
-@{#}function invocation
+#function invocation
 f('b', (2, 3)...)
 
-@{#}operators
+#operators
 |=
 &=
 ^=
@@ -165,11 +165,11 @@ in
 ::
 x ? y : z
 
-@{#}macros
+#macros
 @spawnat 2 1+1
 @eval(:x)
 
-@{#}keywords and operators
+#keywords and operators
 if else elseif while for
  begin let end do
 try catch finally return break continue

@@ -2,7 +2,7 @@
 
 <title>CodeMirror: ECL mode</title>
 <meta charset="utf-8"/>
-<link rel=stylesheet th:href="../../doc/docs.css">
+<link rel=stylesheet href="../../doc/docs.css">
 
 <link rel="stylesheet" href="../../lib/codemirror.css">
 <script src="../../lib/codemirror.js"></script>
@@ -18,7 +18,7 @@
   </ul>
   <ul>
     <li><a href="../index.html">Language modes</a>
-    <li><a class=active href="@{#}">ECL</a>
+    <li><a class=active href="#">ECL</a>
   </ul>
 </div>
 
@@ -38,7 +38,7 @@ r :=
    string22 s1 := '123';
    integer4 i1 := 123;
   end;
-@{#}option('tmp', true);
+#option('tmp', true);
 d := dataset('tmp::qb', r, thor);
 output(d);
 </textarea></form>

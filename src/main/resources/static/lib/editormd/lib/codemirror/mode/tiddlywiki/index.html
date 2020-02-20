@@ -20,7 +20,7 @@
   </ul>
   <ul>
     <li><a href="../index.html">Language modes</a>
-    <li><a class=active href="@{#}">TiddlyWiki</a>
+    <li><a class=active href="#">TiddlyWiki</a>
   </ul>
 </div>
 
@@ -30,7 +30,7 @@
 
 <div><textarea id="code" name="code">
 !TiddlyWiki Formatting
-* Rendered versions can be found at: http://www.tiddlywiki.com/@{#}Reference
+* Rendered versions can be found at: http://www.tiddlywiki.com/#Reference
 
 |!Option            | !Syntax            |
 |bold font          | ''bold''           |
@@ -61,9 +61,9 @@
 ** unordered list, level 2
 *** unordered list, level 3
 
-@{#} ordered list, level 1
-@{#}@{#} ordered list, level 2
-@{#}@{#}@{#} unordered list, level 3
+# ordered list, level 1
+## ordered list, level 2
+### unordered list, level 3
 
 ; definition list, term
 : definition list, description
@@ -117,7 +117,7 @@ XML styled code. TiddlyWiki mixed mode should support highlighter switching in t
 * The {{{~}}} marker creates a "rowspan", causing the current cell to merge with the one above.
 <<<
 !!Images /% TODO %/
-cf. [[TiddlyWiki.com|http://www.tiddlywiki.com/@{#}EmbeddedImages]]
+cf. [[TiddlyWiki.com|http://www.tiddlywiki.com/#EmbeddedImages]]
 
 !Hyperlinks
 * [[WikiWords|WikiWord]] are automatically transformed to hyperlinks to the respective tiddler
@@ -133,7 +133,7 @@ cf. [[TiddlyWiki.com|http://www.tiddlywiki.com/@{#}EmbeddedImages]]
 !Special Markers
 * {{{<br>}}} forces a manual line break
 * {{{----}}} creates a horizontal ruler
-* [[HTML entities|http://www.tiddlywiki.com/@{#}HtmlEntities]]
+* [[HTML entities|http://www.tiddlywiki.com/#HtmlEntities]]
 * [[HTML entities local|HtmlEntities]]
 * {{{<<macroName>>}}} calls the respective [[macro|Macros]]
 * To hide text within a tiddler so that it is not displayed, it can be wrapped in {{{/%}}} and {{{%/}}}.<br/>This can be a useful trick for hiding drafts or annotating complex markup.

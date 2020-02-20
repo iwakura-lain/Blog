@@ -20,7 +20,7 @@
   </ul>
   <ul>
     <li><a href="../index.html">Language modes</a>
-    <li><a class=active href="@{#}">Erlang</a>
+    <li><a class=active href="#">Erlang</a>
   </ul>
 </div>
 
@@ -43,7 +43,7 @@
 
 rec_info(demo) -> record_info(fields,demo).
 
-demo() -> expand_recs(?MODULE,@{#}demo{a="A",b="BB"}).
+demo() -> expand_recs(?MODULE,#demo{a="A",b="BB"}).
 
 expand_recs(M,List) when is_list(List) ->
   [expand_recs(M,L)||L<-List];

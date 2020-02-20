@@ -7,7 +7,7 @@
 <link rel="stylesheet" href="../../lib/codemirror.css">
 <script src="../../lib/codemirror.js"></script>
 <script src="textile.js"></script>
-<style>.CodeMirror {background: @{#}f8f8f8;}</style>
+<style>.CodeMirror {background: #f8f8f8;}</style>
 <div id=nav>
   <a href="http://codemirror.net"><h1>CodeMirror</h1><img id=logo src="../../doc/logo.png"></a>
 
@@ -18,7 +18,7 @@
   </ul>
   <ul>
     <li><a href="../index.html">Language modes</a>
-    <li><a class="active" href="@{#}">Textile</a>
+    <li><a class="active" href="#">Textile</a>
   </ul>
 </div>
 
@@ -71,11 +71,11 @@ h2.  Lists
 **** foo bar
 ** foo bar
 
-@{#} An ordered list
-@{#}@{#} foo bar
-@{#}@{#}@{#} foo bar
-@{#}@{#}@{#}@{#} foo bar
-@{#}@{#} foo bar
+# An ordered list
+## foo bar
+### foo bar
+#### foo bar
+## foo bar
 
 - definition list := description
 - another item    := foo bar
@@ -96,7 +96,7 @@ div>. right align
 
 h3. CSS ID and class name
 
-You are a %(my-id@{#}my-classname) rad% person.
+You are a %(my-id#my-classname) rad% person.
 
 h3. Language
 
@@ -114,7 +114,7 @@ p{background: red}. Fire!
 h2. Table
 
 |_.              Header 1               |_.      Header 2        |
-|{background:@{#}ddd}. Cell with background|         Normal         |
+|{background:#ddd}. Cell with background|         Normal         |
 |\2.         Cell spanning 2 columns                             |
 |/2.         Cell spanning 2 rows       |(cell-class). one       |
 |                                                two             |
@@ -123,7 +123,7 @@ h2. Table
 
 h3. A table with attributes:
 
-table(@{#}prices).
+table(#prices).
 |Adults|$5|
 |Children|$2|
 
@@ -140,7 +140,7 @@ function factorial(n) {
 
 pre..
                 ,,,,,,
-            o@{#}'9MMHb':'-,o,
+            o#'9MMHb':'-,o,
          .oH":HH$' "' ' -*R&o,
         dMMM*""'`'      .oM"HM?.
        ,MMM'          "HLbd< ?&H\
@@ -149,10 +149,10 @@ pre..
      .    dboo        MMMMMMMMMMMM.
      .   dMMMMMMb      *MMMMMMMMMP.
      .    MMMMMMMP        *MMMMMP .
-          `@{#}MMMMM           MM6P ,
+          `#MMMMM           MM6P ,
        '    `MMMP"           HM*`,
         '    :MM             .- ,
-         '.   `@{#}?..  .       ..'
+         '.   `#?..  .       ..'
             -.   .         .-
               ''-.oo,oo.-''
 
@@ -186,6 +186,6 @@ Some block layouts are simply textile versions of HTML tags with the same name, 
 
     <p><strong>MIME types defined:</strong> <code>text/x-textile</code>.</p>
 
-    <p><strong>Parsing/Highlighting Tests:</strong> <a href="../../test/index.html@{#}textile_*">normal</a>,  <a href="../../test/index.html@{#}verbose,textile_*">verbose</a>.</p>
+    <p><strong>Parsing/Highlighting Tests:</strong> <a href="../../test/index.html#textile_*">normal</a>,  <a href="../../test/index.html#verbose,textile_*">verbose</a>.</p>
 
 </article>

@@ -24,7 +24,7 @@
   </ul>
   <ul>
     <li><a href="../index.html">Language modes</a>
-    <li><a class=active href="@{#}">XQuery</a>
+    <li><a class=active href="#">XQuery</a>
   </ul>
 </div>
 
@@ -42,7 +42,7 @@ let $let := &lt;x attr=&quot;value&quot;&gt;&quot;test&quot;&lt;func&gt;function
 let $joe:=1
 return element element {
 	attribute attribute { 1 },
-	element test { &@{#}39;a&@{#}39; },
+	element test { &#39;a&#39; }, 
 	attribute foo { &quot;bar&quot; },
 	fn:doc()[ foo/@bar eq $let ],
 	//x }    
@@ -203,7 +203,7 @@ declare function json:serialize($x as element())  as xs:string {
     <p><strong>MIME types defined:</strong> <code>application/xquery</code>.</p> 
  
     <p>Development of the CodeMirror XQuery mode was sponsored by 
-      <a href="http://marklogic.com">MarkLogic</a> and developed by
+      <a href="http://marklogic.com">MarkLogic</a> and developed by 
       <a href="https://twitter.com/mbrevoort">Mike Brevoort</a>.
     </p>
  

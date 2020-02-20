@@ -34,9 +34,9 @@
           </tr>
         </thead>
         <tbody>
-          <tr th:each="tag, iterStat:${page.content}">
+          <tr th:each="tag, iterStat:${page}">
             <td th:text="${iterStat.count}">1</td>
-            <td th:text="${tag.name}">认知升级</td>
+            <td th:text="${tag.getName()}">认知升级</td>
             <td>
               <a th:href="@{/admin/tags/}+${tag.id}+@{/update}" class="ui mini teal basic button">编辑</a>
               <a th:href="@{/admin/tags/}+${tag.id}+@{/delete}" class="ui mini red basic button">删除</a>

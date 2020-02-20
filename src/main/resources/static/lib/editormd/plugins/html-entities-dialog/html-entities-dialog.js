@@ -106,7 +106,7 @@
 						{
 							var name = entity.name.replace("&amp;", "&");
 
-							row += "<a th:href=\"javascript:;\" value=\"" + entity.name + "\" title=\"" + name + "\" class=\"" + classPrefix + "html-entity-btn\">" + name + "</a>";
+							row += "<a href=\"javascript:;\" value=\"" + entity.name + "\" title=\"" + name + "\" class=\"" + classPrefix + "html-entity-btn\">" + name + "</a>";
 						}
 					}
 					

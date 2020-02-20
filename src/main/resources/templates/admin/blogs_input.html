@@ -11,21 +11,21 @@
 <body>
 
   <!--导航-->
-  <div th:replace="~{admin/adminFragements::admin_top(2)}"></div>
+  <div th:replace="~{admin/adminFragements::admin_top(1)}"></div>
   <div class="ui attached pointing menu">
     <div class="ui container">
       <div class="right menu">
-        <a th:href="@{#}" class="teal active item">发布</a>
-        <a th:href="@{#}" class="item">列表</a>
+        <a th:href="@{/admin/blogs/add}" class="teal active item">发布</a>
+        <a th:href="@{/admin/blogs}" class="item">列表</a>
       </div>
     </div>
   </div>
-
   <!--中间内容-->
-  <div  class="m-container-small m-padded-tb-big">
+  <div  class="m-container-big m-padded-tb-big">
+    <div style="text-align: center"  th:hidden="${msg!=null ? false:true}" th:text="${msg!=null ? msg:''}" class="ui message red">Red</div>
     <div class="ui container">
-      <form action="@{#}" method="post" class="ui form">
-
+      <form id="blogdata" th:action="@{/admin/blogs/add}" method="post" class="ui form">
+        <input type="hidden" name="publish">
         <div class="required field">
           <div class="ui left labeled input">
             <div class="ui selection compact teal basic dropdown label">
@@ -38,22 +38,13 @@
                 <div class="item" data-value="翻译">翻译</div>
               </div>
             </div>
-            <input type="text" name="title" placeholder="标题">
+            <input required="" type="text" name="title" placeholder="标题">
           </div>
         </div>
 
         <div class="field">
           <div id="md-content" style="z-index: 1 !important;">
             <textarea placeholder="博客内容" name="content" style="display: none">
-              [TOC]
-
-@{#}@{#}@{#}@{#} Disabled options
-
-- TeX (Based on KaTeX);
-- Emoji;
-- Task lists;
-- HTML tags decode;
-- Flowchart and Sequence Diagram;
             </textarea>
           </div>
         </div>
@@ -63,12 +54,11 @@
             <div class="ui left labeled action input">
               <label class="ui compact teal basic label">分类</label>
               <div class="ui fluid selection dropdown">
-                <input type="hidden" name="type">
+                <input type="hidden" name="type.id">
                 <i class="dropdown icon"></i>
                 <div class="default text">分类</div>
                 <div class="menu">
-                  <div class="item" data-value="1">错误日志</div>
-                  <div class="item" data-value="2">开发者手册</div>
+                  <div th:each="type:${types}" th:text="${type.getName()}" class="item" th:data-value="${type.getId()}">错误日志</div>
                 </div>
               </div>
             </div>
@@ -77,12 +67,11 @@
             <div class="ui left labeled action input">
               <label class="ui compact teal basic label">标签</label>
               <div class="ui fluid selection multiple search  dropdown">
-                <input type="hidden" name="tag">
+                <input type="hidden" name="tagIds">
                 <i class="dropdown icon"></i>
                 <div class="default text">标签</div>
                 <div class="menu">
-                  <div class="item" data-value="1">java</div>
-                  <div class="item" data-value="2">JavaScript</div>
+                  <div th:each="tag:${tags}" th:text="${tag.getName()}" class="item" th:data-value="${tag.getId()}">错误日志</div>
                 </div>
               </div>
             </div>
@@ -92,7 +81,7 @@
         <div class="field">
           <div class="ui left labeled input">
             <label class="ui teal basic label">首图</label>
-            <input type="text" name="indexPicture" placeholder="首图引用地址">
+            <input type="text" name="firstPicture" placeholder="首图引用地址">
           </div>
 
         </div>
@@ -106,7 +95,7 @@
           </div>
           <div class="field">
             <div class="ui checkbox">
-              <input type="checkbox" id="shareInfo" name="shareInfo" class="hidden">
+              <input type="checkbox" id="shareInfo" name="shareState" class="hidden">
               <label for="shareInfo">转载声明</label>
             </div>
           </div>
@@ -128,8 +117,8 @@
 
         <div class="ui right aligned container">
           <button type="button" class="ui button" onclick="window.history.go(-1)" >返回</button>
-          <button class="ui secondary button">保存</button>
-          <button class="ui teal button">发布</button>
+          <button type="submit" id="save-btn" class="ui secondary button">保存</button>
+          <button type="submit" id="publish-btn" class="ui teal button">发布</button>
         </div>
 
       </form>
@@ -139,45 +128,11 @@
   <br>
   <br>
   <!--底部footer-->
-  <footer class="ui inverted vertical segment m-padded-tb-massive">
-    <div class="ui center aligned container">
-      <div class="ui inverted divided stackable grid">
-        <div class="three wide column">
-          <div class="ui inverted link list">
-            <div class="item">
-              <img th:src="@{/images/wechat.jpg}" class="ui rounded image" alt="" style="width: 110px">
-            </div>
-          </div>
-        </div>
-        <div class="three wide column">
-          <h4 class="ui inverted header m-text-thin m-text-spaced " >最新博客</h4>
-          <div class="ui inverted link list">
-            <a th:href="@{#}" class="item m-text-thin">用户故事（User Story）</a>
-            <a th:href="@{#}" class="item m-text-thin">用户故事（User Story）</a>
-            <a th:href="@{#}" class="item m-text-thin">用户故事（User Story）</a>
-          </div>
-        </div>
-        <div class="three wide column">
-          <h4 class="ui inverted header m-text-thin m-text-spaced ">联系我</h4>
-          <div class="ui inverted link list">
-            <a th:href="@{#}" class="item m-text-thin">Email：lirenmi@163.com</a>
-            <a th:href="@{#}" class="item m-text-thin">QQ：723493929</a>
-          </div>
-        </div>
-        <div class="seven wide column">
-          <h4 class="ui inverted header m-text-thin m-text-spaced ">Blog</h4>
-          <p class="m-text-thin m-text-spaced m-opacity-mini">虚无主义</p>
-        </div>
-      </div>
-      <div class="ui inverted section divider"></div>
-      <p class="m-text-thin m-text-spaced m-opacity-tiny">Copyright © 2016 - 2017 antigenMHC Designed by antigenMHC</p>
-    </div>
+  <div th:replace="~{fragements::foot}"></div>
 
-  </footer>
-
-<script th:src="@{https://cdn.jsdelivr.net/npm/jquery@3.2/dist/jquery.min.js}"></script>
-<script th:src="@{https://cdn.jsdelivr.net/semantic-ui/2.2.4/semantic.min.js}"></script>
-<script th:src="@{/lib/editormd/editormd.min.js}"></script>
+  <script src="https://cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
+  <script th:src="@{https://cdn.jsdelivr.net/semantic-ui/2.2.4/semantic.min.js}"></script>
+  <script th:src="@{/lib/editormd/editormd.js}"></script>
 
   <script>
 
@@ -186,7 +141,7 @@
     $(function() {
       contentEditor = editormd("md-content", {
         width   : "100%",
-        height  : 640,
+        height  : 575,
         syncScrolling : "single",
         path    : "/lib/editormd/lib/"
       });
@@ -199,7 +154,7 @@
       on : 'hover'
     });
 
-    $('.ui.form').form({
+    /*$('.ui.form').form({
       fields : {
         title : {
           identifier: 'title',
@@ -207,9 +162,32 @@
             type : 'empty',
             prompt: '标题：请输入博客标题'
           }]
+        },
+        content : {
+          identifier: 'content',
+          rules: [{
+            type : 'empty',
+            prompt: '内容：请输入博客内容'
+          }]
+        },
+        type : {
+          identifier: 'content',
+          rules: [{
+            type : 'empty',
+            prompt: '分类：请输入博客分类'
+          }]
         }
       }
-    });
+    });*/
+
+    $("#save-btn").click(function () {
+        $('[name="publish"]').val(false);
+        $("#blogdata").submit;
+    })
+    $("#publish-btn").click(function () {
+        $('[name="publish"]').val(true);
+        $("#blogdata").submit;
+    })
 
   </script>
 </body>

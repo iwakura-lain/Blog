@@ -412,7 +412,7 @@
 
   var wordOperators = ["in", "and", "or", "not", "is a", "is", "isnt", "defined", "if unless"],
       commonKeywords = ["for", "if", "else", "unless", "return"],
-      commonAtoms = ["null", "true", "false", "th:href", "title", "type", "not-allowed", "readonly", "disabled"],
+      commonAtoms = ["null", "true", "false", "href", "title", "type", "not-allowed", "readonly", "disabled"],
       commonDef = ["@font-face", "@keyframes", "@media", "@viewport", "@page", "@host", "@supports", "@block", "@css"],
       cssTypeSelectors = keySet(cssTypeSelectors_),
       cssProperties = keySet(cssProperties_),

@@ -19,19 +19,19 @@
   </ul>
   <ul>
     <li><a href="../index.html">Language modes</a>
-    <li><a class=active href="@{#}">SPARQL</a>
+    <li><a class=active href="#">SPARQL</a>
   </ul>
 </div>
 
 <article>
 <h2>SPARQL mode</h2>
 <form><textarea id="code" name="code">
-PREFIX a: &lt;http://www.w3.org/2000/10/annotation-ns@{#}>
+PREFIX a: &lt;http://www.w3.org/2000/10/annotation-ns#>
 PREFIX dc: &lt;http://purl.org/dc/elements/1.1/>
 PREFIX foaf: &lt;http://xmlns.com/foaf/0.1/>
-PREFIX rdfs: &lt;http://www.w3.org/2000/01/rdf-schema@{#}>
+PREFIX rdfs: &lt;http://www.w3.org/2000/01/rdf-schema#>
 
-@{#} Comment!
+# Comment!
 
 SELECT ?given ?family
 WHERE {

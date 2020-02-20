@@ -8,7 +8,7 @@
 <script src="../../lib/codemirror.js"></script>
 <script src="asterisk.js"></script>
 <style>
-      .CodeMirror {border: 1px solid @{#}999;}
+      .CodeMirror {border: 1px solid #999;}
       .cm-s-default span.cm-arrow { color: red; }
     </style>
 <div id=nav>
@@ -21,7 +21,7 @@
   </ul>
   <ul>
     <li><a href="../index.html">Language modes</a>
-    <li><a class=active href="@{#}">Asterisk dialplan</a>
+    <li><a class=active href="#">Asterisk dialplan</a>
   </ul>
 </div>
 
@@ -38,13 +38,13 @@
 ; made in the file will be lost when that happens.
 static=yes
 
-@{#}include "/etc/asterisk/additional_general.conf
+#include "/etc/asterisk/additional_general.conf
 
 [iaxprovider]
 switch => IAX2/user:[key]@myserver/mycontext
 
 [dynamic]
-@{#}exec /usr/bin/dynamic-peers.pl
+#exec /usr/bin/dynamic-peers.pl
 
 [trunkint]
 ;
@@ -95,15 +95,15 @@ exten => 1236,1,Dial(Console/dsp)		; Ring forever
 exten => 1236,n,Voicemail(1234,b)		; Unless busy
 
 ;
-; @{#} for when they're done with the demo
+; # for when they're done with the demo
 ;
-exten => @{#},1,Playback(demo-thanks)	; "Thanks for trying the demo"
-exten => @{#},n,Hangup			; Hang them up.
+exten => #,1,Playback(demo-thanks)	; "Thanks for trying the demo"
+exten => #,n,Hangup			; Hang them up.
 
 ;
 ; A timeout and "invalid extension rule"
 ;
-exten => t,1,Goto(@{#},1)			; If they take too long, give up
+exten => t,1,Goto(#,1)			; If they take too long, give up
 exten => i,1,Playback(invalid)		; "That's not valid, try again"
 
 ;

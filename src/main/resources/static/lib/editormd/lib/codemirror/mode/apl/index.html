@@ -9,7 +9,7 @@
 <script src="../../addon/edit/matchbrackets.js"></script>
 <script src="./apl.js"></script>
 <style>
-	.CodeMirror { border: 2px inset @{#}dee; }
+	.CodeMirror { border: 2px inset #dee; }
     </style>
 <div id=nav>
   <a href="http://codemirror.net"><h1>CodeMirror</h1><img id=logo src="../../doc/logo.png"></a>
@@ -21,7 +21,7 @@
   </ul>
   <ul>
     <li><a href="../index.html">Language modes</a>
-    <li><a class=active href="@{#}">APL</a>
+    <li><a class=active href="#">APL</a>
   </ul>
 </div>
 
@@ -48,7 +48,7 @@ life ← {∨/ 1 ⍵ ∧ 3 4 = ⊂+/ +⌿ 1 0 ¯1 ∘.⊖ 1 0 ¯1 ⌽¨ ⊂⍵}
 
 ⍝ Compute n-th generation and format it as a
 ⍝ character matrix
-gen ← {' @{#}'[(life ⍣ ⍵) board]}
+gen ← {' #'[(life ⍣ ⍵) board]}
 
 ⍝ Show first three generations
 (gen 1) (gen 2) (gen 3)

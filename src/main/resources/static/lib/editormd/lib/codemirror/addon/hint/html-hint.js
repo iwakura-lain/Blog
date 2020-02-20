@@ -24,10 +24,10 @@
   var data = {
     a: {
       attrs: {
-        th:href: null, ping: null, type: null,
+        href: null, ping: null, type: null,
         media: media,
         target: targets,
-        th:hreflang: langs
+        hreflang: langs
       }
     },
     abbr: s,
@@ -36,8 +36,8 @@
     applet: s,
     area: {
       attrs: {
-        alt: null, coords: null, th:href: null, target: null, ping: null,
-        media: media, th:hreflang: langs, type: null,
+        alt: null, coords: null, href: null, target: null, ping: null,
+        media: media, hreflang: langs, type: null,
         shape: ["default", "rect", "circle", "poly"]
       }
     },
@@ -54,7 +54,7 @@
       }
     },
     b: s,
-    base: { attrs: { th:href: null, target: targets } },
+    base: { attrs: { href: null, target: targets } },
     basefont: s,
     bdi: s,
     bdo: s,
@@ -185,8 +185,8 @@
     li: { attrs: { value: null } },
     link: {
       attrs: {
-        th:href: null, type: null,
-        th:hreflang: langs,
+        href: null, type: null,
+        hreflang: langs,
         media: media,
         sizes: ["all", "16x16", "16x16 32x32", "16x16 32x32 64x64"]
       }

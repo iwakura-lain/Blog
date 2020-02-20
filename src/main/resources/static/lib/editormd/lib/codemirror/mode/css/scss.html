@@ -2,23 +2,23 @@
 
 <title>CodeMirror: SCSS mode</title>
 <meta charset="utf-8"/>
-<link rel=stylesheet th:href="../../doc/docs.css">
+<link rel=stylesheet href="../../doc/docs.css">
 
-<link rel="stylesheet" th:href="../../lib/codemirror.css">
-<script th:src="../../lib/codemirror.js"></script>
-<script th:src="css.js"></script>
-<style>.CodeMirror {background: @{#}f8f8f8;}</style>
+<link rel="stylesheet" href="../../lib/codemirror.css">
+<script src="../../lib/codemirror.js"></script>
+<script src="css.js"></script>
+<style>.CodeMirror {background: #f8f8f8;}</style>
 <div id=nav>
-  <a th:href="http://codemirror.net"><h1>CodeMirror</h1><img id=logo th:src="../../doc/logo.png"></a>
+  <a href="http://codemirror.net"><h1>CodeMirror</h1><img id=logo src="../../doc/logo.png"></a>
 
   <ul>
-    <li><a th:href="../../index.html">Home</a>
-    <li><a th:href="../../doc/manual.html">Manual</a>
-    <li><a th:href="https://github.com/codemirror/codemirror">Code</a>
+    <li><a href="../../index.html">Home</a>
+    <li><a href="../../doc/manual.html">Manual</a>
+    <li><a href="https://github.com/codemirror/codemirror">Code</a>
   </ul>
   <ul>
-    <li><a th:href="../index.html">Language modes</a>
-    <li><a class=active th:href="@{#}">SCSS</a>
+    <li><a href="../index.html">Language modes</a>
+    <li><a class=active href="#">SCSS</a>
   </ul>
 </div>
 
@@ -28,13 +28,13 @@
 /* Some example SCSS */
 
 @import "compass/css3";
-$variable: @{#}333;
+$variable: #333;
 
-$blue: @{#}3bbfce;
+$blue: #3bbfce;
 $margin: 16px;
 
 .content-navigation {
-  @{#}nested {
+  #nested {
     background-color: black;
   }
   border-color: $blue;
@@ -76,7 +76,7 @@ li {
   margin-left: $dist;
 }
 
-@{#}data {
+#data {
   @include left(10px);
   @include table-base;
 }
@@ -97,7 +97,7 @@ body {
   margin: 0;
   padding: 3em 6em;
   font-family: tahoma, arial, sans-serif;
-  color: @{#}000;
+  color: #000;
 }
 
 @mixin yellow() {
@@ -119,7 +119,7 @@ body {
   }
 }
 
-@{#}navigation a {
+#navigation a {
   font-weight: bold;
   text-decoration: none !important;
 }
@@ -139,7 +139,7 @@ h1:before, h2:before {
 code {
   font-family: courier, monospace;
   font-size: 80%;
-  color: @{#}418A8A;
+  color: #418A8A;
 }
 </textarea></form>
     <script>
@@ -150,8 +150,8 @@ code {
       });
     </script>
 
-    <p>The SCSS mode is a sub-mode of the <a th:href="index.html">CSS mode</a> (defined in <code>css.js</code>.</p>
+    <p>The SCSS mode is a sub-mode of the <a href="index.html">CSS mode</a> (defined in <code>css.js</code>.</p>
 
-    <p><strong>Parsing/Highlighting Tests:</strong> <a th:href="../../test/index.html@{#}scss_*">normal</a>,  <a th:href="../../test/index.html@{#}verbose,scss_*">verbose</a>.</p>
+    <p><strong>Parsing/Highlighting Tests:</strong> <a href="../../test/index.html#scss_*">normal</a>,  <a href="../../test/index.html#verbose,scss_*">verbose</a>.</p>
 
   </article>

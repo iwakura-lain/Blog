@@ -2,9 +2,9 @@
 
 <title>CodeMirror: Dylan mode</title>
 <meta charset="utf-8"/>
-<link rel=stylesheet th:href="../../doc/docs.css">
+<link rel=stylesheet href="../../doc/docs.css">
 
-<link rel="stylesheet" th:href="../../lib/codemirror.css">
+<link rel="stylesheet" href="../../lib/codemirror.css">
 <script src="../../lib/codemirror.js"></script>
 <script src="../../addon/edit/matchbrackets.js"></script>
 <script src="../../addon/comment/continuecomment.js"></script>
@@ -12,16 +12,16 @@
 <script src="dylan.js"></script>
 <style type="text/css">.CodeMirror {border-top: 1px solid black; border-bottom: 1px solid black;}</style>
 <div id=nav>
-  <a th:href="http://codemirror.net"><h1>CodeMirror</h1><img id=logo src="../../doc/logo.png"></a>
+  <a href="http://codemirror.net"><h1>CodeMirror</h1><img id=logo src="../../doc/logo.png"></a>
 
   <ul>
-    <li><a th:href="../../index.html">Home</a>
-    <li><a th:href="../../doc/manual.html">Manual</a>
-    <li><a th:href="https://github.com/codemirror/codemirror">Code</a>
+    <li><a href="../../index.html">Home</a>
+    <li><a href="../../doc/manual.html">Manual</a>
+    <li><a href="https://github.com/codemirror/codemirror">Code</a>
   </ul>
   <ul>
-    <li><a th:href="../index.html">Language modes</a>
-    <li><a class=active th:href="@{#}">Dylan</a>
+    <li><a href="../index.html">Language modes</a>
+    <li><a class=active href="#">Dylan</a>
   </ul>
 </div>
 
@@ -71,10 +71,10 @@ end method as;
 
 define method make
     (class == <directory-locator>,
-     @{#}key server :: false-or(<server-locator>) = @{#}f,
-          path :: <sequence> = @{#}[],
-          relative? :: <boolean> = @{#}f,
-          name :: false-or(<string>) = @{#}f)
+     #key server :: false-or(<server-locator>) = #f,
+          path :: <sequence> = #[],
+          relative? :: <boolean> = #f,
+          name :: false-or(<string>) = #f)
  => (locator :: <directory-locator>)
   make(<native-directory-locator>,
        server:    server,
@@ -91,10 +91,10 @@ end method as;
 
 define method make
     (class == <file-locator>,
-     @{#}key directory :: false-or(<directory-locator>) = @{#}f,
-          base :: false-or(<string>) = @{#}f,
-          extension :: false-or(<string>) = @{#}f,
-          name :: false-or(<string>) = @{#}f)
+     #key directory :: false-or(<directory-locator>) = #f,
+          base :: false-or(<string>) = #f,
+          extension :: false-or(<string>) = #f,
+          name :: false-or(<string>) = #f)
  => (locator :: <file-locator>)
   make(<native-file-locator>,
        directory: directory,
@@ -106,11 +106,11 @@ end method make;
 /// Locator coercion
 
 //---*** andrewa: This caching scheme doesn't work yet, so disable it.
-define constant $cache-locators?        = @{#}f;
-define constant $cache-locator-strings? = @{#}f;
+define constant $cache-locators?        = #f;
+define constant $cache-locator-strings? = #f;
 
-define constant $locator-to-string-cache = make(<object-table>, weak: @{#}"key");
-define constant $string-to-locator-cache = make(<string-table>, weak: @{#}"value");
+define constant $locator-to-string-cache = make(<object-table>, weak: #"key");
+define constant $string-to-locator-cache = make(<string-table>, weak: #"value");
 
 define open generic locator-as-string
     (class :: subclass(<string>), locator :: <locator>)
@@ -123,7 +123,7 @@ define open generic string-as-locator
 define sealed sideways method as
     (class :: subclass(<string>), locator :: <locator>)
  => (string :: <string>)
-  let string = element($locator-to-string-cache, locator, default: @{#}f);
+  let string = element($locator-to-string-cache, locator, default: #f);
   if (string)
     as(class, string)
   else
@@ -139,7 +139,7 @@ end method as;
 define sealed sideways method as
     (class :: subclass(<locator>), string :: <string>)
  => (locator :: <locator>)
-  let locator = element($string-to-locator-cache, string, default: @{#}f);
+  let locator = element($string-to-locator-cache, string, default: #f);
   if (instance?(locator, class))
     locator
   else
@@ -158,7 +158,7 @@ define class <locator-error> (<format-string-condition>, <error>)
 end class <locator-error>;
 
 define function locator-error
-    (format-string :: <string>, @{#}rest format-arguments)
+    (format-string :: <string>, #rest format-arguments)
   error(make(<locator-error>, 
              format-string:    format-string,
              format-arguments: format-arguments))
@@ -178,8 +178,8 @@ define open generic locator-might-have-links?
     (locator :: <directory-locator>) => (links? :: <boolean>);
 
 define method locator-might-have-links?
-    (locator :: <directory-locator>) => (links? :: singleton(@{#}f))
-  @{#}f
+    (locator :: <directory-locator>) => (links? :: singleton(#f))
+  #f
 end method locator-might-have-links?;
 
 define method locator-relative?
@@ -191,7 +191,7 @@ end method locator-relative?;
 define method current-directory-locator?
     (locator :: <directory-locator>) => (current-directory? :: <boolean>)
   locator.locator-relative?
-    & locator.locator-path = @{#}[@{#}"self"]
+    & locator.locator-path = #[#"self"]
 end method current-directory-locator?;
 
 define method locator-directory
@@ -248,11 +248,11 @@ end method simplify-locator;
 /// Subdirectory locator
 
 define open generic subdirectory-locator
-    (locator :: <directory-locator>, @{#}rest sub-path)
+    (locator :: <directory-locator>, #rest sub-path)
  => (subdirectory :: <directory-locator>);
 
 define method subdirectory-locator
-    (locator :: <directory-locator>, @{#}rest sub-path)
+    (locator :: <directory-locator>, #rest sub-path)
  => (subdirectory :: <directory-locator>)
   let old-path = locator.locator-path;
   let new-path = concatenate-as(<simple-object-vector>, old-path, sub-path);
@@ -282,12 +282,12 @@ define method relative-locator
       locator;
     path = from-path =>
       make(object-class(locator),
-           path: vector(@{#}"self"),
-           relative?: @{#}t);
+           path: vector(#"self"),
+           relative?: #t);
     otherwise =>
       make(object-class(locator),
            path: relative-path(path, from-path, test: locator.locator-test),
-           relative?: @{#}t);
+           relative?: #t);
   end
 end method relative-locator;
 
@@ -385,7 +385,7 @@ define sideways method supports-open-locator?
 end method supports-open-locator?;
 
 define sideways method open-locator
-    (locator :: <file-locator>, @{#}rest keywords, @{#}key, @{#}all-keys)
+    (locator :: <file-locator>, #rest keywords, #key, #all-keys)
  => (stream :: <stream>)
   apply(open-file-stream, locator, keywords)
 end method open-locator;

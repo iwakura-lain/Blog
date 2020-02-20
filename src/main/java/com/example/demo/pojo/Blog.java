@@ -38,6 +38,10 @@ public class Blog {
     @Temporal(TemporalType.TIMESTAMP)
     private Date updateTime;
 
+    //这个属性不需要保存到数据库
+    @Transient
+    private String tagIds;
+
     //多对一
     //Blog对Type而言是多对一
     @ManyToOne

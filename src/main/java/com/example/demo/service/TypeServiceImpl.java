@@ -1,5 +1,6 @@
 package com.example.demo.service;
 
+import com.example.demo.NotFoundExc;
 import com.example.demo.dao.TypeRepository;
 import com.example.demo.pojo.Type;
 import javassist.NotFoundException;
@@ -10,6 +11,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.List;
 
 @Service
 public class TypeServiceImpl implements TypeService {
@@ -41,11 +43,7 @@ public class TypeServiceImpl implements TypeService {
     public Type updateType(Long id, Type type) {
         Type type1 = typeRepository.getOne(id);
         if(type1==null){
-            try {
-                throw  new NotFoundException("不存在");
-            } catch (NotFoundException e) {
-                e.printStackTrace();
-            }
+            throw new NotFoundExc("没有找到该分类");
         }
         //工具类方法，将type的所有属性赋值给type1
         BeanUtils.copyProperties(type, type1);
@@ -61,5 +59,10 @@ public class TypeServiceImpl implements TypeService {
     @Override
     public Type getTypeByName(String name) {
         return typeRepository.getByName(name);
+    }
+
+    @Override
+    public List<Type> getAll() {
+        return typeRepository.findAll();
     }
 }

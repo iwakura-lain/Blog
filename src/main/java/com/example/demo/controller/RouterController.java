@@ -11,20 +11,6 @@ public class RouterController {
         return "/index";
     }
 
-    @RequestMapping("/admin-input")
-    public String adminInput(){
-        return "/blogs_input";
-    }
-
-    @RequestMapping("admin/blogs")
-    public String blog(){
-        return "/admin/blogs";
-    }
-
-    @RequestMapping("admin/blogsInput")
-    public String blogInput(){
-        return "/admin/blogs_input";
-    }
 
     @RequestMapping({"/login", "/login.html"})
     public String login(){

@@ -7,7 +7,7 @@
 <link rel="stylesheet" href="../../lib/codemirror.css">
 <script src="../../lib/codemirror.js"></script>
 <script src="gas.js"></script>
-<style>.CodeMirror {border: 2px inset @{#}dee;}</style>
+<style>.CodeMirror {border: 2px inset #dee;}</style>
 <div id=nav>
   <a href="http://codemirror.net"><h1>CodeMirror</h1><img id=logo src="../../doc/logo.png"></a>
 
@@ -18,7 +18,7 @@
   </ul>
   <ul>
     <li><a href="../index.html">Language modes</a>
-    <li><a class=active href="@{#}">Gas</a>
+    <li><a class=active href="#">Gas</a>
   </ul>
 </div>
 
@@ -41,7 +41,7 @@ main:
         push    {sp, lr}
         ldr     r0, =message
         bl      puts
-        mov     r0, @{#}0
+        mov     r0, #0
         pop     {sp, pc}
 
 message:

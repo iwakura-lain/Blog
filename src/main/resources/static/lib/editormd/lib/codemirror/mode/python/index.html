@@ -19,7 +19,7 @@
   </ul>
   <ul>
     <li><a href="../index.html">Language modes</a>
-    <li><a class=active href="@{#}">Python</a>
+    <li><a class=active href="#">Python</a>
   </ul>
 </div>
 
@@ -27,7 +27,7 @@
 <h2>Python mode</h2>
 
     <div><textarea id="code" name="code">
-@{#} Literals
+# Literals
 1234
 0.0e101
 .123
@@ -49,7 +49,7 @@
 3.14e-10j
 
 
-@{#} String Literals
+# String Literals
 'For\''
 "God\""
 """so loved
@@ -60,55 +60,55 @@ his only begotten\' '''
 in him'
 ''
 
-@{#} Identifiers
+# Identifiers
 __a__
 a.b
 a.b.c
 
-@{#}Unicode identifiers on Python3
-@{#} a = x\ddot
+#Unicode identifiers on Python3
+# a = x\ddot
 a⃗ = ẍ
-@{#} a = v\dot
+# a = v\dot
 a⃗ = v̇
 
-@{#}F\vec = m \cdot a\vec
+#F\vec = m \cdot a\vec
 F⃗ = m•a⃗ 
 
-@{#} Operators
+# Operators
 + - * / % & | ^ ~ < >
 == != <= >= <> << >> // **
 and or not in is
 
-@{#}infix matrix multiplication operator (PEP 465)
+#infix matrix multiplication operator (PEP 465)
 A @ B
 
-@{#} Delimiters
-() [] {} , : ` = ; @ .  @{#} Note that @ and . require the proper context on Python 2.
+# Delimiters
+() [] {} , : ` = ; @ .  # Note that @ and . require the proper context on Python 2.
 += -= *= /= %= &= |= ^=
 //= >>= <<= **=
 
-@{#} Keywords
+# Keywords
 as assert break class continue def del elif else except
 finally for from global if import lambda pass raise
 return try while with yield
 
-@{#} Python 2 Keywords (otherwise Identifiers)
+# Python 2 Keywords (otherwise Identifiers)
 exec print
 
-@{#} Python 3 Keywords (otherwise Identifiers)
+# Python 3 Keywords (otherwise Identifiers)
 nonlocal
 
-@{#} Types
+# Types
 bool classmethod complex dict enumerate float frozenset int list object
 property reversed set slice staticmethod str super tuple type
 
-@{#} Python 2 Types (otherwise Identifiers)
+# Python 2 Types (otherwise Identifiers)
 basestring buffer file long unicode xrange
 
-@{#} Python 3 Types (otherwise Identifiers)
+# Python 3 Types (otherwise Identifiers)
 bytearray bytes filter map memoryview open range zip
 
-@{#} Some Example code
+# Some Example code
 import os
 from package import ParentClass
 

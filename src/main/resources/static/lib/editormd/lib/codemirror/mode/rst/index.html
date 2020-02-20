@@ -19,7 +19,7 @@
   </ul>
   <ul>
     <li><a href="../index.html">Language modes</a>
-    <li><a class=active href="@{#}">reStructuredText</a>
+    <li><a class=active href="#">reStructuredText</a>
   </ul>
 </div>
 
@@ -103,7 +103,7 @@ Lists and Quote-like blocks
 
 List markup (:duref:`ref &lt;bullet-lists&gt;`) is natural: just place an asterisk at
 the start of a paragraph and indent properly.  The same goes for numbered lists;
-they can also be autonumbered using a ``@{#}`` sign::
+they can also be autonumbered using a ``#`` sign::
 
    * This is a bulleted list.
    * It has two items, the second
@@ -112,8 +112,8 @@ they can also be autonumbered using a ``@{#}`` sign::
    1. This is a numbered list.
    2. It has two items too.
 
-   @{#}. This is a numbered list.
-   @{#}. It has two items too.
+   #. This is a numbered list.
+   #. It has two items too.
 
 
 Nested lists are possible, but be aware that they must be separated from the
@@ -256,7 +256,7 @@ Normally, there are no heading levels assigned to certain characters as the
 structure is determined from the succession of headings.  However, for the
 Python documentation, this convention is used which you may follow:
 
-* ``@{#}`` with overline, for parts
+* ``#`` with overline, for parts
 * ``*`` with overline, for chapters
 * ``=``, for sections
 * ``-``, for subsections
@@ -412,19 +412,19 @@ the former, while the HTML builder would prefer the latter.
 Footnotes
 ---------
 
-For footnotes (:duref:`ref &lt;footnotes&gt;`), use ``[@{#}name]_`` to mark the footnote
+For footnotes (:duref:`ref &lt;footnotes&gt;`), use ``[#name]_`` to mark the footnote
 location, and add the footnote body at the bottom of the document after a
 "Footnotes" rubric heading, like so::
 
-   Lorem ipsum [@{#}f1]_ dolor sit amet ... [@{#}f2]_
+   Lorem ipsum [#f1]_ dolor sit amet ... [#f2]_
 
    .. rubric:: Footnotes
 
-   .. [@{#}f1] Text of the first footnote.
-   .. [@{#}f2] Text of the second footnote.
+   .. [#f1] Text of the first footnote.
+   .. [#f2] Text of the second footnote.
 
 You can also explicitly number the footnotes (``[1]_``) or use auto-numbered
-footnotes without names (``[@{#}]_``).
+footnotes without names (``[#]_``).
 
 
 Citations
@@ -439,7 +439,7 @@ from all files.  Use them like so::
    .. [Ref] Book or article reference, URL or whatever.
 
 Citation usage is similar to footnote usage, but with a label that is not
-numeric or begins with ``@{#}``.
+numeric or begins with ``#``.
 
 
 Substitutions
@@ -503,7 +503,7 @@ There are some problems one commonly runs into while authoring reST documents:
 * **Separation of inline markup:** As said above, inline markup spans must be
   separated from the surrounding text by non-word characters, you have to use a
   backslash-escaped space to get around that.  See `the reference
-  &lt;http://docutils.sf.net/docs/ref/rst/restructuredtext.html@{#}inline-markup&gt;`_
+  &lt;http://docutils.sf.net/docs/ref/rst/restructuredtext.html#inline-markup&gt;`_
   for the details.
 
 * **No nested inline markup:** Something like ``*see :func:`foo`*`` is not

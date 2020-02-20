@@ -260,7 +260,7 @@
         if (data.url) {
           tip.appendChild(document.createTextNode(" "));
           var child = tip.appendChild(elt("a", null, "[docs]"));
-          child.th:href = data.url;
+          child.href = data.url;
           child.target = "_blank";
         }
       }
