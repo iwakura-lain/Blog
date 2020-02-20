@@ -38,8 +38,8 @@
             <td th:text="${iterStat.count}">1</td>
             <td th:text="${type.name}">认知升级</td>
             <td>
-              <a th:href="@{/admin/types/{id}/update(id=${type.id})}" class="ui mini teal basic button">编辑</a>
-              <a th:href="@{/admin/types/{id}/delete(id=${type.id})}" class="ui mini red basic button">删除</a>
+              <a th:href="@{/admin/types/}+${type.id}+@{/update}" class="ui mini teal basic button">编辑</a>
+              <a th:href="@{/admin/types/}+${type.id}+@{/delete}" class="ui mini red basic button">删除</a>
             </td>
           </tr>
         </tbody>
