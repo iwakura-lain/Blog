@@ -15,6 +15,12 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Configuration
+/**
+ * 配置德鲁伊
+ * @Author: antigenMHC
+ * @Date: 2020/2/21 0:19
+ * @Version: 1.0
+ **/
 public class DruidConfig {
 
     @ConfigurationProperties(prefix = "spring.datasource")

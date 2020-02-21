@@ -10,6 +10,12 @@ import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.util.ByteSource;
 import org.springframework.beans.factory.annotation.Autowired;
 
+/**
+ * 实现shiro-Realm的认证
+ * @Author: antigenMHC
+ * @Date: 2020/2/21 0:19
+ * @Version: 1.0
+ **/
 public class ManagerRealm extends AuthorizingRealm {
 
     @Autowired

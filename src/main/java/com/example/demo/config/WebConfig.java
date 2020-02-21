@@ -7,6 +7,12 @@ import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
+
+/**
+ * @Author: antigenMHC
+ * @Date: 2020/2/21 0:19
+ * @Version: 1.0
+ **/
 public class WebConfig implements WebMvcConfigurer {
 
     @Bean

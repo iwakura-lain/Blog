@@ -68,7 +68,7 @@ spring:
       #同步实体类属性与数据库字段
       ddl-auto: update
     #输出SQL语句到日志/控制台
-    show-sql: true
+    show-sql: false
     open-in-view: true
 
 

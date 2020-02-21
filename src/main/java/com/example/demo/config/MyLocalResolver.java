@@ -7,7 +7,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.Locale;
 
-
+/**
+ * 地区解析器
+ * @Author: antigenMHC
+ * @Date: 2020/2/21 0:19
+ * @Version: 1.0
+ **/
 public class MyLocalResolver implements LocaleResolver {
     @Override
     //解析请求头
@@ -15,7 +20,8 @@ public class MyLocalResolver implements LocaleResolver {
         //获取请求中的参数l
         String language = httpServletRequest.getParameter("l");
 
-        Locale locale = Locale.getDefault();  //如果没有参数l就使用默认的
+        //如果没有参数l就使用默认的
+        Locale locale = Locale.getDefault();
 
         //如果携带国际化参数l，则使用该参数
         if(!StringUtils.isEmpty(language)){

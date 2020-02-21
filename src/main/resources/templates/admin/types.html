@@ -25,7 +25,7 @@
     <div class="ui container">
       <div th:hidden="${msg!=null ? false:true}" th:text="${msg!=null ? msg:''}"
            th:classappend="${#strings.equals(msg, '添加失败')? 'red': 'green'}" class="ui message">Red</div>
-      <table class="ui celled table">
+      <table class="ui compact teal table">
         <thead>
           <tr>
             <th>序号</th>

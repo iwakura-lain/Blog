@@ -14,6 +14,13 @@ import java.util.List;
 @NoArgsConstructor
 @Entity
 @Table(name = "t_tag")
+
+/**
+ * 标签类
+ * @Author: antigenMHC
+ * @Date: 2020/2/21 0:19
+ * @Version: 1.0
+ **/
 public class Tag {
 
     @Id
@@ -23,4 +30,8 @@ public class Tag {
 
     @ManyToMany(mappedBy = "tags")
     List<Blog> blogs = new ArrayList<>();
+
+    public Tag(String name) {
+        this.name = name;
+    }
 }

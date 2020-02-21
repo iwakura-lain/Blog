@@ -1,4 +1,4 @@
-package com.example.demo.controller.adminController;
+package com.example.demo.controller.admincontroller;
 
 import com.example.demo.pojo.Tag;
 import com.example.demo.service.TagService;
@@ -14,8 +14,15 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+
 @Controller
 @RequestMapping("/admin")
+
+/**
+ * @Author: antigenMHC
+ * @Date: 2020/2/21 0:19
+ * @Version: 1.0
+ **/
 public class TagController {
 
     @Autowired
@@ -42,7 +49,7 @@ public class TagController {
 
         if(tagService.getByName(tag.getName())!=null){
             model.addFlashAttribute("msg", "已经存在该标签");
-        }else if(tag.getName().equals("")){
+        }else if("".equals(tag.getName())){
             model.addFlashAttribute("msg", "标签不能为空");
         }else{
             tagService.save(tag);
@@ -62,7 +69,7 @@ public class TagController {
     public String updateTag(@PathVariable Long id, Tag tag, RedirectAttributes model){
         if(tagService.getByName(tag.getName())!=null){
             model.addFlashAttribute("msg", "已经存在该标签");
-        }else if(tag.getName().equals("")){
+        }else if("".equals(tag.getName())){
             model.addFlashAttribute("msg", "标签不能为空");
         }else{
             tagService.save(tag);

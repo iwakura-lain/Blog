@@ -15,17 +15,25 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 @Configuration
+
+/**
+ * @Author: antigenMHC
+ * @Date: 2020/2/21 0:19
+ * @Version: 1.0
+ **/
 public class ShiroConfig {
 
 
-    //ShiroFilterFactoryBean
+    /**
+     * ShiroFilterFactoryBean：绑定SecurityManager
+     * */
     @Bean
     public ShiroFilterFactoryBean getShiroFilterFactoryBean(
-            @Qualifier("getDefaultWebSecurityManager") DefaultWebSecurityManager WebSecurity){
+            @Qualifier("getDefaultWebSecurityManager") DefaultWebSecurityManager webSecurity){
 
         ShiroFilterFactoryBean shiroFilter = new ShiroFilterFactoryBean();
         //设置安全管理器
-        shiroFilter.setSecurityManager(WebSecurity);
+        shiroFilter.setSecurityManager(webSecurity);
 
         /*
          *  anon: 无需认证就可访问
@@ -51,7 +59,9 @@ public class ShiroConfig {
         return shiroFilter;
     }
 
-    //DefaultWebSecurityManager
+    /**
+     * DefaultWebSecurityManager：绑定realm
+     * */
     @Bean
     public DefaultWebSecurityManager getDefaultWebSecurityManager(@Qualifier("managerRealm") ManagerRealm managerRealm){
 
@@ -62,17 +72,23 @@ public class ShiroConfig {
         return defaultWebSecurityManager;
     }
 
-    //解密
+    /**
+     * 解密
+     * */
     @Bean
     public HashedCredentialsMatcher hashedCredentialsMatcher() {
         HashedCredentialsMatcher hashedCredentialsMatcher = new HashedCredentialsMatcher();
-        hashedCredentialsMatcher.setHashAlgorithmName("md5");// 散列算法:这里使用MD5算法;
-        hashedCredentialsMatcher.setHashIterations(1024);// 散列的次数，比如散列两次，相当于 md5(md5(""));
+        // 散列算法:这里使用MD5算法;
+        hashedCredentialsMatcher.setHashAlgorithmName("md5");
+        // 散列的次数，比如散列两次，相当于 md5(md5(""));
+        hashedCredentialsMatcher.setHashIterations(1024);
 
         return hashedCredentialsMatcher;
     }
 
-    //realm对象，自定义
+    /**
+     * realm对象，自定义
+     * */
     @Bean
     public ManagerRealm managerRealm(HashedCredentialsMatcher hashedCredentialsMatcher){
         ManagerRealm managerRealm = new ManagerRealm();
@@ -81,7 +97,9 @@ public class ShiroConfig {
     }
 
 
-    //整合shiroDialect 用于整合thymeleaf和shiro
+    /**
+     * 整合shiroDialect 用于整合thymeleaf和shiro
+     * */
     @Bean
     public ShiroDialect getShiroDialect(){
         return new ShiroDialect();

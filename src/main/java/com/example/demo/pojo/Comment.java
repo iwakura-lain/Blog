@@ -14,7 +14,13 @@ import java.util.List;
 @NoArgsConstructor
 @Entity
 @Table(name = "t_comment")
-//评论
+
+/**
+ * 评论类
+ * @Author: antigenMHC
+ * @Date: 2020/2/21 0:19
+ * @Version: 1.0
+ **/
 public class Comment {
 
     @Id
@@ -34,7 +40,7 @@ public class Comment {
     //评论自关联的关系
     //作为父类对象可以有一对多的关系
     //因此父类对象是关系被维护方
-    @OneToMany(mappedBy = "parentComment")
+    @OneToMany(mappedBy = "parentComment", fetch=FetchType.EAGER)
     private List<Comment> replayComments = new ArrayList<>();
 
     //作为子类对象只能有一个父类，但子类可以是多个，

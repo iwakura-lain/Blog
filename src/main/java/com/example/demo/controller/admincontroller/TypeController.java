@@ -1,4 +1,4 @@
-package com.example.demo.controller.adminController;
+package com.example.demo.controller.admincontroller;
 
 import com.example.demo.pojo.Type;
 import com.example.demo.service.TypeService;
@@ -14,14 +14,23 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+
 @Controller
 @RequestMapping("/admin")
+
+/**
+ * @Author: antigenMHC
+ * @Date: 2020/2/21 0:19
+ * @Version: 1.0
+ **/
 public class TypeController {
 
     @Autowired
     TypeService typeService;
 
-    //返回分页, 一页7个，按照id倒序排序
+    /**
+     * 返回分页, 一页7个，按照id倒序排序
+     * */
     @GetMapping("/types")
     public String list(@PageableDefault(size = 7,
                         sort = {"id"},
@@ -48,7 +57,7 @@ public class TypeController {
 
         if(typeService.getTypeByName(type.getName())!=null){
             rModel.addFlashAttribute("msg", "已存在该分类");
-        } else if(type.getName().equals("")){
+        } else if("".equals(type.getName())){
             rModel.addFlashAttribute("msg", "修改失败");
         }else{
             typeService.updateType(id, type);
@@ -63,7 +72,7 @@ public class TypeController {
 
         if(typeService.getTypeByName(type.getName())!=null){
             rModel.addFlashAttribute("msg", "已存在该分类");
-        } else if(type.getName().equals("")){
+        } else if("".equals(type.getName())){
             rModel.addFlashAttribute("msg", "添加失败");
         }else{
             typeService.save(type);

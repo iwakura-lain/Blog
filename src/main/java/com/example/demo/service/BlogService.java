@@ -1,9 +1,11 @@
 package com.example.demo.service;
 
-import com.example.demo.otherObj.BlogQuery;
+import com.example.demo.otherobj.BlogQuery;
 import com.example.demo.pojo.Blog;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+
+import java.util.List;
 
 public interface BlogService {
 
@@ -20,4 +22,10 @@ public interface BlogService {
     void deleteBlog(Long id);
 
     Blog getBlog(String name);
+
+    Page<Blog> listAll(Pageable pageable);
+
+    List<Blog> getTop(Integer size);
+
+    Page<Blog> searchBlog(String query, Pageable pageable);
 }

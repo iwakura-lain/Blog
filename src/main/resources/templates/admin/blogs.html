@@ -76,7 +76,7 @@
             <td th:text="${blog.getTitle()}"></td>
             <td th:text="${blog.getType().getName()}"></td>
             <td th:text="${blog.isRecommend() ? '是':'否'}"></td>
-            <td th:text="${blog.getUpdateTime()}"></td>
+            <td th:text="${blog.getUpdateTime()==null ? blog.getCreatTime() : blog.getUpdateTime()}"></td>
             <td th:text="${blog.isPublish() ? '发布':'草稿'}"></td>
             <td>
               <a th:href="@{/admin/blogs/}+${blog.id}+@{/update}" class="ui mini teal basic button">编辑</a>

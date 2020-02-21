@@ -16,12 +16,23 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpSession;
 
+
 @Controller
+
+/**
+ * @Author: antigenMHC
+ * @Date: 2020/2/21 0:19
+ * @Version: 1.0
+ **/
 public class LoginController {
 
     @Autowired
     ManagerService manager;
 
+    @RequestMapping({"/login", "/login.html"})
+    public String login(){
+        return "/login";
+    }
 
     @PostMapping("/toLogin")
     public String toLogin(@RequestParam String username,

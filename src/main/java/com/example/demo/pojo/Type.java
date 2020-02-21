@@ -14,6 +14,13 @@ import java.util.List;
 @NoArgsConstructor
 @Entity
 @Table(name = "t_type")
+
+/**
+ * 分类类
+ * @Author: antigenMHC
+ * @Date: 2020/2/21 0:19
+ * @Version: 1.0
+ **/
 public class Type {
 
     @Id
@@ -26,7 +33,7 @@ public class Type {
 
     //一对多
     //代表被Blog中的type维护关系, mappedBy用于被维护关系的一端
-    @OneToMany(mappedBy = "type")
+    @OneToMany(mappedBy = "type", fetch=FetchType.EAGER)
     private List<Blog> blogs = new ArrayList<>();
 
 }
