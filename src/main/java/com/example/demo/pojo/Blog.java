@@ -130,13 +130,13 @@ public class Blog {
         this.tagIds = parseTags(this.tags);
     }
     /**
-     * 为了前端显示多标签，在这里将List转化为"one,two,three"形式的字符串
-     * 这样前端就会自动显示多个标签
+     * 为了前端显示多标签，在这里将List转化为"1,2,3"形式的字符串
+     * 这样前端就会自动显示多个对应ID的标签
      * @return：tagid组成的字符串/空list
      * */
     private String parseTags(List<Tag> tags){
         if(!tags.isEmpty()){
-            StringBuffer ids = new StringBuffer();
+            StringBuilder ids = new StringBuilder();
             boolean flag = false;
             for (Tag tag : tags) {
                 if(flag){
@@ -146,7 +146,6 @@ public class Blog {
                 }
                 ids.append(tag.getId());
             }
-            System.out.println(ids.toString());
             return ids.toString();
         }
         else {
