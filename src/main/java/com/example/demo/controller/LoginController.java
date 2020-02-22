@@ -1,6 +1,9 @@
 package com.example.demo.controller;
 
+import com.example.demo.service.BlogService;
 import com.example.demo.service.ManagerService;
+import com.example.demo.service.TagService;
+import com.example.demo.service.TypeService;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.crypto.hash.SimpleHash;
@@ -8,6 +11,9 @@ import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.Subject;
 import org.apache.shiro.util.ByteSource;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -26,8 +32,15 @@ import javax.servlet.http.HttpSession;
  **/
 public class LoginController {
 
+
     @Autowired
-    ManagerService manager;
+    private BlogService blogService;
+    @Autowired
+    private ManagerService manager;
+    @Autowired
+    private TypeService typeService;
+    @Autowired
+    private TagService tagService;
 
     @RequestMapping({"/login", "/login.html"})
     public String login(){
@@ -53,6 +66,8 @@ public class LoginController {
 
             //设置session，判断是否显示登录按钮
             session.setAttribute("loginUser", username);
+            session.setAttribute("email", manager.getManager(username).getEmail());
+            session.setAttribute("nickName", manager.getManager(username).getNickname());
 
             return "redirect:/admin/blogs";
             //登陆失败，返回登录页
@@ -73,7 +88,15 @@ public class LoginController {
     }
 
     @RequestMapping("/logOut")
-    public String logOut(HttpSession session){
+    public String logOut(@PageableDefault(size = 7,
+                         sort = {"creatTime"},
+                         direction = Sort.Direction.DESC) Pageable pageable,
+                         Model model, HttpSession session){
+
+        model.addAttribute("types", typeService.getTop(6));
+        model.addAttribute("tags", tagService.getTop(9));
+        model.addAttribute("recommendBlog", blogService.getTop(4));
+        model.addAttribute("page", blogService.listAll(pageable));
         Subject subject = SecurityUtils.getSubject();
         subject.logout();
 

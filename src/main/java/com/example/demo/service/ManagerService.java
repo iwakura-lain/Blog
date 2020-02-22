@@ -7,6 +7,4 @@ import org.springframework.stereotype.Service;
 public interface ManagerService {
 
     public Manager getManager(String username);
-
-
 }

@@ -6,15 +6,21 @@
   <title>首页</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/semantic-ui/2.2.4/semantic.min.css">
   <link rel="stylesheet" th:href="@{/css/me.css}">
+  <link rel="stylesheet" th:href="@{/css/APlayer.min.css}">
   <link rel="stylesheet" th:href="@{/css/blog.css}">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   <script th:src="@{/js/spig.js}"></script>
 </head>
 <body>
 
+<!--博客精灵 start*-->
+<div id="spig" class="spig">
+  <div id="mumu" class="mumu"></div>
+</div>
+
   <!--导航-->
   <div th:replace="~{fragements::top(n=1)}"></div>
-
+  <div id="player"></div>
   <!--中间内容-->
   <div  class="m-container-big m-padded-tb-big">
     <div class="ui container">
@@ -46,7 +52,7 @@
                       <div class="ui mini horizontal link list">
                         <div class="item">
                           <img src="https://s2.ax1x.com/2020/02/18/3kGhtg.th.png" alt="" class="ui avatar image">
-                          <div class="content"><a href="@{#}"  class="header">antigenMHC</a></div>
+                          <div class="content"><a href="@{#}" th:text="${blog.manager.getNickname()}"  class="header"></a></div>
                         </div>
                         <div class="item">
                           <i class="calendar icon"></i><span th:text="${#dates.format(blog.updateTime, 'yyyy-MM-dd')}" ></span>
@@ -158,17 +164,10 @@
   <!--底部footer-->
   <div th:replace="~{fragements::foot}"></div>
 
-  <div id="spig" class="spig">
-    <div id="mumu" class="mumu"></div>
-  </div>
 
-  <script type="text/javascript">
-    var isindex=true;
-    var title="";
-    var visitor="这位怪蜀黍";
-  </script>
+
   <script src="https://cdn.jsdelivr.net/npm/jquery@3.2/dist/jquery.min.js"></script>
-<script src="https://cdn.jsdelivr.net/semantic-ui/2.2.4/semantic.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/semantic-ui/2.2.4/semantic.min.js"></script>
 
   <script>
     $('.menu.toggle').click(function () {
@@ -177,7 +176,53 @@
     var isindex=true;
     var title="";
     var visitor="NM$L";
-
   </script>
+
+<script type="text/javascript">
+  var isindex=true;
+  var title="";
+  var visitor="这位怪蜀黍";
+</script>
+
+  <script th:src="@{/js/APlayer.min.js}"></script>
+  <script th:inline="javascript">
+    const ap = new APlayer({
+      container: document.getElementById('player'),
+      mini: true,
+      fixed:true,
+      autoplay: true,
+      theme: '#FADFA3',
+      loop: 'all',
+      order: 'random',
+      preload: 'auto',
+      volume: 0.3,
+      mutex: true,
+      listFolded: true,
+      listMaxHeight: 90,
+      lrcType: 3,
+      audio: [
+        {
+          name: '眠りの森 ',
+          artist: 'Aimer / Yuuki Ozaki',
+          url: 'http://music.163.com/song/media/outer/url?id=29095828.mp3',
+          cover: '/images/mian.jpg',
+          lrc: '/lrc/mian.lrc',
+          theme: '#ebd0c2'
+        },
+        {
+          /*
+          * http://music.163.com/song/media/outer/url?id={}.mp3 方式获取外链
+          * */
+          name: 'Other Side',
+          artist: '雅-MIYAVI-',
+          url: 'http://music.163.com/song/media/outer/url?id=1378406180.mp3',
+          cover: '/images/side.jpg',
+          lrc: '/lrc/side.lrc',
+          theme: '#46718b'
+        }
+      ]
+    });
+  </script>
+
 </body>
 </html>

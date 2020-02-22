@@ -6,6 +6,7 @@ import com.example.demo.dao.ManagerRepository;
 import com.example.demo.otherobj.BlogQuery;
 import com.example.demo.pojo.Blog;
 import com.example.demo.pojo.Type;
+import com.example.demo.utils.MarkdownUtils;
 import com.example.demo.utils.MyBeanUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,6 +42,7 @@ public class BlogServiceImpl implements BlogService {
 
     @Override
     public Blog getBlog(Long id) {
+        //对blog的文章部分进行处理，将md语法转为html
         return blogRepository.getOne(id);
     }
 
@@ -77,6 +79,9 @@ public class BlogServiceImpl implements BlogService {
     @Override
     public Blog save(Blog blog) {
         //如果Id等于null说明是新增，在这时初始化创建时间和浏览次数
+        if("".equals(blog.getFlag())){
+            blog.setFlag("原创");
+        }
         if(blog.getId()==null){
             //初始化blog部分属性
             blog.setCreatTime(new Date());
@@ -84,12 +89,28 @@ public class BlogServiceImpl implements BlogService {
             //浏览次数
             blog.setViews(0);
             //作者
-            blog.setManager(managerRepository.findByUsername("antigenMHC"));
+            blog.setManager(managerRepository.getOne(3L));
         }else {
             blog.setUpdateTime(new Date());
         }
 
         return blogRepository.save(blog);
+    }
+
+    @Override
+    public Blog getBlogHtml(Long id) {
+        Blog one = blogRepository.getOne(id);
+        if(one==null){
+            throw new NotFoundException("没有找到该博客");
+        }
+        //因为直接操作数据库中查询出来的对象可能会改变数据库，因此新建一个对象b
+        Blog b = new Blog();
+        //将数据库中查询出来的对象的所有属性临时赋给b，只用于前端显示
+        BeanUtils.copyProperties(one, b);
+        String content = b.getContent();
+        //将markdown语法的字符串转为html字符串,并设置到blog对象中
+        b.setContent(MarkdownUtils.markdownToHtmlExtensions(content));
+        return b;
     }
 
     @Transactional(rollbackFor = Exception.class)

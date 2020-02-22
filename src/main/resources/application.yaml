@@ -79,3 +79,5 @@ logging:
     com.example.demo: debug
   #日志存放位置
   file: log/blog.log
+
+comment.headPicture: /images/mian.jpg

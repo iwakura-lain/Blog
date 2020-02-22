@@ -10,19 +10,18 @@ import java.util.Date;
 import java.util.List;
 
 
-
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
-@Entity
-@Table(name = "t_blog")
-
 /**
  * Blog文章类
  * @Author: antigenMHC
  * @Date: 2020/2/21 0:19
  * @Version: 1.0
  **/
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Entity
+@Table(name = "t_blog")
+
 public class Blog {
 
     /**

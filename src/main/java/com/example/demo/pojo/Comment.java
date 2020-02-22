@@ -30,20 +30,24 @@ public class Comment {
     private String email;
     private String content;
     private String headPicture;
-    //生成全时间，包含日期和时间
+
     @Temporal(TemporalType.TIMESTAMP)
     private Date creatTime;
 
     @ManyToOne
     private Blog blog;
 
-    //评论自关联的关系
-    //作为父类对象可以有一对多的关系
-    //因此父类对象是关系被维护方
+    /**
+     * 评论自关联的关系
+     * 作为父类对象可以有一对多的关系
+     * 因此父类对象是关系被维护方
+     **/
     @OneToMany(mappedBy = "parentComment", fetch=FetchType.EAGER)
     private List<Comment> replayComments = new ArrayList<>();
 
-    //作为子类对象只能有一个父类，但子类可以是多个，
+    /**作
+     * 为子类对象只能有一个父类，但子类可以是多个，
+     * */
     @ManyToOne
     private Comment parentComment;
 

@@ -18,10 +18,10 @@
             <a th:href="@{/login}" th:if="${session.loginUser==null}" class="m-item item m-mobile-hide"><i class="at icon"></i>登录</a>
             <a th:href="@{/admin/blogs}" th:if="${session.loginUser!=null}" class="m-item item m-mobile-hide"><i class="at icon"></i>管理</a>
             <div class="right m-item item m-mobile-hide">
-                <form class="right m-item item m-mobile-hide" method="post" name="search" th:action="@{/search/}" target="_blank">
+                <form  name="search"  class="right m-item item m-mobile-hide" method="post" th:action="@{/search/}" target="_blank">
                     <div class="ui icon inverted transparent input m-margin-tb-tiny">
                     <input th:value="${query}" type="text" name="query" placeholder="请按回车进行搜索2333">
-                        <a type="submit"><i class="search link icon"></i></a>
+                        <i onclick="document.forms['search'].submit()" class="search link icon"></i>
                     </div>
                 </form>
             </div>
@@ -45,10 +45,8 @@
             </div>
             <div class="three wide column">
                 <h4  class="ui inverted header m-text-thin m-text-spaced " >最新博客</h4>
-                <div class="ui inverted link list">
-                    <a href="#" class="item m-text-thin">用户故事（User Story）</a>
-                    <a href="#" class="item m-text-thin">用户故事（User Story）</a>
-                    <a href="#" class="item m-text-thin">用户故事（User Story）</a>
+                <div class="ui inverted link list" th:each="blog : ${recommendBlog}">
+                    <a th:text="${blog.title}" href="#" class="item m-text-thin">用户故事（User Story）</a>
                 </div>
             </div>
             <div class="three wide column">

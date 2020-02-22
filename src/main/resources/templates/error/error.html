@@ -1,16 +1,3092 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org/">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>错误</title>
-  <link rel="stylesheet" th:href="@{https://cdn.jsdelivr.net/semantic-ui/2.2.4/semantic.min.css}" >
-  <link rel="stylesheet" th:href="@{/css/me.css}" >
+    <meta charset="UTF-8">
+    <title>500</title>
 </head>
+<style>
+    body{
+        height:100vh;
+        width:100vw;
+        background-image:radial-gradient(#f5f5f5,#ffff00,yellow);
+        overflow:hidden;
+    }
+    #moveArea{
+        top:0;
+        left:5%;
+        right:5%;
+        border:solid black 3px;
+        text-align:center;
+        margin-right:20px;
+        padding: 10px;
+        background:rgba(255,255,255,0.7);
+        border-radius:25px;
+    }
+    #effectArea{
+        left:5%;
+        bottom:0;
+        right:5%;
+        text-align:center;
+        position:absolute;
+        border:solid black 3px;
+        padding: 10px;
+        margin-bottom:5px;
+        background:rgba(255,255,255,0.6);
+        border-radius:25px;
+    }
+    .pushIt{
+        padding-right:30px;
+    }
+    .bigish{
+        font-size: 11vw;
+        position:absolute;
+        transform:translate(-50%,-50%);
+        top:50%;
+        cursor: default;
+    }
+    .lefty{
+        left:25%;
+    }
+    .righty{
+        left:75%;
+    }
+    .smallish{
+        font-size:.8em;
+    }
+    .errorMsg{
+        transform:translate(-50%,-50%);
+        font-size: 1.2em;
+        top:90%;
+        left:50%;
+        position:absolute;
+    }
+    .goBack{
+        font-size:1.3em;
+        text-decoration: none;
+    }
+    .btn{
+        -webkit-tap-highlight-color:  rgba(255, 255, 255, 0);
+        position:absolute;
+        top:50%;
+        left:50%;
+        transform:translate(-50%,-50%);
+        font-size:8vw;
+        cursor:pointer;
+        color:yellow;
+        text-shadow: 3px 2px 6px black;
+        outline:hidden;
+        width: 30vw;
+        height: 30vw;
+        background: linear-gradient( 0deg, white, white 47%, black 47%, black 53%, red 53% ); /*pokeball bg color and tilt*/
+        border-radius: 50%;
+        -webkit-transition-duration:0.4s;
+        -webkit-transition-property: background box-shadow;
+        transition-duration: 0.4s;
+        transition-property: background box-shadow;
+        border:solid black 1vw;
+        outline:none;
+    }
+    .btn:hover {
+        box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+        -webkit-transition-duration:0.4s;
+        -webkit-transition-property: background box-shadow;
+        transition-duration: 0.4s;
+        transition-property: background box-shadow;
+        background: linear-gradient( -370deg, white, white 47%, black 47%, black 53%, red 53% ); /*pokeball bg color and tilt*/
+        text-shadow: 4px 2px 8px black;
+    }
+    .btn:active {
+        box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+        -webkit transition duration 0.1s;
+        transition-duration: 0.1s;
+        background: linear-gradient( -350deg, white, white 47%, black 47%, black 53%, red 53% ); /*pokeball bg color and tilt*/
+        text-shadow: 4px 2px 8px black;
+    }
+    .big{
+        font-weight:bold;
+        font-size:1.4em;
+    }
+    body{font-family: 'Acme', sans-serif;}
+</style>
 <body>
-
-<h1>这是个错误页面，但是我不想写，因为我懒(</h1>
-
-
+<!--500 error page that lets Pokemon take the blame so that you can get off scott free!-->
+<div id="moveArea">
+    <span class="pushIt">貌似我写了一些bug出来</span>
+    emmmm，如果你有空的话<span class="big" >请联系</span><span class="big"></span>QQ：723493929<span class="big"></span>并告知如何出现的错误
+</div>
+<div id="effectArea">
+  <span class="smallish">
+    不胜感激<span class="big" id="accuracy"></span>
+    <br/>
+    快回去<a class="goBack big" th:href="@{/index/}">主页</a>辣🐎，这里没啥看的了
+    <span class="big" id="definition"></span>
+  </span>
+</div>
+<div class="bigish lefty" title="Internal Server Error">5</div>
+<button class="btn" onclick="abc()" title="Wait, what happened?">&#9898;</button>
+<div class="bigish righty" title="Internal Server Error">0</div>
 </body>
+<script>
+    window.onload = abc; //runs the randomize function on page load
+
+    //declaring global variables
+    var move = document.getElementById("name");
+    var type = document.getElementById("type");
+    var maxDamage = document.getElementById("maxDamage");
+    var accuracy = document.getElementById("accuracy");
+    var definition = document.getElementById("definition");
+
+    //Random Number generator
+    function randomNumber(min, max) {
+        return Math.floor(Math.random() * (max - min + 1)) + min;
+    }
+
+    //Main randomize function
+    function abc(){
+        var num = randomNumber(0,powers.length);
+        move.innerHTML = powers[num].Name;
+        type.innerHTML = powers[num].Type;
+        maxDamage.innerHTML = powers[num].Max;
+        accuracy.innerHTML = powers[num].Accuracy;
+        definition.innerHTML = powers[num].Definition;
+
+
+        //Changes background style to match move type
+        if(type.innerHTML == "Fire"){
+            document.body.style.backgroundImage = "radial-gradient(#f5f5f5,firebrick,firebrick)";
+        }else if(type.innerHTML == "Grass"){
+            document.body.style.backgroundImage = "radial-gradient(#f5f5f5,green,green)";
+        }else if(type.innerHTML == "Water"){
+            document.body.style.backgroundImage = "radial-gradient(#f5f5f5,aqua,aqua)";
+        }else if(type.innerHTML == "Dark"){
+            document.body.style.backgroundImage = "radial-gradient(#f5f5f5,violet,violet)";
+        }else if(type.innerHTML == "Ice"){
+            document.body.style.backgroundImage = "radial-gradient(#f5f5f5,white,white)";
+        }else if(type.innerHTML == "Rock"){
+            document.body.style.backgroundImage = "radial-gradient(#f5f5f5,grey,grey)";
+        }else if(type.innerHTML == "Dragon"){
+            document.body.style.backgroundImage = "radial-gradient(#f5f5f5,coral,coral)";
+        }else if(type.innerHTML == "Steel"){
+            document.body.style.backgroundImage = "radial-gradient(#f5f5f5,SteelBlue,SteelBlue)";
+        }else if(type.innerHTML == "Ghost"){
+            document.body.style.backgroundImage = "radial-gradient(#f5f5f5,GhostWhite,GhostWhite)";
+        }else if(type.innerHTML == "Ground"){
+            document.body.style.backgroundImage = "radial-gradient(#f5f5f5,orange,orange)";
+        }else if(type.innerHTML == "Fairy"){
+            document.body.style.backgroundImage = "radial-gradient(#f5f5f5,pink,pink)";
+        }else if(type.innerHTML == "Flying"){
+            document.body.style.backgroundImage = "radial-gradient(#f5f5f5,LightCyan,LightCyan)";
+        }else if(type.innerHTML == "Psychic"){
+            document.body.style.backgroundImage = "radial-gradient(#f5f5f5,GoldenRod,GoldenRod)";
+        }else if(type.innerHTML == "Electric"){
+            document.body.style.backgroundImage = "radial-gradient(#f5f5f5,yellow,DodgerBlue,yellow,DodgerBlue)";
+        }else{
+            document.body.style.backgroundImage = "radial-gradient(#f5f5f5,#ffff00,yellow)";
+        }
+
+    }
+
+    //List of All pokemon moves
+    //Reference: https://pokemondb.net/move/all
+    var powers =  [
+        {
+            "Name": "Infestation",
+            "Type": "Bug",
+            "Max": 20,
+            "Accuracy": 100,
+            "Definition": "Traps opponent, damaging them for 4-5 turns."
+        },
+        {
+            "Name": "Pin Missile",
+            "Type": "Bug",
+            "Max": 25,
+            "Accuracy": 95,
+            "Definition": "Hits 2-5 times in one turn."
+        },
+        {
+            "Name": "Twineedle",
+            "Type": "Bug",
+            "Max": 25,
+            "Accuracy": 100,
+            "Definition": "Hits twice in one turn. May poison opponent."
+        },
+        {
+            "Name": "Fury Cutter",
+            "Type": "Bug",
+            "Max": 40,
+            "Accuracy": 95,
+            "Definition": "Power increases each turn."
+        },
+        {
+            "Name": "Fell Stinger",
+            "Type": "Bug",
+            "Max": 50,
+            "Accuracy": 100,
+            "Definition": "Sharply raises user's Attack if target is KO'd."
+        },
+        {
+            "Name": "Struggle Bug",
+            "Type": "Bug",
+            "Max": 50,
+            "Accuracy": 100,
+            "Definition": "Lowers opponent's Special Attack."
+        },
+        {
+            "Name": "Bug Bite",
+            "Type": "Bug",
+            "Max": 60,
+            "Accuracy": 100,
+            "Definition": "Receives the effect from the opponent's held berry."
+        },
+        {
+            "Name": "Silver Wind",
+            "Type": "Bug",
+            "Max": 60,
+            "Accuracy": 100,
+            "Definition": "May raise all stats of user at once."
+        },
+        {
+            "Name": "Steamroller",
+            "Type": "Bug",
+            "Max": 65,
+            "Accuracy": 100,
+            "Definition": "May cause flinching."
+        },
+        {
+            "Name": "U-turn",
+            "Type": "Bug",
+            "Max": 70,
+            "Accuracy": 100,
+            "Definition": "User switches out immediately after attacking."
+        },
+        {
+            "Name": "Signal Beam",
+            "Type": "Bug",
+            "Max": 75,
+            "Accuracy": 100,
+            "Definition": "May confuse opponent."
+        },
+        {
+            "Name": "Leech Life",
+            "Type": "Bug",
+            "Max": 80,
+            "Accuracy": 100,
+            "Definition": "User recovers half the HP inflicted on opponent."
+        },
+        {
+            "Name": "Lunge",
+            "Type": "Bug",
+            "Max": 80,
+            "Accuracy": 100,
+            "Definition": "The user makes a lunge at the target, attacking with full force. This also lowers the target’s Attack stat."
+        },
+        {
+            "Name": "X-Scissor",
+            "Type": "Bug",
+            "Max": 80,
+            "Accuracy": 100,
+            "Definition": ""
+        },
+        {
+            "Name": "Attack Order",
+            "Type": "Bug",
+            "Max": 90,
+            "Accuracy": 100,
+            "Definition": "High critical hit ratio."
+        },
+        {
+            "Name": "Bug Buzz",
+            "Type": "Bug",
+            "Max": 90,
+            "Accuracy": 100,
+            "Definition": "May lower opponent's Special Defense."
+        },
+        {
+            "Name": "First Impression",
+            "Type": "Bug",
+            "Max": 90,
+            "Accuracy": 100,
+            "Definition": "Although this move has great power, it only works the first turn the user is in battle."
+        },
+        {
+            "Name": "Pollen Puff",
+            "Type": "Bug",
+            "Max": 90,
+            "Accuracy": 100,
+            "Definition": "The user attacks the enemy with a pollen puff that explodes. If the target is an ally, it gives the ally a pollen puff that restores its HP instead."
+        },
+        {
+            "Name": "Megahorn",
+            "Type": "Bug",
+            "Max": 120,
+            "Accuracy": 85,
+            "Definition": ""
+        },
+        {
+            "Name": "Power Trip",
+            "Type": "Dark",
+            "Max": 20,
+            "Accuracy": 100,
+            "Definition": "The user boasts its strength and attacks the target. The more the user’s stats are raised, the greater the move’s power."
+        },
+        {
+            "Name": "Pursuit",
+            "Type": "Dark",
+            "Max": 40,
+            "Accuracy": 100,
+            "Definition": "Double power if the opponent is switching out."
+        },
+        {
+            "Name": "Payback",
+            "Type": "Dark",
+            "Max": 50,
+            "Accuracy": 100,
+            "Definition": "Power doubles if the user was attacked first."
+        },
+        {
+            "Name": "Snarl",
+            "Type": "Dark",
+            "Max": 55,
+            "Accuracy": 95,
+            "Definition": "Lowers opponent's Special Attack."
+        },
+        {
+            "Name": "Assurance",
+            "Type": "Dark",
+            "Max": 60,
+            "Accuracy": 100,
+            "Definition": "Power doubles if opponent already took damage in the same turn."
+        },
+        {
+            "Name": "Bite",
+            "Type": "Dark",
+            "Max": 60,
+            "Accuracy": 100,
+            "Definition": "May cause flinching."
+        },
+        {
+            "Name": "Brutal Swing",
+            "Type": "Dark",
+            "Max": 60,
+            "Accuracy": 100,
+            "Definition": "The user swings its body around violently to inflict damage on everything in its vicinity."
+        },
+        {
+            "Name": "Feint Attack",
+            "Type": "Dark",
+            "Max": 60,
+            "Accuracy": "∞",
+            "Definition": "Ignores Accuracy and Evasiveness."
+        },
+        {
+            "Name": "Thief",
+            "Type": "Dark",
+            "Max": 60,
+            "Accuracy": 100,
+            "Definition": "Also steals opponent's held item."
+        },
+        {
+            "Name": "Knock Off",
+            "Type": "Dark",
+            "Max": 65,
+            "Accuracy": 100,
+            "Definition": "Removes opponent's held item for the rest of the battle."
+        },
+        {
+            "Name": "Night Slash",
+            "Type": "Dark",
+            "Max": 70,
+            "Accuracy": 100,
+            "Definition": "High critical hit ratio."
+        },
+        {
+            "Name": "Sucker Punch",
+            "Type": "Dark",
+            "Max": 70,
+            "Accuracy": 100,
+            "Definition": "User attacks first, but only works if opponent is readying an attack."
+        },
+        {
+            "Name": "Crunch",
+            "Type": "Dark",
+            "Max": 80,
+            "Accuracy": 100,
+            "Definition": "May lower opponent's Defense."
+        },
+        {
+            "Name": "Dark Pulse",
+            "Type": "Dark",
+            "Max": 80,
+            "Accuracy": 100,
+            "Definition": "May cause flinching."
+        },
+        {
+            "Name": "Throat Chop",
+            "Type": "Dark",
+            "Max": 80,
+            "Accuracy": 100,
+            "Definition": "Prevents use of sound moves for two turns."
+        },
+        {
+            "Name": "Darkest Lariat",
+            "Type": "Dark",
+            "Max": 85,
+            "Accuracy": 100,
+            "Definition": "Ignores opponent's stat changes."
+        },
+        {
+            "Name": "Night Daze",
+            "Type": "Dark",
+            "Max": 85,
+            "Accuracy": 95,
+            "Definition": "May lower opponent's Accuracy."
+        },
+        {
+            "Name": "Foul Play",
+            "Type": "Dark",
+            "Max": 95,
+            "Accuracy": 100,
+            "Definition": "Uses the opponent's Attack stat."
+        },
+        {
+            "Name": "Hyperspace Fury",
+            "Type": "Dark",
+            "Max": 100,
+            "Accuracy": "∞",
+            "Definition": "Lowers user's Defense. Can strike through Protect/Detect."
+        },
+        {
+            "Name": "Malicious Moonsault",
+            "Type": "Dark",
+            "Max": 180,
+            "Accuracy": "—",
+            "Definition": "Incineroar-exclusive Z-Move."
+        },
+        {
+            "Name": "Dual Chop",
+            "Type": "Dragon",
+            "Max": 40,
+            "Accuracy": 90,
+            "Definition": "Hits twice in one turn."
+        },
+        {
+            "Name": "Twister",
+            "Type": "Dragon",
+            "Max": 40,
+            "Accuracy": 100,
+            "Definition": "May cause flinching. Hits Pokémon using Fly/Bounce with double power."
+        },
+        {
+            "Name": "Dragon Breath",
+            "Type": "Dragon",
+            "Max": 60,
+            "Accuracy": 100,
+            "Definition": "May paralyze opponent."
+        },
+        {
+            "Name": "Dragon Tail",
+            "Type": "Dragon",
+            "Max": 60,
+            "Accuracy": 90,
+            "Definition": "In battles, the opponent switches. In the wild, the Pokémon runs."
+        },
+        {
+            "Name": "Dragon Claw",
+            "Type": "Dragon",
+            "Max": 80,
+            "Accuracy": 100,
+            "Definition": ""
+        },
+        {
+            "Name": "Dragon Pulse",
+            "Type": "Dragon",
+            "Max": 85,
+            "Accuracy": 100,
+            "Definition": ""
+        },
+        {
+            "Name": "Dragon Hammer",
+            "Type": "Dragon",
+            "Max": 90,
+            "Accuracy": 100,
+            "Definition": "The user uses its body like a hammer to attack the target and inflict damage."
+        },
+        {
+            "Name": "Core Enforcer",
+            "Type": "Dragon",
+            "Max": 100,
+            "Accuracy": 100,
+            "Definition": "Scorches a 'Z' pattern on the ground."
+        },
+        {
+            "Name": "Dragon Rush",
+            "Type": "Dragon",
+            "Max": 100,
+            "Accuracy": 75,
+            "Definition": "May cause flinching."
+        },
+        {
+            "Name": "Spacial Rend",
+            "Type": "Dragon",
+            "Max": 100,
+            "Accuracy": 95,
+            "Definition": "High critical hit ratio."
+        },
+        {
+            "Name": "Clanging Scales",
+            "Type": "Dragon",
+            "Max": 110,
+            "Accuracy": 100,
+            "Definition": "Lowers user's Defense."
+        },
+        {
+            "Name": "Outrage",
+            "Type": "Dragon",
+            "Max": 120,
+            "Accuracy": 100,
+            "Definition": "User attacks for 2-3 turns but then becomes confused."
+        },
+        {
+            "Name": "Draco Meteor",
+            "Type": "Dragon",
+            "Max": 130,
+            "Accuracy": 90,
+            "Definition": "Sharply lowers user's Special Attack."
+        },
+        {
+            "Name": "Roar of Time",
+            "Type": "Dragon",
+            "Max": 150,
+            "Accuracy": 90,
+            "Definition": "User must recharge next turn."
+        },
+        {
+            "Name": "Clangorous Soulblaze",
+            "Type": "Dragon",
+            "Max": 185,
+            "Accuracy": "—",
+            "Definition": "Kommo-o exclusive Z-Move."
+        },
+        {
+            "Name": "Nuzzle",
+            "Type": "Electric",
+            "Max": 20,
+            "Accuracy": 100,
+            "Definition": "Paralyzes opponent."
+        },
+        {
+            "Name": "Thunder Shock",
+            "Type": "Electric",
+            "Max": 40,
+            "Accuracy": 100,
+            "Definition": "May paralyze opponent."
+        },
+        {
+            "Name": "Charge Beam",
+            "Type": "Electric",
+            "Max": 50,
+            "Accuracy": 90,
+            "Definition": "May raise user's Special Attack."
+        },
+        {
+            "Name": "Electroweb",
+            "Type": "Electric",
+            "Max": 55,
+            "Accuracy": 95,
+            "Definition": "Lowers opponent's Speed."
+        },
+        {
+            "Name": "Shock Wave",
+            "Type": "Electric",
+            "Max": 60,
+            "Accuracy": "∞",
+            "Definition": "Ignores Accuracy and Evasiveness."
+        },
+        {
+            "Name": "Parabolic Charge",
+            "Type": "Electric",
+            "Max": 65,
+            "Accuracy": 100,
+            "Definition": "User recovers half the HP inflicted on opponent."
+        },
+        {
+            "Name": "Spark",
+            "Type": "Electric",
+            "Max": 65,
+            "Accuracy": 100,
+            "Definition": "May paralyze opponent."
+        },
+        {
+            "Name": "Thunder Fang",
+            "Type": "Electric",
+            "Max": 65,
+            "Accuracy": 95,
+            "Definition": "May cause flinching and/or paralyze opponent."
+        },
+        {
+            "Name": "Volt Switch",
+            "Type": "Electric",
+            "Max": 70,
+            "Accuracy": 100,
+            "Definition": "User must switch out after attacking."
+        },
+        {
+            "Name": "Thunder Punch",
+            "Type": "Electric",
+            "Max": 75,
+            "Accuracy": 100,
+            "Definition": "May paralyze opponent."
+        },
+        {
+            "Name": "Discharge",
+            "Type": "Electric",
+            "Max": 80,
+            "Accuracy": 100,
+            "Definition": "May paralyze opponent."
+        },
+        {
+            "Name": "Zing Zap",
+            "Type": "Electric",
+            "Max": 80,
+            "Accuracy": 100,
+            "Definition": "A strong electric blast crashes down on the target, giving it an electric shock. This may also make the target flinch."
+        },
+        {
+            "Name": "Thunderbolt",
+            "Type": "Electric",
+            "Max": 90,
+            "Accuracy": 100,
+            "Definition": "May paralyze opponent."
+        },
+        {
+            "Name": "Wild Charge",
+            "Type": "Electric",
+            "Max": 90,
+            "Accuracy": 100,
+            "Definition": "User receives recoil damage."
+        },
+        {
+            "Name": "Fusion Bolt",
+            "Type": "Electric",
+            "Max": 100,
+            "Accuracy": 100,
+            "Definition": "Power increases if Fusion Flare is used in the same turn."
+        },
+        {
+            "Name": "Plasma Fists",
+            "Type": "Electric",
+            "Max": 100,
+            "Accuracy": 100,
+            "Definition": "Changes Normal-type moves to Electric-type moves."
+        },
+        {
+            "Name": "Thunder",
+            "Type": "Electric",
+            "Max": 110,
+            "Accuracy": 70,
+            "Definition": "May paralyze opponent."
+        },
+        {
+            "Name": "Volt Tackle",
+            "Type": "Electric",
+            "Max": 120,
+            "Accuracy": 100,
+            "Definition": "User receives recoil damage. May paralyze opponent."
+        },
+        {
+            "Name": "Zap Cannon",
+            "Type": "Electric",
+            "Max": 120,
+            "Accuracy": 50,
+            "Definition": "Paralyzes opponent."
+        },
+        {
+            "Name": "Bolt Strike",
+            "Type": "Electric",
+            "Max": 130,
+            "Accuracy": 85,
+            "Definition": "May paralyze opponent."
+        },
+        {
+            "Name": "Stoked Sparksurfer",
+            "Type": "Electric",
+            "Max": 175,
+            "Accuracy": "—",
+            "Definition": "Raichu-exclusive Electric type Z-Move."
+        },
+        {
+            "Name": "10,000,000 Volt Thunderbolt",
+            "Type": "Electric",
+            "Max": 195,
+            "Accuracy": "—",
+            "Definition": "Pikachu-exclusive Z-Move."
+        },
+        {
+            "Name": "Catastropika",
+            "Type": "Electric",
+            "Max": 210,
+            "Accuracy": "—",
+            "Definition": "Pikachu-exclusive Z-Move."
+        },
+        {
+            "Name": "Disarming Voice",
+            "Type": "Fairy",
+            "Max": 40,
+            "Accuracy": "∞",
+            "Definition": "Ignores Accuracy and Evasiveness."
+        },
+        {
+            "Name": "Fairy Wind",
+            "Type": "Fairy",
+            "Max": 40,
+            "Accuracy": 100,
+            "Definition": ""
+        },
+        {
+            "Name": "Draining Kiss",
+            "Type": "Fairy",
+            "Max": 50,
+            "Accuracy": 100,
+            "Definition": "User recovers most the HP inflicted on opponent."
+        },
+        {
+            "Name": "Dazzling Gleam",
+            "Type": "Fairy",
+            "Max": 80,
+            "Accuracy": 100,
+            "Definition": "Hits all adjacent opponents."
+        },
+        {
+            "Name": "Play Rough",
+            "Type": "Fairy",
+            "Max": 90,
+            "Accuracy": 90,
+            "Definition": "May lower opponent's Attack."
+        },
+        {
+            "Name": "Moonblast",
+            "Type": "Fairy",
+            "Max": 95,
+            "Accuracy": 100,
+            "Definition": "May lower opponent's Special Attack."
+        },
+        {
+            "Name": "Fleur Cannon",
+            "Type": "Fairy",
+            "Max": 130,
+            "Accuracy": 90,
+            "Definition": "Sharply lowers user's Special Attack."
+        },
+        {
+            "Name": "Light of Ruin",
+            "Type": "Fairy",
+            "Max": 140,
+            "Accuracy": 90,
+            "Definition": "User receives recoil damage."
+        },
+        {
+            "Name": "Let's Snuggle Forever",
+            "Type": "Fairy",
+            "Max": 190,
+            "Accuracy": "—",
+            "Definition": "Mimikyu-exclusive Z-Move."
+        },
+        {
+            "Name": "Triple Kick",
+            "Type": "Fighting",
+            "Max": 10,
+            "Accuracy": 90,
+            "Definition": "Hits thrice in one turn at increasing power."
+        },
+        {
+            "Name": "Arm Thrust",
+            "Type": "Fighting",
+            "Max": 15,
+            "Accuracy": 100,
+            "Definition": "Hits 2-5 times in one turn."
+        },
+        {
+            "Name": "Double Kick",
+            "Type": "Fighting",
+            "Max": 30,
+            "Accuracy": 100,
+            "Definition": "Hits twice in one turn."
+        },
+        {
+            "Name": "Mach Punch",
+            "Type": "Fighting",
+            "Max": 40,
+            "Accuracy": 100,
+            "Definition": "User attacks first."
+        },
+        {
+            "Name": "Power-Up Punch",
+            "Type": "Fighting",
+            "Max": 40,
+            "Accuracy": 100,
+            "Definition": "Raises Attack."
+        },
+        {
+            "Name": "Rock Smash",
+            "Type": "Fighting",
+            "Max": 40,
+            "Accuracy": 100,
+            "Definition": "May lower opponent's Defense."
+        },
+        {
+            "Name": "Vacuum Wave",
+            "Type": "Fighting",
+            "Max": 40,
+            "Accuracy": 100,
+            "Definition": "User attacks first."
+        },
+        {
+            "Name": "Karate Chop",
+            "Type": "Fighting",
+            "Max": 50,
+            "Accuracy": 100,
+            "Definition": "High critical hit ratio."
+        },
+        {
+            "Name": "Circle Throw",
+            "Type": "Fighting",
+            "Max": 60,
+            "Accuracy": 90,
+            "Definition": "In battles, the opponent switches. In the wild, the Pokémon runs."
+        },
+        {
+            "Name": "Force Palm",
+            "Type": "Fighting",
+            "Max": 60,
+            "Accuracy": 100,
+            "Definition": "May paralyze opponent."
+        },
+        {
+            "Name": "Revenge",
+            "Type": "Fighting",
+            "Max": 60,
+            "Accuracy": 100,
+            "Definition": "Power increases if user was hit first."
+        },
+        {
+            "Name": "Rolling Kick",
+            "Type": "Fighting",
+            "Max": 60,
+            "Accuracy": 85,
+            "Definition": "May cause flinching."
+        },
+        {
+            "Name": "Storm Throw",
+            "Type": "Fighting",
+            "Max": 60,
+            "Accuracy": 100,
+            "Definition": "Always results in a critical hit."
+        },
+        {
+            "Name": "Low Sweep",
+            "Type": "Fighting",
+            "Max": 65,
+            "Accuracy": 100,
+            "Definition": "Lowers opponent's Speed."
+        },
+        {
+            "Name": "Vital Throw",
+            "Type": "Fighting",
+            "Max": 70,
+            "Accuracy": "∞",
+            "Definition": "User attacks last, but ignores Accuracy and Evasiveness."
+        },
+        {
+            "Name": "Wake-Up Slap",
+            "Type": "Fighting",
+            "Max": 70,
+            "Accuracy": 100,
+            "Definition": "Power doubles if opponent is asleep, but wakes it up."
+        },
+        {
+            "Name": "Brick Break",
+            "Type": "Fighting",
+            "Max": 75,
+            "Accuracy": 100,
+            "Definition": "Breaks through Reflect and Light Screen barriers."
+        },
+        {
+            "Name": "Drain Punch",
+            "Type": "Fighting",
+            "Max": 75,
+            "Accuracy": 100,
+            "Definition": "User recovers half the HP inflicted on opponent."
+        },
+        {
+            "Name": "Aura Sphere",
+            "Type": "Fighting",
+            "Max": 80,
+            "Accuracy": "∞",
+            "Definition": "Ignores Accuracy and Evasiveness."
+        },
+        {
+            "Name": "Submission",
+            "Type": "Fighting",
+            "Max": 80,
+            "Accuracy": 80,
+            "Definition": "User receives recoil damage."
+        },
+        {
+            "Name": "Secret Sword",
+            "Type": "Fighting",
+            "Max": 85,
+            "Accuracy": 100,
+            "Definition": "Inflicts damage based on the target's Defense, not Special Defense."
+        },
+        {
+            "Name": "Sky Uppercut",
+            "Type": "Fighting",
+            "Max": 85,
+            "Accuracy": 90,
+            "Definition": "Hits the opponent, even during Fly."
+        },
+        {
+            "Name": "Sacred Sword",
+            "Type": "Fighting",
+            "Max": 90,
+            "Accuracy": 100,
+            "Definition": "Ignores opponent's stat changes."
+        },
+        {
+            "Name": "Cross Chop",
+            "Type": "Fighting",
+            "Max": 100,
+            "Accuracy": 80,
+            "Definition": "High critical hit ratio."
+        },
+        {
+            "Name": "Dynamic Punch",
+            "Type": "Fighting",
+            "Max": 100,
+            "Accuracy": 50,
+            "Definition": "Confuses opponent."
+        },
+        {
+            "Name": "Flying Press",
+            "Type": "Fighting",
+            "Max": 100,
+            "Accuracy": 95,
+            "Definition": "Deals Fighting and Flying type damage."
+        },
+        {
+            "Name": "Hammer Arm",
+            "Type": "Fighting",
+            "Max": 100,
+            "Accuracy": 90,
+            "Definition": "Lowers user's Speed."
+        },
+        {
+            "Name": "Jump Kick",
+            "Type": "Fighting",
+            "Max": 100,
+            "Accuracy": 95,
+            "Definition": "If it misses, the user loses half their HP."
+        },
+        {
+            "Name": "Close Combat",
+            "Type": "Fighting",
+            "Max": 120,
+            "Accuracy": 100,
+            "Definition": "Lowers user's Defense and Special Defense."
+        },
+        {
+            "Name": "Focus Blast",
+            "Type": "Fighting",
+            "Max": 120,
+            "Accuracy": 70,
+            "Definition": "May lower opponent's Special Defense."
+        },
+        {
+            "Name": "Superpower",
+            "Type": "Fighting",
+            "Max": 120,
+            "Accuracy": 100,
+            "Definition": "Lowers user's Attack and Defense."
+        },
+        {
+            "Name": "High Jump Kick",
+            "Type": "Fighting",
+            "Max": 130,
+            "Accuracy": 90,
+            "Definition": "If it misses, the user loses half their HP."
+        },
+        {
+            "Name": "Focus Punch",
+            "Type": "Fighting",
+            "Max": 150,
+            "Accuracy": 100,
+            "Definition": "If the user is hit before attacking, it flinches instead."
+        },
+        {
+            "Name": "Fire Spin",
+            "Type": "Fire",
+            "Max": 35,
+            "Accuracy": 85,
+            "Definition": "Traps opponent, damaging them for 4-5 turns."
+        },
+        {
+            "Name": "Ember",
+            "Type": "Fire",
+            "Max": 40,
+            "Accuracy": 100,
+            "Definition": "May burn opponent."
+        },
+        {
+            "Name": "Flame Charge",
+            "Type": "Fire",
+            "Max": 50,
+            "Accuracy": 100,
+            "Definition": "Raises user's Speed."
+        },
+        {
+            "Name": "Flame Wheel",
+            "Type": "Fire",
+            "Max": 60,
+            "Accuracy": 100,
+            "Definition": "May burn opponent."
+        },
+        {
+            "Name": "Incinerate",
+            "Type": "Fire",
+            "Max": 60,
+            "Accuracy": 100,
+            "Definition": "Destroys the target's held berry."
+        },
+        {
+            "Name": "Fire Fang",
+            "Type": "Fire",
+            "Max": 65,
+            "Accuracy": 95,
+            "Definition": "May cause flinching and/or burn opponent."
+        },
+        {
+            "Name": "Flame Burst",
+            "Type": "Fire",
+            "Max": 70,
+            "Accuracy": 100,
+            "Definition": "May also injure nearby Pokémon."
+        },
+        {
+            "Name": "Fire Punch",
+            "Type": "Fire",
+            "Max": 75,
+            "Accuracy": 100,
+            "Definition": "May burn opponent."
+        },
+        {
+            "Name": "Mystical Fire",
+            "Type": "Fire",
+            "Max": 75,
+            "Accuracy": 100,
+            "Definition": "Lowers opponent's Special Attack."
+        },
+        {
+            "Name": "Fiery Dance",
+            "Type": "Fire",
+            "Max": 80,
+            "Accuracy": 100,
+            "Definition": "May raise user's Special Attack."
+        },
+        {
+            "Name": "Fire Lash",
+            "Type": "Fire",
+            "Max": 80,
+            "Accuracy": 100,
+            "Definition": "The user strikes the target with a burning lash. This also lowers the target’s Defense stat."
+        },
+        {
+            "Name": "Fire Pledge",
+            "Type": "Fire",
+            "Max": 80,
+            "Accuracy": 100,
+            "Definition": "Added effects appear if combined with Grass Pledge or Water Pledge."
+        },
+        {
+            "Name": "Lava Plume",
+            "Type": "Fire",
+            "Max": 80,
+            "Accuracy": 100,
+            "Definition": "May burn opponent."
+        },
+        {
+            "Name": "Blaze Kick",
+            "Type": "Fire",
+            "Max": 85,
+            "Accuracy": 90,
+            "Definition": "High critical hit ratio. May burn opponent."
+        },
+        {
+            "Name": "Flamethrower",
+            "Type": "Fire",
+            "Max": 90,
+            "Accuracy": 100,
+            "Definition": "May burn opponent."
+        },
+        {
+            "Name": "Heat Wave",
+            "Type": "Fire",
+            "Max": 95,
+            "Accuracy": 90,
+            "Definition": "May burn opponent."
+        },
+        {
+            "Name": "Fusion Flare",
+            "Type": "Fire",
+            "Max": 100,
+            "Accuracy": 100,
+            "Definition": "Power increases if Fusion Bolt is used in the same turn."
+        },
+        {
+            "Name": "Inferno",
+            "Type": "Fire",
+            "Max": 100,
+            "Accuracy": 50,
+            "Definition": "Burns opponent."
+        },
+        {
+            "Name": "Sacred Fire",
+            "Type": "Fire",
+            "Max": 100,
+            "Accuracy": 95,
+            "Definition": "May burn opponent."
+        },
+        {
+            "Name": "Searing Shot",
+            "Type": "Fire",
+            "Max": 100,
+            "Accuracy": 100,
+            "Definition": "May burn opponent."
+        },
+        {
+            "Name": "Fire Blast",
+            "Type": "Fire",
+            "Max": 110,
+            "Accuracy": 85,
+            "Definition": "May burn opponent."
+        },
+        {
+            "Name": "Flare Blitz",
+            "Type": "Fire",
+            "Max": 120,
+            "Accuracy": 100,
+            "Definition": "User receives recoil damage. May burn opponent."
+        },
+        {
+            "Name": "Magma Storm",
+            "Type": "Fire",
+            "Max": 120,
+            "Accuracy": 75,
+            "Definition": "Traps opponent, damaging them for 4-5 turns."
+        },
+        {
+            "Name": "Blue Flare",
+            "Type": "Fire",
+            "Max": 130,
+            "Accuracy": 85,
+            "Definition": "May burn opponent."
+        },
+        {
+            "Name": "Burn Up",
+            "Type": "Fire",
+            "Max": 130,
+            "Accuracy": 100,
+            "Definition": "To inflict massive damage, the user burns itself out. After using this move, the user will no longer be Fire type."
+        },
+        {
+            "Name": "Overheat",
+            "Type": "Fire",
+            "Max": 130,
+            "Accuracy": 90,
+            "Definition": "Sharply lowers user's Special Attack."
+        },
+        {
+            "Name": "Blast Burn",
+            "Type": "Fire",
+            "Max": 150,
+            "Accuracy": 90,
+            "Definition": "User must recharge next turn."
+        },
+        {
+            "Name": "Eruption",
+            "Type": "Fire",
+            "Max": 150,
+            "Accuracy": 100,
+            "Definition": "Stronger when the user's HP is higher."
+        },
+        {
+            "Name": "Mind Blown",
+            "Type": "Fire",
+            "Max": 150,
+            "Accuracy": 100,
+            "Definition": "User receives recoil damage."
+        },
+        {
+            "Name": "Shell Trap",
+            "Type": "Fire",
+            "Max": 150,
+            "Accuracy": 100,
+            "Definition": "Deals more damage to opponent if hit by a Physical move."
+        },
+        {
+            "Name": "V-create",
+            "Type": "Fire",
+            "Max": 180,
+            "Accuracy": 95,
+            "Definition": "Lowers user's Defense, Special Defense and Speed."
+        },
+        {
+            "Name": "Peck",
+            "Type": "Flying",
+            "Max": 35,
+            "Accuracy": 100,
+            "Definition": ""
+        },
+        {
+            "Name": "Gust",
+            "Type": "Flying",
+            "Max": 40,
+            "Accuracy": 100,
+            "Definition": "Hits Pokémon using Fly/Bounce with double power."
+        },
+        {
+            "Name": "Acrobatics",
+            "Type": "Flying",
+            "Max": 55,
+            "Accuracy": 100,
+            "Definition": "Stronger when the user does not have a held item."
+        },
+        {
+            "Name": "Aerial Ace",
+            "Type": "Flying",
+            "Max": 60,
+            "Accuracy": "∞",
+            "Definition": "Ignores Accuracy and Evasiveness."
+        },
+        {
+            "Name": "Air Cutter",
+            "Type": "Flying",
+            "Max": 60,
+            "Accuracy": 95,
+            "Definition": "High critical hit ratio."
+        },
+        {
+            "Name": "Pluck",
+            "Type": "Flying",
+            "Max": 60,
+            "Accuracy": 100,
+            "Definition": "If the opponent is holding a berry, its effect is stolen by user."
+        },
+        {
+            "Name": "Sky Drop",
+            "Type": "Flying",
+            "Max": 60,
+            "Accuracy": 100,
+            "Definition": "Takes opponent into the air on first turn, drops them on second turn."
+        },
+        {
+            "Name": "Wing Attack",
+            "Type": "Flying",
+            "Max": 60,
+            "Accuracy": 100,
+            "Definition": ""
+        },
+        {
+            "Name": "Chatter",
+            "Type": "Flying",
+            "Max": 65,
+            "Accuracy": 100,
+            "Definition": "Confuses opponent."
+        },
+        {
+            "Name": "Air Slash",
+            "Type": "Flying",
+            "Max": 75,
+            "Accuracy": 95,
+            "Definition": "May cause flinching."
+        },
+        {
+            "Name": "Drill Peck",
+            "Type": "Flying",
+            "Max": 80,
+            "Accuracy": 100,
+            "Definition": ""
+        },
+        {
+            "Name": "Oblivion Wing",
+            "Type": "Flying",
+            "Max": 80,
+            "Accuracy": 100,
+            "Definition": "User recovers most of the HP inflicted on opponent."
+        },
+        {
+            "Name": "Bounce",
+            "Type": "Flying",
+            "Max": 85,
+            "Accuracy": 85,
+            "Definition": "Springs up on first turn, attacks on second. May paralyze opponent."
+        },
+        {
+            "Name": "Fly",
+            "Type": "Flying",
+            "Max": 90,
+            "Accuracy": 95,
+            "Definition": "Flies up on first turn, attacks on second turn."
+        },
+        {
+            "Name": "Aeroblast",
+            "Type": "Flying",
+            "Max": 100,
+            "Accuracy": 95,
+            "Definition": "High critical hit ratio."
+        },
+        {
+            "Name": "Beak Blast",
+            "Type": "Flying",
+            "Max": 100,
+            "Accuracy": 100,
+            "Definition": "The user first heats up its beak, and then it attacks the target. Making direct contact with the Pokémon while it’s heating up its beak results in a burn."
+        },
+        {
+            "Name": "Hurricane",
+            "Type": "Flying",
+            "Max": 110,
+            "Accuracy": 70,
+            "Definition": "May confuse opponent."
+        },
+        {
+            "Name": "Brave Bird",
+            "Type": "Flying",
+            "Max": 120,
+            "Accuracy": 100,
+            "Definition": "User receives recoil damage."
+        },
+        {
+            "Name": "Dragon Ascent",
+            "Type": "Flying",
+            "Max": 120,
+            "Accuracy": 100,
+            "Definition": "Lowers user's Defense and Special Defense."
+        },
+        {
+            "Name": "Sky Attack",
+            "Type": "Flying",
+            "Max": 140,
+            "Accuracy": 90,
+            "Definition": "Charges on first turn, attacks on second. May cause flinching."
+        },
+        {
+            "Name": "Astonish",
+            "Type": "Ghost",
+            "Max": 30,
+            "Accuracy": 100,
+            "Definition": "May cause flinching."
+        },
+        {
+            "Name": "Lick",
+            "Type": "Ghost",
+            "Max": 30,
+            "Accuracy": 100,
+            "Definition": "May paralyze opponent."
+        },
+        {
+            "Name": "Shadow Sneak",
+            "Type": "Ghost",
+            "Max": 40,
+            "Accuracy": 100,
+            "Definition": "User attacks first."
+        },
+        {
+            "Name": "Ominous Wind",
+            "Type": "Ghost",
+            "Max": 60,
+            "Accuracy": 100,
+            "Definition": "May raise all user's stats at once."
+        },
+        {
+            "Name": "Shadow Punch",
+            "Type": "Ghost",
+            "Max": 60,
+            "Accuracy": "∞",
+            "Definition": "Ignores Accuracy and Evasiveness."
+        },
+        {
+            "Name": "Hex",
+            "Type": "Ghost",
+            "Max": 65,
+            "Accuracy": 100,
+            "Definition": "Inflicts more damage if the target has a status condition."
+        },
+        {
+            "Name": "Shadow Claw",
+            "Type": "Ghost",
+            "Max": 70,
+            "Accuracy": 100,
+            "Definition": "High critical hit ratio."
+        },
+        {
+            "Name": "Shadow Ball",
+            "Type": "Ghost",
+            "Max": 80,
+            "Accuracy": 100,
+            "Definition": "May lower opponent's Special Defense."
+        },
+        {
+            "Name": "Spirit Shackle",
+            "Type": "Ghost",
+            "Max": 80,
+            "Accuracy": 100,
+            "Definition": "Prevents the opponent switching out."
+        },
+        {
+            "Name": "Shadow Bone",
+            "Type": "Ghost",
+            "Max": 85,
+            "Accuracy": 100,
+            "Definition": "The user attacks by beating the target with a bone that contains a spirit. This may also lower the target’s Defense stat."
+        },
+        {
+            "Name": "Phantom Force",
+            "Type": "Ghost",
+            "Max": 90,
+            "Accuracy": 100,
+            "Definition": "Disappears on first turn, attacks on second. Can strike through Protect/Detect."
+        },
+        {
+            "Name": "Spectral Thief",
+            "Type": "Ghost",
+            "Max": 90,
+            "Accuracy": 100,
+            "Definition": "The user hides in the target’s shadow, steals the target’s stat boosts, and then attacks."
+        },
+        {
+            "Name": "Moongeist Beam",
+            "Type": "Ghost",
+            "Max": 100,
+            "Accuracy": 100,
+            "Definition": "Ignores the target's ability."
+        },
+        {
+            "Name": "Shadow Force",
+            "Type": "Ghost",
+            "Max": 120,
+            "Accuracy": 100,
+            "Definition": "Disappears on first turn, attacks on second. Can strike through Protect/Detect."
+        },
+        {
+            "Name": "Sinister Arrow Raid",
+            "Type": "Ghost",
+            "Max": 180,
+            "Accuracy": "—",
+            "Definition": "Decidueye-exclusive Z-Move."
+        },
+        {
+            "Name": "Soul-Stealing 7-Star Strike",
+            "Type": "Ghost",
+            "Max": 195,
+            "Accuracy": "—",
+            "Definition": "Marshadow-exclusive Z-Move."
+        },
+        {
+            "Name": "Menacing Moonraze Maelstrom",
+            "Type": "Ghost",
+            "Max": 200,
+            "Accuracy": "—",
+            "Definition": "Lunala-exclusive Z-Move."
+        },
+        {
+            "Name": "Absorb",
+            "Type": "Grass",
+            "Max": 20,
+            "Accuracy": 100,
+            "Definition": "User recovers half the HP inflicted on opponent."
+        },
+        {
+            "Name": "Bullet Seed",
+            "Type": "Grass",
+            "Max": 25,
+            "Accuracy": 100,
+            "Definition": "Hits 2-5 times in one turn."
+        },
+        {
+            "Name": "Leafage",
+            "Type": "Grass",
+            "Max": 40,
+            "Accuracy": 100,
+            "Definition": "Strikes opponent with leaves."
+        },
+        {
+            "Name": "Mega Drain",
+            "Type": "Grass",
+            "Max": 40,
+            "Accuracy": 100,
+            "Definition": "User recovers half the HP inflicted on opponent."
+        },
+        {
+            "Name": "Vine Whip",
+            "Type": "Grass",
+            "Max": 45,
+            "Accuracy": 100,
+            "Definition": ""
+        },
+        {
+            "Name": "Razor Leaf",
+            "Type": "Grass",
+            "Max": 55,
+            "Accuracy": 95,
+            "Definition": "High critical hit ratio."
+        },
+        {
+            "Name": "Magical Leaf",
+            "Type": "Grass",
+            "Max": 60,
+            "Accuracy": "∞",
+            "Definition": "Ignores Accuracy and Evasiveness."
+        },
+        {
+            "Name": "Needle Arm",
+            "Type": "Grass",
+            "Max": 60,
+            "Accuracy": 100,
+            "Definition": "May cause flinching."
+        },
+        {
+            "Name": "Leaf Tornado",
+            "Type": "Grass",
+            "Max": 65,
+            "Accuracy": 90,
+            "Definition": "May lower opponent's Accuracy."
+        },
+        {
+            "Name": "Trop Kick",
+            "Type": "Grass",
+            "Max": 70,
+            "Accuracy": 100,
+            "Definition": "Lowers opponent's Attack."
+        },
+        {
+            "Name": "Giga Drain",
+            "Type": "Grass",
+            "Max": 75,
+            "Accuracy": 100,
+            "Definition": "User recovers half the HP inflicted on opponent."
+        },
+        {
+            "Name": "Horn Leech",
+            "Type": "Grass",
+            "Max": 75,
+            "Accuracy": 100,
+            "Definition": "User recovers half the HP inflicted on opponent."
+        },
+        {
+            "Name": "Grass Pledge",
+            "Type": "Grass",
+            "Max": 80,
+            "Accuracy": 100,
+            "Definition": "Added effects appear if preceded by Water Pledge or succeeded by Fire Pledge."
+        },
+        {
+            "Name": "Seed Bomb",
+            "Type": "Grass",
+            "Max": 80,
+            "Accuracy": 100,
+            "Definition": ""
+        },
+        {
+            "Name": "Energy Ball",
+            "Type": "Grass",
+            "Max": 90,
+            "Accuracy": 100,
+            "Definition": "May lower opponent's Special Defense."
+        },
+        {
+            "Name": "Leaf Blade",
+            "Type": "Grass",
+            "Max": 90,
+            "Accuracy": 100,
+            "Definition": "High critical hit ratio."
+        },
+        {
+            "Name": "Petal Blizzard",
+            "Type": "Grass",
+            "Max": 90,
+            "Accuracy": 100,
+            "Definition": "Hits all adjacent Pokémon."
+        },
+        {
+            "Name": "Petal Dance",
+            "Type": "Grass",
+            "Max": 120,
+            "Accuracy": 100,
+            "Definition": "User attacks for 2-3 turns but then becomes confused."
+        },
+        {
+            "Name": "Power Whip",
+            "Type": "Grass",
+            "Max": 120,
+            "Accuracy": 85,
+            "Definition": ""
+        },
+        {
+            "Name": "Seed Flare",
+            "Type": "Grass",
+            "Max": 120,
+            "Accuracy": 85,
+            "Definition": "May lower opponent's Special Defense."
+        },
+        {
+            "Name": "Solar Beam",
+            "Type": "Grass",
+            "Max": 120,
+            "Accuracy": 100,
+            "Definition": "Charges on first turn, attacks on second."
+        },
+        {
+            "Name": "Wood Hammer",
+            "Type": "Grass",
+            "Max": 120,
+            "Accuracy": 100,
+            "Definition": "User receives recoil damage."
+        },
+        {
+            "Name": "Solar Blade",
+            "Type": "Grass",
+            "Max": 125,
+            "Accuracy": 100,
+            "Definition": "Charges on first turn, attacks on second."
+        },
+        {
+            "Name": "Leaf Storm",
+            "Type": "Grass",
+            "Max": 130,
+            "Accuracy": 90,
+            "Definition": "Sharply lowers user's Special Attack."
+        },
+        {
+            "Name": "Frenzy Plant",
+            "Type": "Grass",
+            "Max": 150,
+            "Accuracy": 90,
+            "Definition": "User must recharge next turn."
+        },
+        {
+            "Name": "Mud-Slap",
+            "Type": "Ground",
+            "Max": 20,
+            "Accuracy": 100,
+            "Definition": "Lowers opponent's Accuracy."
+        },
+        {
+            "Name": "Bone Rush",
+            "Type": "Ground",
+            "Max": 25,
+            "Accuracy": 90,
+            "Definition": "Hits 2-5 times in one turn."
+        },
+        {
+            "Name": "Sand Tomb",
+            "Type": "Ground",
+            "Max": 35,
+            "Accuracy": 85,
+            "Definition": "Traps opponent, damaging them for 4-5 turns."
+        },
+        {
+            "Name": "Bonemerang",
+            "Type": "Ground",
+            "Max": 50,
+            "Accuracy": 90,
+            "Definition": "Hits twice in one turn."
+        },
+        {
+            "Name": "Mud Shot",
+            "Type": "Ground",
+            "Max": 55,
+            "Accuracy": 95,
+            "Definition": "Lowers opponent's Speed."
+        },
+        {
+            "Name": "Bulldoze",
+            "Type": "Ground",
+            "Max": 60,
+            "Accuracy": 100,
+            "Definition": "Lowers opponent's Speed."
+        },
+        {
+            "Name": "Bone Club",
+            "Type": "Ground",
+            "Max": 65,
+            "Accuracy": 85,
+            "Definition": "May cause flinching."
+        },
+        {
+            "Name": "Mud Bomb",
+            "Type": "Ground",
+            "Max": 65,
+            "Accuracy": 85,
+            "Definition": "May lower opponent's Accuracy."
+        },
+        {
+            "Name": "Stomping Tantrum",
+            "Type": "Ground",
+            "Max": 75,
+            "Accuracy": 100,
+            "Definition": "Driven by frustration, the user attacks the target. If the user’s previous move has failed, the power of this move doubles."
+        },
+        {
+            "Name": "Dig",
+            "Type": "Ground",
+            "Max": 80,
+            "Accuracy": 100,
+            "Definition": "Digs underground on first turn, attacks on second. Can also escape from caves."
+        },
+        {
+            "Name": "Drill Run",
+            "Type": "Ground",
+            "Max": 80,
+            "Accuracy": 95,
+            "Definition": "High critical hit ratio."
+        },
+        {
+            "Name": "Earth Power",
+            "Type": "Ground",
+            "Max": 90,
+            "Accuracy": 100,
+            "Definition": "May lower opponent's Special Defense."
+        },
+        {
+            "Name": "Land's Wrath",
+            "Type": "Ground",
+            "Max": 90,
+            "Accuracy": 100,
+            "Definition": ""
+        },
+        {
+            "Name": "Thousand Arrows",
+            "Type": "Ground",
+            "Max": 90,
+            "Accuracy": 100,
+            "Definition": "Makes Flying-type Pokémon vulnerable to Ground moves."
+        },
+        {
+            "Name": "Thousand Waves",
+            "Type": "Ground",
+            "Max": 90,
+            "Accuracy": 100,
+            "Definition": "Opponent cannot flee or switch."
+        },
+        {
+            "Name": "High Horsepower",
+            "Type": "Ground",
+            "Max": 95,
+            "Accuracy": 95,
+            "Definition": "The user fiercely attacks the target using its entire body."
+        },
+        {
+            "Name": "Earthquake",
+            "Type": "Ground",
+            "Max": 100,
+            "Accuracy": 100,
+            "Definition": "Power is doubled if opponent is underground from using Dig."
+        },
+        {
+            "Name": "Precipice Blades",
+            "Type": "Ground",
+            "Max": 120,
+            "Accuracy": 85,
+            "Definition": "Hits all adjacent opponents."
+        },
+        {
+            "Name": "Icicle Spear",
+            "Type": "Ice",
+            "Max": 25,
+            "Accuracy": 100,
+            "Definition": "Hits 2-5 times in one turn."
+        },
+        {
+            "Name": "Ice Ball",
+            "Type": "Ice",
+            "Max": 30,
+            "Accuracy": 90,
+            "Definition": "Doubles in power each turn for 5 turns."
+        },
+        {
+            "Name": "Ice Shard",
+            "Type": "Ice",
+            "Max": 40,
+            "Accuracy": 100,
+            "Definition": "User attacks first."
+        },
+        {
+            "Name": "Powder Snow",
+            "Type": "Ice",
+            "Max": 40,
+            "Accuracy": 100,
+            "Definition": "May freeze opponent."
+        },
+        {
+            "Name": "Icy Wind",
+            "Type": "Ice",
+            "Max": 55,
+            "Accuracy": 95,
+            "Definition": "Lowers opponent's Speed."
+        },
+        {
+            "Name": "Avalanche",
+            "Type": "Ice",
+            "Max": 60,
+            "Accuracy": 100,
+            "Definition": "Power doubles if user took damage first."
+        },
+        {
+            "Name": "Frost Breath",
+            "Type": "Ice",
+            "Max": 60,
+            "Accuracy": 90,
+            "Definition": "Always results in a critical hit."
+        },
+        {
+            "Name": "Aurora Beam",
+            "Type": "Ice",
+            "Max": 65,
+            "Accuracy": 100,
+            "Definition": "May lower opponent's Attack."
+        },
+        {
+            "Name": "Glaciate",
+            "Type": "Ice",
+            "Max": 65,
+            "Accuracy": 95,
+            "Definition": "Lowers opponent's Speed."
+        },
+        {
+            "Name": "Ice Fang",
+            "Type": "Ice",
+            "Max": 65,
+            "Accuracy": 95,
+            "Definition": "May cause flinching and/or freeze opponent."
+        },
+        {
+            "Name": "Freeze-Dry",
+            "Type": "Ice",
+            "Max": 70,
+            "Accuracy": 100,
+            "Definition": "May freeze opponent. Super-effective against Water types."
+        },
+        {
+            "Name": "Ice Punch",
+            "Type": "Ice",
+            "Max": 75,
+            "Accuracy": 100,
+            "Definition": "May freeze opponent."
+        },
+        {
+            "Name": "Icicle Crash",
+            "Type": "Ice",
+            "Max": 85,
+            "Accuracy": 90,
+            "Definition": "May cause flinching."
+        },
+        {
+            "Name": "Ice Beam",
+            "Type": "Ice",
+            "Max": 90,
+            "Accuracy": 100,
+            "Definition": "May freeze opponent."
+        },
+        {
+            "Name": "Ice Hammer",
+            "Type": "Ice",
+            "Max": 100,
+            "Accuracy": 90,
+            "Definition": "The user swings and hits with its strong, heavy fist. It lowers the user’s Speed, however."
+        },
+        {
+            "Name": "Blizzard",
+            "Type": "Ice",
+            "Max": 110,
+            "Accuracy": 70,
+            "Definition": "May freeze opponent."
+        },
+        {
+            "Name": "Freeze Shock",
+            "Type": "Ice",
+            "Max": 140,
+            "Accuracy": 90,
+            "Definition": "Charges on first turn, attacks on second. May paralyze opponent."
+        },
+        {
+            "Name": "Ice Burn",
+            "Type": "Ice",
+            "Max": 140,
+            "Accuracy": 90,
+            "Definition": "Charges on first turn, attacks on second. May burn opponent."
+        },
+        {
+            "Name": "Constrict",
+            "Type": "Normal",
+            "Max": 10,
+            "Accuracy": 100,
+            "Definition": "May lower opponent's Speed by one stage."
+        },
+        {
+            "Name": "Barrage",
+            "Type": "Normal",
+            "Max": 15,
+            "Accuracy": 85,
+            "Definition": "Hits 2-5 times in one turn."
+        },
+        {
+            "Name": "Bind",
+            "Type": "Normal",
+            "Max": 15,
+            "Accuracy": 85,
+            "Definition": "Traps opponent, damaging them for 4-5 turns."
+        },
+        {
+            "Name": "Double Slap",
+            "Type": "Normal",
+            "Max": 15,
+            "Accuracy": 85,
+            "Definition": "Hits 2-5 times in one turn."
+        },
+        {
+            "Name": "Fury Attack",
+            "Type": "Normal",
+            "Max": 15,
+            "Accuracy": 85,
+            "Definition": "Hits 2-5 times in one turn."
+        },
+        {
+            "Name": "Wrap",
+            "Type": "Normal",
+            "Max": 15,
+            "Accuracy": 90,
+            "Definition": "Traps opponent, damaging them for 4-5 turns."
+        },
+        {
+            "Name": "Comet Punch",
+            "Type": "Normal",
+            "Max": 18,
+            "Accuracy": 85,
+            "Definition": "Hits 2-5 times in one turn."
+        },
+        {
+            "Name": "Fury Swipes",
+            "Type": "Normal",
+            "Max": 18,
+            "Accuracy": 80,
+            "Definition": "Hits 2-5 times in one turn."
+        },
+        {
+            "Name": "Rage",
+            "Type": "Normal",
+            "Max": 20,
+            "Accuracy": 100,
+            "Definition": "Raises user's Attack when hit."
+        },
+        {
+            "Name": "Rapid Spin",
+            "Type": "Normal",
+            "Max": 20,
+            "Accuracy": 100,
+            "Definition": "Removes effects of trap moves."
+        },
+        {
+            "Name": "Spike Cannon",
+            "Type": "Normal",
+            "Max": 20,
+            "Accuracy": 100,
+            "Definition": "Hits 2-5 times in one turn."
+        },
+        {
+            "Name": "Tail Slap",
+            "Type": "Normal",
+            "Max": 25,
+            "Accuracy": 85,
+            "Definition": "Hits 2-5 times in one turn."
+        },
+        {
+            "Name": "Feint",
+            "Type": "Normal",
+            "Max": 30,
+            "Accuracy": 100,
+            "Definition": "Only hits if opponent uses Protect or Detect in the same turn."
+        },
+        {
+            "Name": "Double Hit",
+            "Type": "Normal",
+            "Max": 35,
+            "Accuracy": 90,
+            "Definition": "Hits twice in one turn."
+        },
+        {
+            "Name": "Echoed Voice",
+            "Type": "Normal",
+            "Max": 40,
+            "Accuracy": 100,
+            "Definition": "Power increases each turn."
+        },
+        {
+            "Name": "Fake Out",
+            "Type": "Normal",
+            "Max": 40,
+            "Accuracy": 100,
+            "Definition": "User attacks first, foe flinches. Only usable on first turn."
+        },
+        {
+            "Name": "False Swipe",
+            "Type": "Normal",
+            "Max": 40,
+            "Accuracy": 100,
+            "Definition": "Always leaves opponent with at least 1 HP."
+        },
+        {
+            "Name": "Hold Back",
+            "Type": "Normal",
+            "Max": 40,
+            "Accuracy": 100,
+            "Definition": "Always leaves opponent with at least 1 HP."
+        },
+        {
+            "Name": "Pay Day",
+            "Type": "Normal",
+            "Max": 40,
+            "Accuracy": 100,
+            "Definition": "A small amount of money is gained after the battle resolves."
+        },
+        {
+            "Name": "Pound",
+            "Type": "Normal",
+            "Max": 40,
+            "Accuracy": 100,
+            "Definition": ""
+        },
+        {
+            "Name": "Quick Attack",
+            "Type": "Normal",
+            "Max": 40,
+            "Accuracy": 100,
+            "Definition": "User attacks first."
+        },
+        {
+            "Name": "Scratch",
+            "Type": "Normal",
+            "Max": 40,
+            "Accuracy": 100,
+            "Definition": ""
+        },
+        {
+            "Name": "Tackle",
+            "Type": "Normal",
+            "Max": 40,
+            "Accuracy": 100,
+            "Definition": ""
+        },
+        {
+            "Name": "Cut",
+            "Type": "Normal",
+            "Max": 50,
+            "Accuracy": 95,
+            "Definition": ""
+        },
+        {
+            "Name": "Snore",
+            "Type": "Normal",
+            "Max": 50,
+            "Accuracy": 100,
+            "Definition": "Can only be used if asleep. May cause flinching."
+        },
+        {
+            "Name": "Struggle",
+            "Type": "Normal",
+            "Max": 50,
+            "Accuracy": 100,
+            "Definition": "Only usable when all PP are gone. Hurts the user."
+        },
+        {
+            "Name": "Weather Ball",
+            "Type": "Normal",
+            "Max": 50,
+            "Accuracy": 100,
+            "Definition": "Move's power and type changes with the weather."
+        },
+        {
+            "Name": "Vice Grip",
+            "Type": "Normal",
+            "Max": 55,
+            "Accuracy": 100,
+            "Definition": ""
+        },
+        {
+            "Name": "Covet",
+            "Type": "Normal",
+            "Max": 60,
+            "Accuracy": 100,
+            "Definition": "Opponent's item is stolen by the user."
+        },
+        {
+            "Name": "Hidden Power",
+            "Type": "Normal",
+            "Max": 60,
+            "Accuracy": 100,
+            "Definition": "Type and power depends on user's IVs."
+        },
+        {
+            "Name": "Round",
+            "Type": "Normal",
+            "Max": 60,
+            "Accuracy": 100,
+            "Definition": "Power increases if teammates use it in the same turn."
+        },
+        {
+            "Name": "Swift",
+            "Type": "Normal",
+            "Max": 60,
+            "Accuracy": "∞",
+            "Definition": "Ignores Accuracy and Evasiveness."
+        },
+        {
+            "Name": "Horn Attack",
+            "Type": "Normal",
+            "Max": 65,
+            "Accuracy": 100,
+            "Definition": ""
+        },
+        {
+            "Name": "Stomp",
+            "Type": "Normal",
+            "Max": 65,
+            "Accuracy": 100,
+            "Definition": "May cause flinching."
+        },
+        {
+            "Name": "Chip Away",
+            "Type": "Normal",
+            "Max": 70,
+            "Accuracy": 100,
+            "Definition": "Ignores opponent's stat changes."
+        },
+        {
+            "Name": "Dizzy Punch",
+            "Type": "Normal",
+            "Max": 70,
+            "Accuracy": 100,
+            "Definition": "May confuse opponent."
+        },
+        {
+            "Name": "Facade",
+            "Type": "Normal",
+            "Max": 70,
+            "Accuracy": 100,
+            "Definition": "Power doubles if user is burned, poisoned, or paralyzed."
+        },
+        {
+            "Name": "Headbutt",
+            "Type": "Normal",
+            "Max": 70,
+            "Accuracy": 100,
+            "Definition": "May cause flinching."
+        },
+        {
+            "Name": "Retaliate",
+            "Type": "Normal",
+            "Max": 70,
+            "Accuracy": 100,
+            "Definition": "Inflicts double damage if a teammate fainted on the last turn."
+        },
+        {
+            "Name": "Secret Power",
+            "Type": "Normal",
+            "Max": 70,
+            "Accuracy": 100,
+            "Definition": "Effects of the attack vary with the location."
+        },
+        {
+            "Name": "Slash",
+            "Type": "Normal",
+            "Max": 70,
+            "Accuracy": 100,
+            "Definition": "High critical hit ratio."
+        },
+        {
+            "Name": "Smelling Salts",
+            "Type": "Normal",
+            "Max": 70,
+            "Accuracy": 100,
+            "Definition": "Power doubles if opponent is paralyzed, but cures it."
+        },
+        {
+            "Name": "Crush Claw",
+            "Type": "Normal",
+            "Max": 75,
+            "Accuracy": 95,
+            "Definition": "May lower opponent's Defense."
+        },
+        {
+            "Name": "Relic Song",
+            "Type": "Normal",
+            "Max": 75,
+            "Accuracy": 100,
+            "Definition": "May put the target to sleep."
+        },
+        {
+            "Name": "Extreme Speed",
+            "Type": "Normal",
+            "Max": 80,
+            "Accuracy": 100,
+            "Definition": "User attacks first."
+        },
+        {
+            "Name": "Hyper Fang",
+            "Type": "Normal",
+            "Max": 80,
+            "Accuracy": 90,
+            "Definition": "May cause flinching."
+        },
+        {
+            "Name": "Mega Punch",
+            "Type": "Normal",
+            "Max": 80,
+            "Accuracy": 85,
+            "Definition": ""
+        },
+        {
+            "Name": "Razor Wind",
+            "Type": "Normal",
+            "Max": 80,
+            "Accuracy": 100,
+            "Definition": "Charges on first turn, attacks on second. High critical hit ratio."
+        },
+        {
+            "Name": "Slam",
+            "Type": "Normal",
+            "Max": 80,
+            "Accuracy": 75,
+            "Definition": ""
+        },
+        {
+            "Name": "Strength",
+            "Type": "Normal",
+            "Max": 80,
+            "Accuracy": 100,
+            "Definition": ""
+        },
+        {
+            "Name": "Tri Attack",
+            "Type": "Normal",
+            "Max": 80,
+            "Accuracy": 100,
+            "Definition": "May paralyze, burn or freeze opponent."
+        },
+        {
+            "Name": "Body Slam",
+            "Type": "Normal",
+            "Max": 85,
+            "Accuracy": 100,
+            "Definition": "May paralyze opponent."
+        },
+        {
+            "Name": "Hyper Voice",
+            "Type": "Normal",
+            "Max": 90,
+            "Accuracy": 100,
+            "Definition": ""
+        },
+        {
+            "Name": "Multi-Attack",
+            "Type": "Normal",
+            "Max": 90,
+            "Accuracy": 100,
+            "Definition": "Type matches user's current type."
+        },
+        {
+            "Name": "Revelation Dance",
+            "Type": "Normal",
+            "Max": 90,
+            "Accuracy": 100,
+            "Definition": "Type changes based on Oricorio's form."
+        },
+        {
+            "Name": "Rock Climb",
+            "Type": "Normal",
+            "Max": 90,
+            "Accuracy": 85,
+            "Definition": "May confuse opponent."
+        },
+        {
+            "Name": "Take Down",
+            "Type": "Normal",
+            "Max": 90,
+            "Accuracy": 85,
+            "Definition": "User receives recoil damage."
+        },
+        {
+            "Name": "Uproar",
+            "Type": "Normal",
+            "Max": 90,
+            "Accuracy": 100,
+            "Definition": "User attacks for 3 turns and prevents sleep."
+        },
+        {
+            "Name": "Egg Bomb",
+            "Type": "Normal",
+            "Max": 100,
+            "Accuracy": 75,
+            "Definition": ""
+        },
+        {
+            "Name": "Judgment",
+            "Type": "Normal",
+            "Max": 100,
+            "Accuracy": 100,
+            "Definition": "Type depends on the Arceus Plate being held."
+        },
+        {
+            "Name": "Double-Edge",
+            "Type": "Normal",
+            "Max": 120,
+            "Accuracy": 100,
+            "Definition": "User receives recoil damage."
+        },
+        {
+            "Name": "Head Charge",
+            "Type": "Normal",
+            "Max": 120,
+            "Accuracy": 100,
+            "Definition": "User receives recoil damage."
+        },
+        {
+            "Name": "Mega Kick",
+            "Type": "Normal",
+            "Max": 120,
+            "Accuracy": 75,
+            "Definition": ""
+        },
+        {
+            "Name": "Techno Blast",
+            "Type": "Normal",
+            "Max": 120,
+            "Accuracy": 100,
+            "Definition": "Type depends on the Drive being held."
+        },
+        {
+            "Name": "Thrash",
+            "Type": "Normal",
+            "Max": 120,
+            "Accuracy": 100,
+            "Definition": "User attacks for 2-3 turns but then becomes confused."
+        },
+        {
+            "Name": "Skull Bash",
+            "Type": "Normal",
+            "Max": 130,
+            "Accuracy": 100,
+            "Definition": "Raises Defense on first turn, attacks on second."
+        },
+        {
+            "Name": "Boomburst",
+            "Type": "Normal",
+            "Max": 140,
+            "Accuracy": 100,
+            "Definition": "Hits all adjacent Pokémon."
+        },
+        {
+            "Name": "Last Resort",
+            "Type": "Normal",
+            "Max": 140,
+            "Accuracy": 100,
+            "Definition": "Can only be used after all other moves are used."
+        },
+        {
+            "Name": "Giga Impact",
+            "Type": "Normal",
+            "Max": 150,
+            "Accuracy": 90,
+            "Definition": "User must recharge next turn."
+        },
+        {
+            "Name": "Hyper Beam",
+            "Type": "Normal",
+            "Max": 150,
+            "Accuracy": 90,
+            "Definition": "User must recharge next turn."
+        },
+        {
+            "Name": "Self-Destruct",
+            "Type": "Normal",
+            "Max": 200,
+            "Accuracy": 100,
+            "Definition": "User faints."
+        },
+        {
+            "Name": "Pulverizing Pancake",
+            "Type": "Normal",
+            "Max": 210,
+            "Accuracy": "—",
+            "Definition": "Snorlax-exclusive Normal type Z-Move."
+        },
+        {
+            "Name": "Explosion",
+            "Type": "Normal",
+            "Max": 250,
+            "Accuracy": 100,
+            "Definition": "User faints."
+        },
+        {
+            "Name": "Poison Sting",
+            "Type": "Poison",
+            "Max": 15,
+            "Accuracy": 100,
+            "Definition": "May poison the opponent."
+        },
+        {
+            "Name": "Smog",
+            "Type": "Poison",
+            "Max": 30,
+            "Accuracy": 70,
+            "Definition": "May poison opponent."
+        },
+        {
+            "Name": "Acid",
+            "Type": "Poison",
+            "Max": 40,
+            "Accuracy": 100,
+            "Definition": "May lower opponent's Special Defense."
+        },
+        {
+            "Name": "Acid Spray",
+            "Type": "Poison",
+            "Max": 40,
+            "Accuracy": 100,
+            "Definition": "Sharply lowers opponent's Special Defense."
+        },
+        {
+            "Name": "Clear Smog",
+            "Type": "Poison",
+            "Max": 50,
+            "Accuracy": "—",
+            "Definition": "Removes all of the target's stat changes."
+        },
+        {
+            "Name": "Poison Fang",
+            "Type": "Poison",
+            "Max": 50,
+            "Accuracy": 100,
+            "Definition": "May badly poison opponent."
+        },
+        {
+            "Name": "Poison Tail",
+            "Type": "Poison",
+            "Max": 50,
+            "Accuracy": 100,
+            "Definition": "High critical hit ratio. May poison opponent."
+        },
+        {
+            "Name": "Sludge",
+            "Type": "Poison",
+            "Max": 65,
+            "Accuracy": 100,
+            "Definition": "May poison opponent."
+        },
+        {
+            "Name": "Venoshock",
+            "Type": "Poison",
+            "Max": 65,
+            "Accuracy": 100,
+            "Definition": "Inflicts double damage if the target is poisoned."
+        },
+        {
+            "Name": "Cross Poison",
+            "Type": "Poison",
+            "Max": 70,
+            "Accuracy": 100,
+            "Definition": "High critical hit ratio. May poison opponent."
+        },
+        {
+            "Name": "Poison Jab",
+            "Type": "Poison",
+            "Max": 80,
+            "Accuracy": 100,
+            "Definition": "May poison the opponent."
+        },
+        {
+            "Name": "Sludge Bomb",
+            "Type": "Poison",
+            "Max": 90,
+            "Accuracy": 100,
+            "Definition": "May poison opponent."
+        },
+        {
+            "Name": "Sludge Wave",
+            "Type": "Poison",
+            "Max": 95,
+            "Accuracy": 100,
+            "Definition": "May poison opponent."
+        },
+        {
+            "Name": "Belch",
+            "Type": "Poison",
+            "Max": 120,
+            "Accuracy": 90,
+            "Definition": "User must have consumed a Berry."
+        },
+        {
+            "Name": "Gunk Shot",
+            "Type": "Poison",
+            "Max": 120,
+            "Accuracy": 80,
+            "Definition": "May poison opponent."
+        },
+        {
+            "Name": "Stored Power",
+            "Type": "Psychic",
+            "Max": 20,
+            "Accuracy": 100,
+            "Definition": "Power increases when user's stats have been raised."
+        },
+        {
+            "Name": "Confusion",
+            "Type": "Psychic",
+            "Max": 50,
+            "Accuracy": 100,
+            "Definition": "May confuse opponent."
+        },
+        {
+            "Name": "Heart Stamp",
+            "Type": "Psychic",
+            "Max": 60,
+            "Accuracy": 100,
+            "Definition": "May cause flinching."
+        },
+        {
+            "Name": "Psybeam",
+            "Type": "Psychic",
+            "Max": 65,
+            "Accuracy": 100,
+            "Definition": "May confuse opponent."
+        },
+        {
+            "Name": "Luster Purge",
+            "Type": "Psychic",
+            "Max": 70,
+            "Accuracy": 100,
+            "Definition": "May lower opponent's Special Defense."
+        },
+        {
+            "Name": "Mist Ball",
+            "Type": "Psychic",
+            "Max": 70,
+            "Accuracy": 100,
+            "Definition": "May lower opponent's Special Attack."
+        },
+        {
+            "Name": "Psycho Cut",
+            "Type": "Psychic",
+            "Max": 70,
+            "Accuracy": 100,
+            "Definition": "High critical hit ratio."
+        },
+        {
+            "Name": "Extrasensory",
+            "Type": "Psychic",
+            "Max": 80,
+            "Accuracy": 100,
+            "Definition": "May cause flinching."
+        },
+        {
+            "Name": "Hyperspace Hole",
+            "Type": "Psychic",
+            "Max": 80,
+            "Accuracy": "∞",
+            "Definition": "Can strike through Protect/Detect."
+        },
+        {
+            "Name": "Psyshock",
+            "Type": "Psychic",
+            "Max": 80,
+            "Accuracy": 100,
+            "Definition": "Inflicts damage based on the target's Defense, not Special Defense."
+        },
+        {
+            "Name": "Zen Headbutt",
+            "Type": "Psychic",
+            "Max": 80,
+            "Accuracy": 90,
+            "Definition": "May cause flinching."
+        },
+        {
+            "Name": "Psychic Fangs",
+            "Type": "Psychic",
+            "Max": 85,
+            "Accuracy": 100,
+            "Definition": "The user bites the target with its psychic capabilities. This can also destroy Light Screen and Reflect."
+        },
+        {
+            "Name": "Psychic",
+            "Type": "Psychic",
+            "Max": 90,
+            "Accuracy": 100,
+            "Definition": "May lower opponent's Special Defense."
+        },
+        {
+            "Name": "Dream Eater",
+            "Type": "Psychic",
+            "Max": 100,
+            "Accuracy": 100,
+            "Definition": "User recovers half the HP inflicted on a sleeping opponent."
+        },
+        {
+            "Name": "Photon Geyser",
+            "Type": "Psychic",
+            "Max": 100,
+            "Accuracy": 100,
+            "Definition": "Uses Attack or Special Attack stat, whichever is higher."
+        },
+        {
+            "Name": "Psystrike",
+            "Type": "Psychic",
+            "Max": 100,
+            "Accuracy": 100,
+            "Definition": "Inflicts damage based on the target's Defense, not Special Defense."
+        },
+        {
+            "Name": "Future Sight",
+            "Type": "Psychic",
+            "Max": 120,
+            "Accuracy": 100,
+            "Definition": "Damage occurs 2 turns later."
+        },
+        {
+            "Name": "Synchronoise",
+            "Type": "Psychic",
+            "Max": 120,
+            "Accuracy": 100,
+            "Definition": "Hits any Pokémon that shares a type with the user."
+        },
+        {
+            "Name": "Psycho Boost",
+            "Type": "Psychic",
+            "Max": 140,
+            "Accuracy": 90,
+            "Definition": "Sharply lowers user's Special Attack."
+        },
+        {
+            "Name": "Prismatic Laser",
+            "Type": "Psychic",
+            "Max": 160,
+            "Accuracy": 100,
+            "Definition": "The user shoots powerful lasers using the power of a prism. The user can’t move on the next turn."
+        },
+        {
+            "Name": "Genesis Supernova",
+            "Type": "Psychic",
+            "Max": 185,
+            "Accuracy": "—",
+            "Definition": "Mew-exclusive Z-Move."
+        },
+        {
+            "Name": "Light That Burns the Sky",
+            "Type": "Psychic",
+            "Max": 200,
+            "Accuracy": "—",
+            "Definition": "Ignores target's ability. Inflicts damage based on the user's Attack or Special Attack, whichever is higher."
+        },
+        {
+            "Name": "Rock Blast",
+            "Type": "Rock",
+            "Max": 25,
+            "Accuracy": 90,
+            "Definition": "Hits 2-5 times in one turn."
+        },
+        {
+            "Name": "Rollout",
+            "Type": "Rock",
+            "Max": 30,
+            "Accuracy": 90,
+            "Definition": "Doubles in power each turn for 5 turns."
+        },
+        {
+            "Name": "Accelerock",
+            "Type": "Rock",
+            "Max": 40,
+            "Accuracy": 100,
+            "Definition": "User attacks first."
+        },
+        {
+            "Name": "Rock Throw",
+            "Type": "Rock",
+            "Max": 50,
+            "Accuracy": 90,
+            "Definition": ""
+        },
+        {
+            "Name": "Smack Down",
+            "Type": "Rock",
+            "Max": 50,
+            "Accuracy": 100,
+            "Definition": "Makes Flying-type Pokémon vulnerable to Ground moves."
+        },
+        {
+            "Name": "Ancient Power",
+            "Type": "Rock",
+            "Max": 60,
+            "Accuracy": 100,
+            "Definition": "May raise all user's stats at once."
+        },
+        {
+            "Name": "Rock Tomb",
+            "Type": "Rock",
+            "Max": 60,
+            "Accuracy": 95,
+            "Definition": "Lowers opponent's Speed."
+        },
+        {
+            "Name": "Rock Slide",
+            "Type": "Rock",
+            "Max": 75,
+            "Accuracy": 90,
+            "Definition": "May cause flinching."
+        },
+        {
+            "Name": "Power Gem",
+            "Type": "Rock",
+            "Max": 80,
+            "Accuracy": 100,
+            "Definition": ""
+        },
+        {
+            "Name": "Diamond Storm",
+            "Type": "Rock",
+            "Max": 100,
+            "Accuracy": 95,
+            "Definition": "May raise user's Defense"
+        },
+        {
+            "Name": "Stone Edge",
+            "Type": "Rock",
+            "Max": 100,
+            "Accuracy": 80,
+            "Definition": "High critical hit ratio."
+        },
+        {
+            "Name": "Head Smash",
+            "Type": "Rock",
+            "Max": 150,
+            "Accuracy": 80,
+            "Definition": "User receives recoil damage."
+        },
+        {
+            "Name": "Rock Wrecker",
+            "Type": "Rock",
+            "Max": 150,
+            "Accuracy": 90,
+            "Definition": "User must recharge next turn."
+        },
+        {
+            "Name": "Splintered Stormshards",
+            "Type": "Rock",
+            "Max": 190,
+            "Accuracy": "—",
+            "Definition": "Lycanroc-exclusive Z-Move."
+        },
+        {
+            "Name": "Bullet Punch",
+            "Type": "Steel",
+            "Max": 40,
+            "Accuracy": 100,
+            "Definition": "User attacks first."
+        },
+        {
+            "Name": "Gear Grind",
+            "Type": "Steel",
+            "Max": 50,
+            "Accuracy": 85,
+            "Definition": "Hits twice in one turn."
+        },
+        {
+            "Name": "Metal Claw",
+            "Type": "Steel",
+            "Max": 50,
+            "Accuracy": 95,
+            "Definition": "May raise user's Attack."
+        },
+        {
+            "Name": "Magnet Bomb",
+            "Type": "Steel",
+            "Max": 60,
+            "Accuracy": "∞",
+            "Definition": "Ignores Accuracy and Evasiveness."
+        },
+        {
+            "Name": "Mirror Shot",
+            "Type": "Steel",
+            "Max": 65,
+            "Accuracy": 85,
+            "Definition": "May lower opponent's Accuracy."
+        },
+        {
+            "Name": "Smart Strike",
+            "Type": "Steel",
+            "Max": 70,
+            "Accuracy": "—",
+            "Definition": "The user stabs the target with a sharp horn. This attack never misses."
+        },
+        {
+            "Name": "Steel Wing",
+            "Type": "Steel",
+            "Max": 70,
+            "Accuracy": 90,
+            "Definition": "May raise user's Defense."
+        },
+        {
+            "Name": "Anchor Shot",
+            "Type": "Steel",
+            "Max": 80,
+            "Accuracy": 100,
+            "Definition": "The user entangles the target with its anchor chain while attacking. The target becomes unable to flee."
+        },
+        {
+            "Name": "Flash Cannon",
+            "Type": "Steel",
+            "Max": 80,
+            "Accuracy": 100,
+            "Definition": "May lower opponent's Special Defense."
+        },
+        {
+            "Name": "Iron Head",
+            "Type": "Steel",
+            "Max": 80,
+            "Accuracy": 100,
+            "Definition": "May cause flinching."
+        },
+        {
+            "Name": "Meteor Mash",
+            "Type": "Steel",
+            "Max": 90,
+            "Accuracy": 90,
+            "Definition": "May raise user's Attack."
+        },
+        {
+            "Name": "Iron Tail",
+            "Type": "Steel",
+            "Max": 100,
+            "Accuracy": 75,
+            "Definition": "May lower opponent's Defense."
+        },
+        {
+            "Name": "Sunsteel Strike",
+            "Type": "Steel",
+            "Max": 100,
+            "Accuracy": 100,
+            "Definition": "Ignores the target's ability."
+        },
+        {
+            "Name": "Doom Desire",
+            "Type": "Steel",
+            "Max": 140,
+            "Accuracy": 100,
+            "Definition": "Damage occurs 2 turns later."
+        },
+        {
+            "Name": "Searing Sunraze Smash",
+            "Type": "Steel",
+            "Max": 200,
+            "Accuracy": "—",
+            "Definition": "Solgaleo-exclusive Z-Move."
+        },
+        {
+            "Name": "Water Shuriken",
+            "Type": "Water",
+            "Max": 15,
+            "Accuracy": 100,
+            "Definition": "Hits 2-5 times in one turn."
+        },
+        {
+            "Name": "Clamp",
+            "Type": "Water",
+            "Max": 35,
+            "Accuracy": 85,
+            "Definition": "Traps opponent, damaging them for 4-5 turns."
+        },
+        {
+            "Name": "Whirlpool",
+            "Type": "Water",
+            "Max": 35,
+            "Accuracy": 85,
+            "Definition": "Traps opponent, damaging them for 4-5 turns."
+        },
+        {
+            "Name": "Aqua Jet",
+            "Type": "Water",
+            "Max": 40,
+            "Accuracy": 100,
+            "Definition": "User attacks first."
+        },
+        {
+            "Name": "Bubble",
+            "Type": "Water",
+            "Max": 40,
+            "Accuracy": 100,
+            "Definition": "May lower opponent's Speed."
+        },
+        {
+            "Name": "Water Gun",
+            "Type": "Water",
+            "Max": 40,
+            "Accuracy": 100,
+            "Definition": ""
+        },
+        {
+            "Name": "Water Pulse",
+            "Type": "Water",
+            "Max": 60,
+            "Accuracy": 100,
+            "Definition": "May confuse opponent."
+        },
+        {
+            "Name": "Brine",
+            "Type": "Water",
+            "Max": 65,
+            "Accuracy": 100,
+            "Definition": "Power doubles if opponent's HP is less than 50%."
+        },
+        {
+            "Name": "Bubble Beam",
+            "Type": "Water",
+            "Max": 65,
+            "Accuracy": 100,
+            "Definition": "May lower opponent's Speed."
+        },
+        {
+            "Name": "Octazooka",
+            "Type": "Water",
+            "Max": 65,
+            "Accuracy": 85,
+            "Definition": "May lower opponent's Accuracy."
+        },
+        {
+            "Name": "Razor Shell",
+            "Type": "Water",
+            "Max": 75,
+            "Accuracy": 95,
+            "Definition": "May lower opponent's Defense."
+        },
+        {
+            "Name": "Dive",
+            "Type": "Water",
+            "Max": 80,
+            "Accuracy": 100,
+            "Definition": "Dives underwater on first turn, attacks on second turn."
+        },
+        {
+            "Name": "Scald",
+            "Type": "Water",
+            "Max": 80,
+            "Accuracy": 100,
+            "Definition": "May burn opponent."
+        },
+        {
+            "Name": "Water Pledge",
+            "Type": "Water",
+            "Max": 80,
+            "Accuracy": 100,
+            "Definition": "Added effects appear if preceded by Fire Pledge or succeeded by Grass Pledge."
+        },
+        {
+            "Name": "Waterfall",
+            "Type": "Water",
+            "Max": 80,
+            "Accuracy": 100,
+            "Definition": "May cause flinching."
+        },
+        {
+            "Name": "Liquidation",
+            "Type": "Water",
+            "Max": 85,
+            "Accuracy": 100,
+            "Definition": "The user slams into the target using a full-force blast of water. This may also lower the target’s Defense stat."
+        },
+        {
+            "Name": "Aqua Tail",
+            "Type": "Water",
+            "Max": 90,
+            "Accuracy": 90,
+            "Definition": ""
+        },
+        {
+            "Name": "Muddy Water",
+            "Type": "Water",
+            "Max": 90,
+            "Accuracy": 85,
+            "Definition": "May lower opponent's Accuracy."
+        },
+        {
+            "Name": "Sparkling Aria",
+            "Type": "Water",
+            "Max": 90,
+            "Accuracy": 100,
+            "Definition": "Heals the burns of its target."
+        },
+        {
+            "Name": "Surf",
+            "Type": "Water",
+            "Max": 90,
+            "Accuracy": 100,
+            "Definition": "Hits all adjacent Pokémon."
+        },
+        {
+            "Name": "Crabhammer",
+            "Type": "Water",
+            "Max": 100,
+            "Accuracy": 90,
+            "Definition": "High critical hit ratio."
+        },
+        {
+            "Name": "Hydro Pump",
+            "Type": "Water",
+            "Max": 110,
+            "Accuracy": 80,
+            "Definition": ""
+        },
+        {
+            "Name": "Origin Pulse",
+            "Type": "Water",
+            "Max": 110,
+            "Accuracy": 85,
+            "Definition": "Hits all adjacent opponents."
+        },
+        {
+            "Name": "Steam Eruption",
+            "Type": "Water",
+            "Max": 110,
+            "Accuracy": 95,
+            "Definition": "May burn opponent."
+        },
+        {
+            "Name": "Hydro Cannon",
+            "Type": "Water",
+            "Max": 150,
+            "Accuracy": 90,
+            "Definition": "User must recharge next turn."
+        },
+        {
+            "Name": "Water Spout",
+            "Type": "Water",
+            "Max": 150,
+            "Accuracy": 100,
+            "Definition": "The higher the user's HP, the higher the damage caused."
+        },
+        {
+            "Name": "Oceanic Operetta",
+            "Type": "Water",
+            "Max": 195,
+            "Accuracy": "—",
+            "Definition": "Primarina-exclusive Z-Move."
+        }
+    ]
+</script>
 </html>

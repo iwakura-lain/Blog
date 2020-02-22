@@ -2,6 +2,7 @@ package com.example.demo.controller.webcontroller;
 
 import com.example.demo.otherobj.BlogQuery;
 import com.example.demo.service.BlogService;
+import com.example.demo.service.CommentService;
 import com.example.demo.service.TagService;
 import com.example.demo.service.TypeService;
 import org.dom4j.rule.Mode;
@@ -27,6 +28,8 @@ public class IndexController {
     private TypeService typeService;
     @Autowired
     private TagService tagService;
+    @Autowired
+    private CommentService commentService;
 
     @RequestMapping({"/", "/index", "/index.html"})
     public String index(@PageableDefault(size = 7,
@@ -53,5 +56,12 @@ public class IndexController {
         return "search_result";
     }
 
+    @GetMapping("/blog/{id}")
+    public String blogView(@PathVariable Long id, Model model){
+        //前端展示需要文章需要html格式的内容
+        model.addAttribute("comment", commentService.getComments(id));
+        model.addAttribute("blog", blogService.getBlogHtml(id));
+        return "blog";
+    }
 
 }
