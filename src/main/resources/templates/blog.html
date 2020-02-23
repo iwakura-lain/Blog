@@ -13,11 +13,11 @@
 </head>
 <body>
 
-  <!--导航-->
+  <!-- 导航 -->
   <div th:replace="~{fragements::top(0)}"></div>
 
-  <!--中间内容-->
-  <div id="waypoint" class="m-container-small m-padded-tb-big animated fadeIn">
+  <!-- 中间内容 -->
+  <div id="waypoint" class="m-container-big m-padded-tb-big animated fadeIn">
     <div class="ui container" >
       <div class="ui top attached segment">
         <div class="ui horizontal link list">
@@ -99,78 +99,47 @@
               <h3 class="ui dividing header">评论</h3>
               <div class="comment" th:each="comments:${comment}">
                 <a class="avatar">
-                  <img th:src="@{${comments.headPicture}}">
+                  <img th:src="@{${comments.getHeadPicture()}}">
                 </a>
                 <div class="content">
-                  <a th:text="${comments.nickname}" class="author">Matt</a>
+                  <a class="author">
+                    <span th:text="${comments.getNickname()}" ></span>
+                    <div class="ui mini basic teal left pointing label m-padded-mini" th:if="${comments.isMaster()}">master</div>
+                  </a>
                   <div class="metadata">
-                    <span th:text="${#dates.format(comments.creatTime, 'yyyy-MM-dd HH:mm')}" class="date">Today at 5:42PM</span>
+                    <span th:text="${#dates.format(comments.getCreatTime(), 'yyyy-MM-dd HH:mm')}" class="date"></span>
                   </div>
-                  <div th:text="${comments.content}" class="text">
-                    How artistic!
-                  </div>
+                  <div th:text="${comments.getContent()}" class="text"></div>
                   <div class="actions">
                     <!-- 获得当前comment对象的id，作为调用replay回复的parentid -->
-                    <a class="reply" data-commentid="1" data-commentnickname="antigen" th:attr="data-commentid=${comments.id}, data-commentnickname=${comments.nickname}"  onclick="replay(this)">回复</a>
+                    <a class="reply" th:attr="data-commentid=${comments.id}, data-commentnickname=${comments.nickname}"  onclick="replay(this)">回复</a>
                   </div>
                 </div>
-              </div>
-             <!-- <div class="comment">
-                <a class="avatar">
-                  <img src="https://unsplash.it/100/100?image=1005">
-                </a>
-                <div class="content">
-                  <a class="author">Elliot Fu</a>
-                  <div class="metadata">
-                    <span class="date">Yesterday at 12:30AM</span>
-                  </div>
-                  <div class="text">
-                    <p>This has been very useful for my research. Thanks as well!</p>
-                  </div>
-                  <div class="actions">
-                    <a class="reply">回复</a>
-                  </div>
-                </div>
-                <div class="comments">
-                  <div class="comment">
+                <div class="comment" th:if="${comments.getReplayComments().size()>0}">
+                  <div class="comments" th:each="replays:${comments.replayComments}">
                     <a class="avatar">
-                      <img src="https://unsplash.it/100/100?image=1005">
+                      <img th:src="@{${replays.getHeadPicture()}}">
                     </a>
                     <div class="content">
-                      <a class="author">Jenny Hess</a>
+                      <a class="author">
+                        <span th:text="${comments.getNickname()}" ></span>
+                        <div class="ui mini basic teal left pointing label m-padded-mini" th:if="${replays.isMaster()}">master</div>
+                      </a>
+                      <a th:text="|@${replays.getParentComment().getNickname()}|"></a>
                       <div class="metadata">
-                        <span class="date">Just now</span>
+                        <span th:text="${#dates.format(replays.getCreatTime(), 'yyyy-MM-dd HH:mm')}" class="date"></span>
                       </div>
-                      <div class="text">
-                        Elliot you are always so right :)
-                      </div>
+                      <div th:text="${replays.getContent()}" class="text"></div>
                       <div class="actions">
-                        <a class="reply">回复</a>
+                        <!-- 获得当前comment对象的id，作为调用replay回复的parentid -->
+                        <a class="reply" th:attr="data-commentid=${replays.id}, data-commentnickname=${replays.nickname}"  onclick="replay(this)">回复</a>
                       </div>
-                    </div>
                   </div>
                 </div>
-              </div>
-              <div class="comment">
-                <a class="avatar">
-                  <img src="https://unsplash.it/100/100?image=1005">
-                </a>
-                <div class="content">
-                  <a class="author">Joe Henderson</a>
-                  <div class="metadata">
-                    <span class="date">5 days ago</span>
-                  </div>
-                  <div class="text">
-                    Dude, this is awesome. Thanks so much
-                  </div>
-                  <div class="actions">
-                    <a class="reply">回复</a>
-                  </div>
-                </div>
-              </div> -->
             </div>
           </div>
-
+        </div>
+          </div>
         </div>
         <div id="comment-form" class="ui form">
             <input type="hidden" name="blog.id" th:value="${blog.getId()}">
@@ -234,7 +203,25 @@
   <script src="https://cdn.bootcss.com/tocbot/4.10.0/tocbot.min.js"></script>
   <script th:src="@{/lib/qrcode/qrcode.min.js}"></script>
   <script th:src="@{/lib/waypoints/jquery.waypoints.min.js}"></script>
+  <script type="text/javascript" charset="utf-8"  src="https://files.cnblogs.com/files/liuzhou1/L2Dwidget.0.min.js"></script>
+  <script type="text/javascript" charset="utf-8"  src="https://files.cnblogs.com/files/liuzhou1/L2Dwidget.min.js"></script>
 
+  <script type="text/javascript">
+    L2Dwidget.init({
+      "model": {
+        jsonPath: "https://unpkg.com/live2d-widget-model-hibiki@1.0.5/assets/hibiki.model.json",
+        "scale": 1
+      },
+      "display": {
+        "superSample": 5,
+        "width": 200,
+        "height": 450,
+        "position": "left",
+        "hOffset": 0,
+        "vOffset": 0
+      }
+    });
+  </script>
   
   <script th:inline="javascript">
 
@@ -335,7 +322,6 @@
         "content" : $("[name='content']").val()
       },function (responseTxt, statusTxt, xhr) {
         //提交成功后清空表单
-        //$(window).scrollTo($('#comment-container'),500);
         clearContent();
       });
     }

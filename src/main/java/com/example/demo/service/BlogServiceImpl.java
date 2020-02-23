@@ -2,9 +2,13 @@ package com.example.demo.service;
 
 import com.example.demo.NotFoundException;
 import com.example.demo.dao.BlogRepository;
+import com.example.demo.dao.CommentRepository;
 import com.example.demo.dao.ManagerRepository;
+import com.example.demo.dao.TagRepository;
 import com.example.demo.otherobj.BlogQuery;
 import com.example.demo.pojo.Blog;
+import com.example.demo.pojo.Comment;
+import com.example.demo.pojo.Tag;
 import com.example.demo.pojo.Type;
 import com.example.demo.utils.MarkdownUtils;
 import com.example.demo.utils.MyBeanUtils;
@@ -39,6 +43,10 @@ public class BlogServiceImpl implements BlogService {
     BlogRepository blogRepository;
     @Autowired
     ManagerRepository managerRepository;
+    @Autowired
+    CommentRepository commentRepository;
+    @Autowired
+    TagRepository tagRepository;
 
     @Override
     public Blog getBlog(Long id) {
@@ -51,14 +59,14 @@ public class BlogServiceImpl implements BlogService {
         return blogRepository.findAll(new Specification<Blog>() {
             @Override
             /**
-             * 处理动态组合查询
+             * 处理动态组合查询分页
              * criteriaQuery：条件容器
              * criteriaBuilder：模糊查询
              * */
             public Predicate toPredicate(Root<Blog> root, CriteriaQuery<?> cq, CriteriaBuilder cb) {
                 List<Predicate> list = new ArrayList<>();
                 if(!("".equals(blog.getTitle())) && blog.getTitle() != null){
-                    //like查询条件,<String>指定通过"title"获得的数据类型是什么
+                    //模糊查询,泛型指定通过属性"title"获得的数据类型是什么
                     list.add(cb.like(root.<String>get("title"), "%"+blog.getTitle()+"%"));
                 }
                 if(blog.getTypeId() != null){
@@ -97,6 +105,7 @@ public class BlogServiceImpl implements BlogService {
         return blogRepository.save(blog);
     }
 
+    @Transactional(rollbackFor = Exception.class)
     @Override
     public Blog getBlogHtml(Long id) {
         Blog one = blogRepository.getOne(id);
@@ -110,6 +119,8 @@ public class BlogServiceImpl implements BlogService {
         String content = b.getContent();
         //将markdown语法的字符串转为html字符串,并设置到blog对象中
         b.setContent(MarkdownUtils.markdownToHtmlExtensions(content));
+        //更新浏览人数
+        blogRepository.updateViews(id);
         return b;
     }
 
@@ -129,6 +140,14 @@ public class BlogServiceImpl implements BlogService {
     @Transactional(rollbackFor = Exception.class)
     @Override
     public void deleteBlog(Long id) {
+        List<Comment> list = blogRepository.getOne(id).getComments();
+        if(list!=null){
+            //解除级联关系
+            for (Comment comment : list) {
+                commentRepository.delete(comment);
+            }
+        }
+
         blogRepository.deleteById(id);
     }
 
@@ -150,6 +169,9 @@ public class BlogServiceImpl implements BlogService {
         return blogRepository.findTop(request);
     }
 
+    /**
+     *自定义query，模糊查询内容和标题
+     * */
     @Override
     public Page<Blog> searchBlog(String query, Pageable pageable) {
         return blogRepository.findByQuery(query, pageable);

@@ -80,4 +80,5 @@ logging:
   #日志存放位置
   file: log/blog.log
 
-comment.headPicture: /images/mian.jpg
+comment.headPicture: /images/head.png
+manager.headPicture: /images/manager.png

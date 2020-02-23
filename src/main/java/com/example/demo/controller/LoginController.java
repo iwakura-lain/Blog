@@ -69,19 +69,25 @@ public class LoginController {
             session.setAttribute("email", manager.getManager(username).getEmail());
             session.setAttribute("nickName", manager.getManager(username).getNickname());
 
+            session.setAttribute("manager", manager.getManager(username));
+
             return "redirect:/admin/blogs";
             //登陆失败，返回登录页
         } catch (UnknownAccountException uae) {
             model.addAttribute("msg", "用户名不正确");
+            session.removeAttribute("loginUser");
             return "/login";
         } catch (IncorrectCredentialsException ice) {
             model.addAttribute("msg", "密码错误");
+            session.removeAttribute("loginUser");
             return "/login";
         } catch (LockedAccountException lae) {
             model.addAttribute("msg", "账号被锁定");
+            session.removeAttribute("loginUser");
             return "/login";
         } catch (Exception e) {
             model.addAttribute("msg", "没有权限");
+            session.removeAttribute("loginUser");
             return "/login";
         }
 

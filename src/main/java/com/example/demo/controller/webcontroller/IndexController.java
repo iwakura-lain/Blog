@@ -61,6 +61,7 @@ public class IndexController {
         //前端展示需要文章需要html格式的内容
         model.addAttribute("comment", commentService.getComments(id));
         model.addAttribute("blog", blogService.getBlogHtml(id));
+        model.addAttribute("recommendBlog", blogService.getTop(4));
         return "blog";
     }
 

@@ -13,7 +13,7 @@ import java.util.List;
  **/
 public interface CommentRepository extends JpaRepository<Comment, Long> {
 
-    List<Comment> getByBlogId(Long blogId, Sort sort);
+    List<Comment> getByBlogIdAndParentCommentIsNull(Long blogId, Sort sort);
 
 
 }

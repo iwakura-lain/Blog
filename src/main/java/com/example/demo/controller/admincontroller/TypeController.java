@@ -1,6 +1,7 @@
 package com.example.demo.controller.admincontroller;
 
 import com.example.demo.pojo.Type;
+import com.example.demo.service.BlogService;
 import com.example.demo.service.TypeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
@@ -26,7 +27,9 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 public class TypeController {
 
     @Autowired
-    TypeService typeService;
+    private TypeService typeService;
+    @Autowired
+    private BlogService blogService;
 
     /**
      * 返回分页, 一页7个，按照id倒序排序
@@ -36,7 +39,7 @@ public class TypeController {
                         sort = {"id"},
                         direction = Sort.Direction.DESC) Pageable pageable,
                         Model model){
-
+        model.addAttribute("recommendBlog", blogService.getTop(4));
         model.addAttribute("page", typeService.listType(pageable));
         return "/admin/types";
     }

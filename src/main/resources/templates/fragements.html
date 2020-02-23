@@ -46,7 +46,7 @@
             <div class="three wide column">
                 <h4  class="ui inverted header m-text-thin m-text-spaced " >最新博客</h4>
                 <div class="ui inverted link list" th:each="blog : ${recommendBlog}">
-                    <a th:text="${blog.title}" href="#" class="item m-text-thin">用户故事（User Story）</a>
+                    <a th:text="${blog.title}" th:href="@{/blog/}+${blog.id}" class="item m-text-thin">用户故事（User Story）</a>
                 </div>
             </div>
             <div class="three wide column">

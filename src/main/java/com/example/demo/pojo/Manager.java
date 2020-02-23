@@ -27,11 +27,12 @@ public class Manager {
     private Long id;
 
     private String nickname;
+
     private String username;
     private String password;
     private String email;
     private int type;
-
+    private String headPicture;
     @Temporal(TemporalType.TIMESTAMP)
     private Date creatTime;
     @Temporal(TemporalType.TIMESTAMP)
@@ -113,5 +114,13 @@ public class Manager {
 
     public void setBlogs(List<Blog> blogs) {
         this.blogs = blogs;
+    }
+
+    public String getHeadPicture() {
+        return headPicture;
+    }
+
+    public void setHeadPicture(String headPicture) {
+        this.headPicture = headPicture;
     }
 }

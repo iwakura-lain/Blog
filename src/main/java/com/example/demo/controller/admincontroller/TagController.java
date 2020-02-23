@@ -1,6 +1,7 @@
 package com.example.demo.controller.admincontroller;
 
 import com.example.demo.pojo.Tag;
+import com.example.demo.service.BlogService;
 import com.example.demo.service.TagService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
@@ -26,14 +27,16 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 public class TagController {
 
     @Autowired
-    TagService tagService;
+    private TagService tagService;
+    @Autowired
+    private BlogService blogService;
 
     @GetMapping("/tags")
     public String tags(@PageableDefault(size = 7,
                         sort = {"id"},
                         direction = Sort.Direction.DESC) Pageable pageable,
                         Model model){
-
+        model.addAttribute("recommendBlog", blogService.getTop(4));
         model.addAttribute("page", tagService.list(pageable));
         return "/admin/tags";
     }

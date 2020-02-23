@@ -2,7 +2,9 @@ package com.example.demo.service;
 
 import com.example.demo.NotFoundException;
 import com.example.demo.NotFoundException;
+import com.example.demo.dao.BlogRepository;
 import com.example.demo.dao.TagRepository;
+import com.example.demo.pojo.Blog;
 import com.example.demo.pojo.Tag;
 import com.example.demo.pojo.Type;
 import org.springframework.beans.BeanUtils;
@@ -27,7 +29,9 @@ import java.util.List;
 public class TagServiceImpl implements TagService {
 
     @Autowired
-    TagRepository tagRepository;
+    private TagRepository tagRepository;
+    @Autowired
+    private BlogRepository blogRepository;
 
     @Transactional(rollbackFor = Exception.class)
     @Override
@@ -43,6 +47,10 @@ public class TagServiceImpl implements TagService {
     @Transactional(rollbackFor = Exception.class)
     @Override
     public void deleteTag(Long id) {
+        List<Blog> blogs = tagRepository.getOne(id).getBlogs();
+        for (Blog blog : blogs) {
+            blog.setTags(null);
+        }
         tagRepository.deleteById(id);
     }
 
@@ -72,12 +80,14 @@ public class TagServiceImpl implements TagService {
         return tagRepository.findAll();
     }
 
+    /**
+     * 将获得的字符串转为list，以作为查询条件
+     * */
     private List<Long> getId(String ids){
 
         List<Long> id = new ArrayList<>();
 
         if(ids!=null & !("".equals(ids))){
-
             String[] idArray = ids.split(",");
             for (String s : idArray) {
                 id.add(Long.valueOf(s));
@@ -98,6 +108,9 @@ public class TagServiceImpl implements TagService {
         return tagRepository.getIdByName(name);
     }
 
+    /**
+     * 通过分页显示标签下blog数目最多的，由大到小
+     * */
     @Override
     public List<Tag> getTop(Integer size) {
         Sort orders = Sort.by(Sort.Direction.DESC, "blogs.size");

@@ -1,7 +1,9 @@
 package com.example.demo.service;
 
 import com.example.demo.NotFoundException;
+import com.example.demo.dao.BlogRepository;
 import com.example.demo.dao.TypeRepository;
+import com.example.demo.pojo.Blog;
 import com.example.demo.pojo.Type;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +27,8 @@ public class TypeServiceImpl implements TypeService {
 
     @Autowired
     private TypeRepository typeRepository;
-
+    @Autowired
+    private BlogRepository blogRepository;
     /**
      * 放入事务中
      * @return : 保存分类
@@ -61,6 +64,7 @@ public class TypeServiceImpl implements TypeService {
     @Transactional(rollbackFor = Exception.class)
     @Override
     public void deleteType(Long id) {
+        //分类不能解除级联关系，因为分类必须存在
         typeRepository.deleteById(id);
     }
 

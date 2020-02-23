@@ -120,7 +120,7 @@ public class Blog {
      * OneToMany代表当前实体类和被标注对象的对应关系是
      * 一个当前实体类对应多个被标注对象
      **/
-    @OneToMany(mappedBy = "blog",fetch=FetchType.EAGER)
+    @OneToMany(mappedBy = "blog")
     private List<Comment> comments = new ArrayList<>();
     /**
      * 初始化标签字符串，controller层调用该方法后前端渲染

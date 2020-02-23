@@ -36,6 +36,10 @@ public class Comment {
 
     @ManyToOne
     private Blog blog;
+    /**
+     * 标记是否是管理员
+     * */
+    private boolean master;
 
     /**
      * 评论自关联的关系
