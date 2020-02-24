@@ -116,6 +116,23 @@ public class TagServiceImpl implements TagService {
         Sort orders = Sort.by(Sort.Direction.DESC, "blogs.size");
         Pageable pageable = PageRequest.of(0, size, orders);
 
-        return tagRepository.findTop(pageable);
+        //获取全部
+        List<Tag> top = tagRepository.findTop(pageable);
+        //存放是发布状态的博客列表
+        List<Blog> blogs = new ArrayList<>();
+        //新的列表
+        List<Tag> tags = new ArrayList<>();
+        for (Tag tag : top) {
+            for(Blog blog : tag.getBlogs()){
+                if(blog.isPublish()){
+                    blogs.add(blog);
+                }
+            }
+            tag.setBlogs(blogs);
+            tags.add(tag);
+            //清空
+            blogs = new ArrayList<>();
+        }
+        return tags;
     }
 }

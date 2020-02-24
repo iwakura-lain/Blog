@@ -14,6 +14,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -82,7 +83,23 @@ public class TypeServiceImpl implements TypeService {
     public List<Type> getTop(Integer size) {
         Sort orders = Sort.by(Sort.Direction.DESC, "blogs.size");
         Pageable pageable = PageRequest.of(0, size, orders);
-
-        return typeRepository.findTop(pageable);
+        //获取全部
+        List<Type> top = typeRepository.findTop(pageable);
+        //获取是发布状态的博客列表
+        List<Blog> blogs = new ArrayList<>();
+        //新的列表
+        List<Type> types = new ArrayList<>();
+        for (Type type : top) {
+            for(Blog blog: type.getBlogs()){
+                if(blog.isPublish()){
+                    blogs.add(blog);
+                }
+            }
+            type.setBlogs(blogs);
+            types.add(type);
+            //清空
+            blogs = new ArrayList<>();
+        }
+        return types;
     }
 }

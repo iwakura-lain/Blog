@@ -8,7 +8,6 @@ import com.example.demo.dao.TagRepository;
 import com.example.demo.otherobj.BlogQuery;
 import com.example.demo.pojo.Blog;
 import com.example.demo.pojo.Comment;
-import com.example.demo.pojo.Tag;
 import com.example.demo.pojo.Type;
 import com.example.demo.utils.MarkdownUtils;
 import com.example.demo.utils.MyBeanUtils;
@@ -22,13 +21,8 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Predicate;
-import javax.persistence.criteria.Root;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import javax.persistence.criteria.*;
+import java.util.*;
 
 @Service
 
@@ -98,6 +92,8 @@ public class BlogServiceImpl implements BlogService {
             blog.setViews(0);
             //作者
             blog.setManager(managerRepository.getOne(3L));
+            //发布/保存
+            blog.setPublish(blog.isPublish());
         }else {
             blog.setUpdateTime(new Date());
         }
@@ -131,6 +127,8 @@ public class BlogServiceImpl implements BlogService {
         if("".equals(blog.getTitle())){
             throw new NotFoundException("标题不能为空");
         }
+        //设置新的状态
+        one.setPublish(blog.isPublish());
         //过滤掉属性值为空的属性，不用其赋值
         BeanUtils.copyProperties(blog, one, MyBeanUtils.getNullPropertyNames(blog));
         one.setUpdateTime(new Date());
@@ -158,7 +156,7 @@ public class BlogServiceImpl implements BlogService {
 
     @Override
     public Page<Blog> listAll(Pageable pageable) {
-        return blogRepository.findAll(pageable);
+        return blogRepository.findBlogByPublishTrue(pageable);
     }
 
     @Override
@@ -175,5 +173,39 @@ public class BlogServiceImpl implements BlogService {
     @Override
     public Page<Blog> searchBlog(String query, Pageable pageable) {
         return blogRepository.findByQuery(query, pageable);
+    }
+
+    @Override
+    public Page<Blog> typeToBlog(Pageable pageable, Long id) {
+        return blogRepository.findByTypeIdAndPublishTrue(pageable, id);
+    }
+
+    @Override
+    public Page<Blog> tagToBlog(Pageable pageable, Long id) {
+        //关联查询
+        return blogRepository.findAll(new Specification<Blog>() {
+            @Override
+            public Predicate toPredicate(Root<Blog> root, CriteriaQuery<?> cq, CriteriaBuilder cb) {
+                Join join = root.join("tags");
+                return cb.equal(join.get("id"), id);
+            }
+        }, pageable);
+    }
+
+    @Override
+    public Long countBlog() {
+        return blogRepository.count();
+    }
+
+    @Override
+    public Map<String, List<Blog>> archivesMap() {
+        //获取所有年份
+        List<String> time = blogRepository.findGroupByYear();
+        Map<String, List<Blog>> map = new HashMap<>();
+        //关联年份和对应年份下的blog
+        for (String s : time) {
+            map.put(s, blogRepository.findByYear(s));
+        }
+        return map;
     }
 }

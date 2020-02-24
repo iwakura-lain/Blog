@@ -9,13 +9,13 @@
 <nav th:fragment="top(n)" class="ui inverted attached segment m-padded-tb-mini m-shadow-small" >
     <div class="ui container">
         <div class="ui inverted secondary stackable menu">
-            <h2 th:text="${session.loginUser==null? 'Blog' : 'antigenMHC'}" class="ui teal header item"></h2>
-            <a th:href="@{/index/}" class="m-item item m-mobile-hide" th:classappend="${n==1} ? 'active'"><i class=" home icon"></i>首页</a>
-            <a href="@{#}" class="m-item item m-mobile-hide" th:classappend="${n==2} ? 'active'"><i class=" idea icon"></i>分类</a>
-            <a href="@{#}" class="m-item item m-mobile-hide" th:classappend="${n==3} ? 'active'"><i class=" tags icon"></i>标签</a>
-            <a href="@{#}" class="m-item item m-mobile-hide" th:classappend="${n==4} ? 'active'"><i class=" clone icon"></i>归档</a>
-            <a href="@{#}" class="m-item item m-mobile-hide" th:classappend="${n==5} ? 'active'"><i class=" info icon"></i>关于我</a>
-            <a th:href="@{/login}" th:if="${session.loginUser==null}" class="m-item item m-mobile-hide"><i class="at icon"></i>登录</a>
+            <h2 th:text="${session.loginUser==null? 'Blog' : 'antigenMHC'}" class="ui blue header item"></h2>
+            <a th:href="@{/index/}" class="m-item item m-mobile-hide" th:classappend="${n==1} ? 'active blue'"><i class=" home icon"></i>首页</a>
+            <a th:href="@{/types/}+${-1}" class="m-item item m-mobile-hide" th:classappend="${n==2} ? 'active blue'"><i class=" idea icon"></i>分类</a>
+            <a th:href="@{/tags/}+${-1}" class="m-item item m-mobile-hide" th:classappend="${n==3} ? 'active blue'"><i class=" tags icon"></i>标签</a>
+            <a th:href="@{/archives/}" class="m-item item m-mobile-hide" th:classappend="${n==4} ? 'active blue'"><i class=" clone icon"></i>归档</a>
+            <a th:href="@{/about/}" class="m-item item m-mobile-hide" th:classappend="${n==5} ? 'active blue'"><i class=" info icon"></i>关于我</a>
+            <a th:href="@{/login/}" th:if="${session.loginUser==null}" class="m-item item m-mobile-hide"><i class="at icon"></i>登录</a>
             <a th:href="@{/admin/blogs}" th:if="${session.loginUser!=null}" class="m-item item m-mobile-hide"><i class="at icon"></i>管理</a>
             <div class="right m-item item m-mobile-hide">
                 <form  name="search"  class="right m-item item m-mobile-hide" method="post" th:action="@{/search/}" target="_blank">
@@ -57,12 +57,12 @@
                 </div>
             </div>
             <div class="seven wide column">
-                <h4 th:text="${session.loginUser==null? 'Blog' : 'antigenMHC'}" class="ui inverted header m-text-thin m-text-spaced">Blog</h4>
-                <p class="m-text-thin m-text-spaced m-opacity-mini">理性从始至终都只是基因达成自身目的的工具，这种工具在高度发展并形成属于自身的行为规律后，反倒质询起自身存在的意义来了</p>
+                <h4 th:text="${session.loginUser==null? 'Blog' : 'antigenMHC'}" class="ui blue inverted header m-text-thin m-text-spaced">Blog</h4>
+                <p class="m-text-thin m-text-spaced m-opacity-mini">满足欲望的道路至死方休</p>
             </div>
         </div>
         <div class="ui inverted section divider"></div>
-        <p class="m-text-thin m-text-spaced m-opacity-tiny">存在的只是物自体借人类之躯展现出的无止尽的欲望</p>
+        <p class="m-text-thin m-text-spaced m-opacity-tiny">人生如钟摆，摇晃在无聊与厌倦两端</p>
     </div>
 
 </footer>

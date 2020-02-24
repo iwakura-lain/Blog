@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>标签</title>
+  <title>分类</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/semantic-ui/2.2.4/semantic.min.css">
   <link rel="stylesheet" th:href="@{/css/me.css}">
   <link rel="stylesheet" th:href="@{/css/APlayer.min.css}">
@@ -11,8 +11,7 @@
 <body>
 
   <!--导航-->
-  <div th:replace="~{fragements::top(n=3)}"></div>
-
+  <div th:replace="~{fragements::top(n=2)}"></div>
   <!--中间内容-->
   <div  class="m-container-small m-padded-tb-big">
     <div class="ui container">
@@ -20,18 +19,19 @@
       <div class="ui top attached segment">
         <div class="ui middle aligned two column grid">
           <div class="column">
-            <h3 class="ui blue header">标签</h3>
+            <h3 class="ui blue teal header">分类</h3>
           </div>
           <div class="right aligned column">
-            共 <h2 th:text="${tags.size()}" class="ui orange header m-inline-block m-text-thin"> </h2> 个
+            共 <h2 th:text="${types.size()}" class="ui orange header m-inline-block m-text-thin"></h2> 个
           </div>
         </div>
       </div>
 
       <div class="ui attached segment m-padded-tb-large">
-        <a th:if="${tag.getBlogs().size()!=0}" th:each="tag : ${tags}" th:href="@{/tags/}+${tag.getId()}" th:classappend="${tag.getId()==tagId} ? 'purple'" class="ui basic left pointing large label m-margin-tb-tiny">
-         <span th:text="${tag.getName()}"></span><div th:text="${tag.getBlogs().size()}" class="detail"></div>
-        </a>
+        <div th:if="${type.getBlogs().size()!=0}" th:each="type, iterStat:${types}" class="ui labeled button m-margin-tb-tiny">
+          <a th:text="${type.getName()}" th:href="@{/types/}+${type.getId()}" th:classappend="${type.getId()==typeId} ? 'blue'" class="ui basic button"></a>
+          <div th:classappend="${type.getId()==typeId} ? 'teal'" th:text="${type.getBlogs().size()}" class="ui purple basic left pointing label"></div>
+        </div>
       </div>
 
       <div class="ui blue top attached teal segment">
@@ -45,7 +45,7 @@
                   <div class="ui mini horizontal link list">
                     <div class="item">
                       <img src="https://s2.ax1x.com/2020/02/18/3kGhtg.th.png" alt="" class="ui avatar image">
-                      <div class="content"><a href="@{#}"  class="header">antigenMHC</a></div>
+                      <div class="content"><a th:href="@{/about/}"  class="header">antigenMHC</a></div>
                     </div>
                     <div class="item">
                       <i class="calendar icon"></i><span th:text="${#dates.format(blog.updateTime, 'yyyy-MM-dd')}" ></span>
@@ -57,12 +57,6 @@
                 </div>
                 <div class="right aligned five wide column">
                   <a th:text="${blog.type.name}" th:href="@{'/types/'+${blog.type.id}}" target="_blank" class="ui teal basic label m-padded-tiny m-text-thin"></a>
-                </div>
-              </div>
-              <br>
-              <div class="row">
-                <div class="column">
-                  <a href="#" th:href="@{/tags/{id}(id=${tag.id})}" class="ui  basic left pointing label m-padded-mini m-text-thin" th:classappend="${tag.getId()==tagId} ? 'teal'" th:each="tag : ${blog.tags}" th:text="${tag.name}">方法论</a>
                 </div>
               </div>
             </div>
@@ -81,10 +75,10 @@
         <div class="ui middle aligned two column grid">
           <div class="column">
             <!-- 传当前id过去，不然没法分页 -->
-            <a th:href="@{'/tags/'+${tagId}(page=${(page.number)-1})}" th:unless="${page.first}" class="ui mini teal basic button">上一页</a>
+            <a th:href="@{'/types/'+${typeId}(page=${(page.number)-1})}" th:unless="${page.first}" class="ui mini teal basic button">上一页</a>
           </div>
           <div class="right aligned column">
-            <a th:href="@{'/tags/'+${tagId}(page=${(page.number)+1})}" th:unless="${page.last}" class="ui mini teal basic button">下一页</a>
+            <a th:href="@{'/types/'+${typeId}(page=${(page.number)+1})}" th:unless="${page.last}" class="ui mini teal basic button">下一页</a>
           </div>
         </div>
       </div>
@@ -97,7 +91,8 @@
   <br>
   <br>
   <!--底部footer-->
-  <div th:replace="~{fragements::foot}"></div>
+  <div th:replace="~{fragements::foot}">
+  </div>
 
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.2/dist/jquery.min.js"></script>
 <script src="https://cdn.bootcss.com/semantic-ui/2.4.1/semantic.min.js"></script>
@@ -107,15 +102,16 @@
     $('.menu.toggle').click(function () {
       $('.m-item').toggleClass('m-mobile-hide');
     });
-
   </script>
+
   <script th:src="@{/js/APlayer.min.js}"></script>
-  <script>
+  <script th:inline="javascript">
     const ap = new APlayer({
       container: document.getElementById('player'),
       autoplay: true,
-      theme: '#b7daff',
+      theme: '#FADFA3',
       loop: 'all',
+      order: 'random',
       preload: 'auto',
       volume: 0.3,
       mutex: true,

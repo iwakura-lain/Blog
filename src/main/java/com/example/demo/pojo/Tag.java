@@ -9,11 +9,6 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
-@Entity
-@Table(name = "t_tag")
 
 /**
  * 标签类
@@ -21,6 +16,11 @@ import java.util.List;
  * @Date: 2020/2/21 0:19
  * @Version: 1.0
  **/
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Entity
+@Table(name = "t_tag")
 public class Tag {
 
     @Id

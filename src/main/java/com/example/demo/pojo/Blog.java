@@ -21,7 +21,6 @@ import java.util.List;
 @NoArgsConstructor
 @Entity
 @Table(name = "t_blog")
-
 public class Blog {
 
     /**

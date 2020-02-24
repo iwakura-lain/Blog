@@ -15,15 +15,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-
-@Controller
-@RequestMapping("/admin")
-
 /**
  * @Author: antigenMHC
  * @Date: 2020/2/21 0:19
  * @Version: 1.0
  **/
+@Controller
+@RequestMapping("/admin")
 public class TypeController {
 
     @Autowired

@@ -23,15 +23,13 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import javax.servlet.http.HttpSession;
 import java.util.List;
 
-
-@Controller
-@RequestMapping("/admin")
-
 /**
  * @Author: antigenMHC
  * @Date: 2020/2/21 0:19
  * @Version: 1.0
  **/
+@Controller
+@RequestMapping("/admin")
 public class BlogsController {
 
     @Autowired
@@ -78,6 +76,7 @@ public class BlogsController {
         getTypeAndTag(model);
 
         Blog blog = blogService.getBlog(id);
+
         blog.initTags();
         model.addAttribute("blog", blog);
         model.addAttribute("isUpdate", 1);

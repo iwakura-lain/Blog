@@ -15,7 +15,6 @@
 
   <!-- 导航 -->
   <div th:replace="~{fragements::top(0)}"></div>
-
   <!-- 中间内容 -->
   <div id="waypoint" class="m-container-big m-padded-tb-big animated fadeIn">
     <div class="ui container" >
@@ -172,7 +171,7 @@
   </div>
 
   <div id="toolbar" class="m-padded m-fixed m-right-bottom" style="display: none">
-    <div class="ui vertical icon buttons ">
+    <div class="ui vertical icon buttons">
       <button type="button" class="ui toc teal button" >目录</button>
       <a th:href="@{#comment-container}" class="ui teal button" >留言</a>
       <button class="ui wechat icon button"><i class="weixin icon"></i></button>
@@ -196,15 +195,15 @@
   <div th:replace="~{fragements::foot}"></div>
 
   <script src="https://cdn.jsdelivr.net/npm/jquery@3.2/dist/jquery.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/semantic-ui/2.2.4/semantic.min.js"></script>
+  <script src="https://cdn.bootcss.com/semantic-ui/2.4.1/semantic.min.js"></script>
   <script src="//cdn.jsdelivr.net/npm/jquery.scrollto@2.1.2/jquery.scrollTo.min.js"></script>
   
   <script th:src="@{/lib/prism/prism.js}"></script>
   <script src="https://cdn.bootcss.com/tocbot/4.10.0/tocbot.min.js"></script>
   <script th:src="@{/lib/qrcode/qrcode.min.js}"></script>
   <script th:src="@{/lib/waypoints/jquery.waypoints.min.js}"></script>
-  <script type="text/javascript" charset="utf-8"  src="https://files.cnblogs.com/files/liuzhou1/L2Dwidget.0.min.js"></script>
-  <script type="text/javascript" charset="utf-8"  src="https://files.cnblogs.com/files/liuzhou1/L2Dwidget.min.js"></script>
+  <script type="text/javascript" charset="utf-8"  th:src="@{/js/L2Dwidget.min.js/}"></script>
+  <script type="text/javascript" charset="utf-8"  th:src="@{/js/L2Dwidget0.min.js/}"></script>
 
   <script type="text/javascript">
     L2Dwidget.init({

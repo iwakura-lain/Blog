@@ -103,6 +103,7 @@ public class LoginController {
         model.addAttribute("tags", tagService.getTop(9));
         model.addAttribute("recommendBlog", blogService.getTop(4));
         model.addAttribute("page", blogService.listAll(pageable));
+        session.removeAttribute("loginUser");
         Subject subject = SecurityUtils.getSubject();
         subject.logout();
 

@@ -25,7 +25,7 @@ public interface BlogRepository extends JpaRepository<Blog, Long>, JpaSpecificat
          * 通过分页查询显示推荐的blog
          * @param pageable : 分页
          * */
-        @Query("select b from Blog b where b.recommend = true")
+        @Query("select b from Blog b where b.recommend = true AND b.publish=true")
         List<Blog> findTop(Pageable pageable);
 
         /**
@@ -40,4 +40,23 @@ public interface BlogRepository extends JpaRepository<Blog, Long>, JpaSpecificat
         @Modifying
         @Query("update Blog b set  b.views = b.views+1 where b.id = ?1")
         int updateViews(Long id);
+
+        Page<Blog> findByTypeIdAndPublishTrue(Pageable pageable, Long id);
+
+        /**
+         * 查询日期列表,获得所有年份
+         * function('date_format', b.updateTime, '%Y') 表示查询方法是使用日期格式化获得b.updateTime中的年份Y
+         *
+         **/
+        @Query("select function('date_format', b.updateTime, '%Y')  as year from Blog b group by function('date_format', b.updateTime, '%Y') order by year desc ")
+        List<String> findGroupByYear();
+
+        /**
+         * 获得对应年份下的所有博客
+         * */
+        @Query("select b from Blog b where function('date_format', b.updateTime, '%Y') = ?1 and b.publish=true")
+        List<Blog> findByYear(String year);
+
+        Page<Blog> findBlogByPublishTrue(Pageable pageable);
+
 }

@@ -9,10 +9,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-@AllArgsConstructor
-@NoArgsConstructor
-@Entity
-@Table(name = "t_manager")
 
 /**
  * 管理员类
@@ -20,6 +16,10 @@ import java.util.List;
  * @Date: 2020/2/21 0:19
  * @Version: 1.0
  **/
+@AllArgsConstructor
+@NoArgsConstructor
+@Entity
+@Table(name = "t_manager")
 public class Manager {
 
     @Id

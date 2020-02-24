@@ -36,12 +36,14 @@ public class CommentController {
 
     @GetMapping("/comment/{blogId}")
     public String comment(@PathVariable Long blogId, Model model){
+
         model.addAttribute("comment", commentService.getComments(blogId));
         return "blog :: commentList";
     }
 
     @PostMapping("/comment")
     public String postComment(Comment comment, HttpSession session){
+
         Long blogId = comment.getBlog().getId();
         //设置属性，区分访客和master
         Manager manager = (Manager) session.getAttribute("manager");
