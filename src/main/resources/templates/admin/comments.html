@@ -10,7 +10,7 @@
 <body>
 
   <!--导航-->
-  <nav th:replace="~{/admin/adminFragements::admin_top(4)}"></nav>
+  <nav th:replace="~{admin/adminFragements::admin_top(4)}"></nav>
 
   <!--中间内容-->
   <div  class="m-container-small m-padded-tb-big">
@@ -32,7 +32,7 @@
             <td th:text="${iterStat.count}"></td>
             <td th:text="${comment.nickname}"></td>
             <td th:text="${comment.content}"></td>
-
+            <td th:text="${comment.blog.title}"></td>
             <td>
               <a th:href="@{/admin/comment/}+${comment.id}+@{/delete}" class="ui mini red basic button">删除</a>
             </td>

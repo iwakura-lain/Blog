@@ -39,18 +39,18 @@ public class TypeController {
                         Model model){
         model.addAttribute("recommendBlog", blogService.getTop(4));
         model.addAttribute("page", typeService.listType(pageable));
-        return "/admin/types";
+        return "admin/types";
     }
 
     @GetMapping("/types/add")
     public String toAddType(){
-        return "/admin/types_input";
+        return "admin/types_input";
     }
 
     @GetMapping("/types/{id}/update")
     public String toUpdate(@PathVariable Long id, Model model){
         model.addAttribute("type", typeService.getType(id));
-        return "/admin/types_input";
+        return "admin/types_input";
     }
 
     @PostMapping("/types/{id}")

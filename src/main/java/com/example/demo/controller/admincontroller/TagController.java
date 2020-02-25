@@ -37,13 +37,13 @@ public class TagController {
                         Model model){
         model.addAttribute("recommendBlog", blogService.getTop(4));
         model.addAttribute("page", tagService.list(pageable));
-        return "/admin/tags";
+        return "admin/tags";
     }
 
     @GetMapping("/tags/add")
     public String toAddTag(){
 
-        return "/admin/tags_input";
+        return "admin/tags_input";
     }
 
     @PostMapping("/tags/saveTag")
@@ -64,7 +64,7 @@ public class TagController {
     @GetMapping("/tags/{id}/update")
     public String toUpdateTag(@PathVariable Long id, Model model){
         model.addAttribute("tag", tagService.getTag(id));
-        return "/admin/tags_input";
+        return "admin/tags_input";
     }
 
     @PostMapping("/tags/{id}")

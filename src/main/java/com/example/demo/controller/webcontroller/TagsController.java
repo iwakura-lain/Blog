@@ -38,7 +38,7 @@ public class TagsController {
         //偷个懒，只要数值足够大，我就可以足够显示2333
         List<Tag> listTag = tagService.getTop(10000);
         //点击导航栏跳转到该页面时，不知道第一个type的id是多少，因此传递一个-1
-        if(id == -1){
+        if(id == -1 && listTag.size()!=0){
             //默认显示第一个id下的所有blog
             id=listTag.get(0).getId();
         }

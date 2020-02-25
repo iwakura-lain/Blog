@@ -44,7 +44,7 @@ public class LoginController {
 
     @RequestMapping({"/login", "/login.html"})
     public String login(){
-        return "/login";
+        return "login";
     }
 
     @PostMapping("/toLogin")
@@ -61,7 +61,7 @@ public class LoginController {
 
         //利用令牌进行登录
         try {
-            //登录成功，返回首页
+            //登录成功，返回管理页
             subject.login(token);
 
             //设置session，判断是否显示登录按钮
@@ -76,19 +76,19 @@ public class LoginController {
         } catch (UnknownAccountException uae) {
             model.addAttribute("msg", "用户名不正确");
             session.removeAttribute("loginUser");
-            return "/login";
+            return "login";
         } catch (IncorrectCredentialsException ice) {
             model.addAttribute("msg", "密码错误");
             session.removeAttribute("loginUser");
-            return "/login";
+            return "login";
         } catch (LockedAccountException lae) {
             model.addAttribute("msg", "账号被锁定");
             session.removeAttribute("loginUser");
-            return "/login";
+            return "login";
         } catch (Exception e) {
             model.addAttribute("msg", "没有权限");
             session.removeAttribute("loginUser");
-            return "/login";
+            return "login";
         }
 
     }

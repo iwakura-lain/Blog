@@ -24,6 +24,6 @@ public class ArchivesController {
         model.addAttribute("count", blogService.countBlog());
         model.addAttribute("recommendBlog", blogService.getTop(4));
 
-        return "/archives";
+        return "archives";
     }
 }

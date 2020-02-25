@@ -128,8 +128,10 @@ public class TagServiceImpl implements TagService {
                     blogs.add(blog);
                 }
             }
-            tag.setBlogs(blogs);
-            tags.add(tag);
+            if(blogs.size()!=0){
+                tag.setBlogs(blogs);
+                tags.add(tag);
+            }
             //清空
             blogs = new ArrayList<>();
         }

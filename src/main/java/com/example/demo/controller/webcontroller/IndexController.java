@@ -41,7 +41,7 @@ public class IndexController {
         model.addAttribute("tags", tagService.getTop(9));
         model.addAttribute("recommendBlog", blogService.getTop(4));
         model.addAttribute("page", blogService.listAll(pageable));
-        return "/index";
+        return "index";
     }
 
     @PostMapping("/search/")

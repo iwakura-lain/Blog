@@ -95,8 +95,10 @@ public class TypeServiceImpl implements TypeService {
                     blogs.add(blog);
                 }
             }
-            type.setBlogs(blogs);
-            types.add(type);
+            if(blogs.size()!=0){
+                type.setBlogs(blogs);
+                types.add(type);
+            }
             //清空
             blogs = new ArrayList<>();
         }

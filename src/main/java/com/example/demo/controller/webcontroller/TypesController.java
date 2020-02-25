@@ -37,7 +37,7 @@ public class TypesController {
         //偷个懒，只要数值足够大，我就可以足够显示2333
         List<Type> listType = typeService.getTop(10000);
         //点击导航栏跳转到该页面时，不知道第一个type的id是多少，因此传递一个-1
-        if(id == -1){
+        if(id == -1 && listType.size()!=0){
             //默认显示第一个id下的所有blog
             id=listType.get(0).getId();
         }

@@ -3,19 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/semantic-ui/2.2.4/semantic.min.css">
+    <!--文章的排版-->
+    <link rel="stylesheet" th:href="@{/css/typo.css}">
+    <!--详情页的动态效果-->
+    <link rel="stylesheet" th:href="@{/css/animate.css}">
+    <!--代码高亮-->
+    <link rel="stylesheet" th:href="@{/lib/prism/prism.css}">
+    <!--自动生成目录-->
+    <link rel="stylesheet" th:href="@{/lib/tocbot/tocbot.css}">
+    <link rel="stylesheet" th:href="@{/css/me.css}">
 </head>
 <body>
 
-<nav th:fragment="top(n)" class="ui inverted attached segment m-padded-tb-mini m-shadow-small" >
+<nav th:fragment="top(n)" class="ui purple inverted attached segment m-padded-tb-mini m-shadow-small" >
     <div class="ui container">
         <div class="ui inverted secondary stackable menu">
             <h2 th:text="${session.loginUser==null? 'Blog' : 'antigenMHC'}" class="ui blue header item"></h2>
-            <a th:href="@{/index/}" class="m-item item m-mobile-hide" th:classappend="${n==1} ? 'active blue'"><i class=" home icon"></i>首页</a>
-            <a th:href="@{/types/}+${-1}" class="m-item item m-mobile-hide" th:classappend="${n==2} ? 'active blue'"><i class=" idea icon"></i>分类</a>
-            <a th:href="@{/tags/}+${-1}" class="m-item item m-mobile-hide" th:classappend="${n==3} ? 'active blue'"><i class=" tags icon"></i>标签</a>
-            <a th:href="@{/archives/}" class="m-item item m-mobile-hide" th:classappend="${n==4} ? 'active blue'"><i class=" clone icon"></i>归档</a>
-            <a th:href="@{/about/}" class="m-item item m-mobile-hide" th:classappend="${n==5} ? 'active blue'"><i class=" info icon"></i>关于我</a>
-            <a th:href="@{/login/}" th:if="${session.loginUser==null}" class="m-item item m-mobile-hide"><i class="at icon"></i>登录</a>
+            <a th:href="@{/}" class="m-item item m-mobile-hide" th:classappend="${n==1} ? 'active blue'"><i class="home icon"></i>首页</a>
+            <a th:href="@{/types/}+${-1}" class="m-item item m-mobile-hide" th:classappend="${n==2} ? 'active blue'"><i class="idea icon"></i>分类</a>
+            <a th:href="@{/tags/}+${-1}" class="m-item item m-mobile-hide" th:classappend="${n==3} ? 'active blue'"><i class="tags icon"></i>标签</a>
+            <a th:href="@{/archives/}" class="m-item item m-mobile-hide" th:classappend="${n==4} ? 'active blue'"><i class="clone icon"></i>归档</a>
+            <a th:href="@{/about/}" class="m-item item m-mobile-hide" th:classappend="${n==5} ? 'active blue'"><i class="info icon"></i>关于我</a>
+            <a th:href="@{/login/}" th:if="${session.loginUser==null}" class="m-item item m-mobile-hide"><i class=" at icon"></i>登录</a>
             <a th:href="@{/admin/blogs}" th:if="${session.loginUser!=null}" class="m-item item m-mobile-hide"><i class="at icon"></i>管理</a>
             <div class="right m-item item m-mobile-hide">
                 <form  name="search"  class="right m-item item m-mobile-hide" method="post" th:action="@{/search/}" target="_blank">
@@ -26,27 +36,27 @@
                 </form>
             </div>
         </div>
+        <a href="#" class="ui pink icon button m-right-top m-mobile-show menu toggle">
+            <i class="sidebar icon"></i>
+        </a>
     </div>
-    <a href="@{#}" class="ui menu toggle black icon button m-right-top m-mobile-show">
-        <i class="sidebar icon"></i>
-    </a>
 </nav>
 
 
-<footer th:fragment="foot" class="ui inverted vertical segment m-padded-tb-massive">
-    <div class="ui center aligned container">
+<footer style="opacity: 0.8;" th:fragment="foot" class="ui purple inverted vertical segment m-padded-tb-massive">
+    <div   class="ui center aligned container">
         <div class="ui inverted divided stackable grid">
             <div class="three wide column">
                 <div class="ui inverted link list">
                     <div class="item">
-                        <img th:src="@{/images/wechat.jpg}" class="ui rounded image" alt="" style="width: 110px">
+                        <img th:src="@{/images/wechat2.png}" class="ui rounded image" alt="" style="width: 110px">
                     </div>
                 </div>
             </div>
             <div class="three wide column">
                 <h4  class="ui inverted header m-text-thin m-text-spaced " >最新博客</h4>
                 <div class="ui inverted link list" th:each="blog : ${recommendBlog}">
-                    <a th:text="${blog.title}" th:href="@{/blog/}+${blog.id}" class="item m-text-thin">用户故事（User Story）</a>
+                    <a th:text="${blog.title}" th:href="@{/blog/}+${blog.id}" class="item m-text-thin"></a>
                 </div>
             </div>
             <div class="three wide column">
@@ -61,11 +71,15 @@
                 <p class="m-text-thin m-text-spaced m-opacity-mini">满足欲望的道路至死方休</p>
             </div>
         </div>
-        <div class="ui inverted section divider"></div>
+        <div class="ui purple inverted section divider"></div>
         <p class="m-text-thin m-text-spaced m-opacity-tiny">人生如钟摆，摇晃在无聊与厌倦两端</p>
     </div>
 
 </footer>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.2/dist/jquery.min.js"></script>
+<script src="../static/lib/prism/prism.js" th:src="@{/lib/prism/prism.js}"></script>
+<script src="../static/lib/tocbot/tocbot.min.js" th:src="@{/lib/tocbot/tocbot.min.js}"></script>
+<script src="https://cdn.jsdelivr.net/semantic-ui/2.2.4/semantic.min.js"></script>
 
 
 </body>

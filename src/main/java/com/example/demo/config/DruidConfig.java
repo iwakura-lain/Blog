@@ -39,7 +39,7 @@ public class DruidConfig {
         HashMap<String, String> init = new HashMap<>();
 
         init.put("loginUsername", "admin");
-        init.put("loginPassword", "1234");
+        init.put("loginPassword", "Aa1404006199");
 
         //允许谁可以访问,如果v为空，则全部都可以访问
         init.put("allow", "");

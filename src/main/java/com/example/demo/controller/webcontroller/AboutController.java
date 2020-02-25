@@ -22,6 +22,6 @@ public class AboutController {
 
         model.addAttribute("recommendBlog", blogService.getTop(4));
 
-        return "/about";
+        return "about";
     }
 }

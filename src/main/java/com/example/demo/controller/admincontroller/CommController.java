@@ -34,7 +34,7 @@ public class CommController {
                          sort = {"creatTime"},
                          direction = Sort.Direction.DESC) Pageable pageable, Model model){
         model.addAttribute("page", commentService.getComments(pageable));
-        return "/admin/comments";
+        return "admin/comments";
     }
 
     @GetMapping("/comment/{id}/delete")

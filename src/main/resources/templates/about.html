@@ -14,7 +14,7 @@
   <div th:replace="~{fragements::top(n=5)}"></div>
 
   <!--中间内容-->
-  <div  class="m-container m-padded-tb-big">
+  <div class="m-container m-padded-tb-big">
     <div class="ui container">
 
       <div class="ui stackable grid">
@@ -70,8 +70,8 @@
 
   <script src="https://cdn.jsdelivr.net/npm/jquery@3.2/dist/jquery.min.js"></script>
   <script src="https://cdn.bootcss.com/semantic-ui/2.4.1/semantic.min.js"></script>
-  <script type="text/javascript" charset="utf-8"  src="https://files.cnblogs.com/files/liuzhou1/L2Dwidget.0.min.js"></script>
-  <script type="text/javascript" charset="utf-8"  src="https://files.cnblogs.com/files/liuzhou1/L2Dwidget.min.js"></script>
+  <script type="text/javascript" charset="utf-8"  th:src="@{/js/L2Dwidget.min.js/}"></script>
+  <script type="text/javascript" charset="utf-8"  th:src="@{/js/L2Dwidget0.min.js/}"></script>
   <script>
     $('.menu.toggle').click(function () {
       $('.m-item').toggleClass('m-mobile-hide');

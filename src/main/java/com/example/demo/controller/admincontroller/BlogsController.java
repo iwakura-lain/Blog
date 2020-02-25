@@ -49,7 +49,7 @@ public class BlogsController {
         model.addAttribute("page", blogService.listBlog(pageable,blog));
         model.addAttribute("recommendBlog", blogService.getTop(4));
 
-        return "/admin/blogs";
+        return "admin/blogs";
     }
 
     @PostMapping("/blogs/search")
@@ -61,14 +61,14 @@ public class BlogsController {
 
         model.addAttribute("page", blogService.listBlog(pageable,blog));
         //刷新片段
-        return "/admin/blogs :: blogList";
+        return "admin/blogs :: blogList";
     }
 
     @GetMapping("/blogs/add")
     public String toBlogAdd(Model model){
         getTypeAndTag(model);
         model.addAttribute("blog", new Blog());
-        return "/admin/blogs_input";
+        return "admin/blogs_input";
     }
 
     @GetMapping("/blogs/{id}/update")
@@ -80,7 +80,7 @@ public class BlogsController {
         blog.initTags();
         model.addAttribute("blog", blog);
         model.addAttribute("isUpdate", 1);
-        return "/admin/blogs_input";
+        return "admin/blogs_input";
     }
 
     private void getTypeAndTag(Model model){
@@ -99,7 +99,7 @@ public class BlogsController {
 
         if(blog.getType().getId() == null | "".equals(blog.getContent()) | "".equals(blog.getDescription())){
             model.addAttribute("msg", "分类未选择/博客内容/博客描述未填写");
-            return "/admin/blogs_input";
+            return "admin/blogs_input";
         }
 
         blog.setType(typeService.getType(blog.getType().getId()));
