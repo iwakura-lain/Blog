@@ -47,7 +47,7 @@ public class BlogsController {
                           Model model){
         model.addAttribute("types", typeService.getAll());
         model.addAttribute("page", blogService.listBlog(pageable,blog));
-        model.addAttribute("recommendBlog", blogService.getTop(4));
+        model.addAttribute("recommendBlog", blogService.getTop(3));
 
         return "admin/blogs";
     }

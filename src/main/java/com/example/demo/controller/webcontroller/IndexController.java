@@ -32,20 +32,20 @@ public class IndexController {
     private CommentService commentService;
 
     @RequestMapping({"/", "/index", "/index.html"})
-    public String index(@PageableDefault(size = 7,
+    public String index(@PageableDefault(size = 3,
                         sort = {"creatTime"},
                         direction = Sort.Direction.DESC) Pageable pageable,
                         Model model){
 
         model.addAttribute("types", typeService.getTop(6));
         model.addAttribute("tags", tagService.getTop(9));
-        model.addAttribute("recommendBlog", blogService.getTop(4));
+        model.addAttribute("recommendBlog", blogService.getTop(3));
         model.addAttribute("page", blogService.listAll(pageable));
         return "index";
     }
 
     @PostMapping("/search/")
-    public String search(@PageableDefault(size = 7,
+    public String search(@PageableDefault(size = 2,
                          sort = {"creatTime"},
                          direction = Sort.Direction.DESC) Pageable pageable,
                          Model model,
@@ -61,7 +61,7 @@ public class IndexController {
         //前端展示需要文章需要html格式的内容
         model.addAttribute("comment", commentService.getComments(id));
         model.addAttribute("blog", blogService.getBlogHtml(id));
-        model.addAttribute("recommendBlog", blogService.getTop(4));
+        model.addAttribute("recommendBlog", blogService.getTop(3));
         return "blog";
     }
 

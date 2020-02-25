@@ -3,6 +3,10 @@ body {
     background: url("/images/b1.png");
 }
 
+#blogBody{
+    background: url("/images/bg.png");
+}
+
 .m-padded-mini {
     padding: 0.2em !important;
 }

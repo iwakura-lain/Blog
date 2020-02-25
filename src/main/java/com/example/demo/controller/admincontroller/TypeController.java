@@ -37,7 +37,7 @@ public class TypeController {
                         sort = {"id"},
                         direction = Sort.Direction.DESC) Pageable pageable,
                         Model model){
-        model.addAttribute("recommendBlog", blogService.getTop(4));
+        model.addAttribute("recommendBlog", blogService.getTop(3));
         model.addAttribute("page", typeService.listType(pageable));
         return "admin/types";
     }

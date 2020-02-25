@@ -48,7 +48,7 @@
                       <div class="ui mini horizontal link list">
                         <div class="item">
                           <img src="https://s2.ax1x.com/2020/02/18/3kGhtg.th.png" alt="" class="ui avatar image">
-                          <div class="content"><a href="@{#}" th:text="${blog.manager.getNickname()}"  class="header"></a></div>
+                          <div class="content"><a th:href="@{/about/}" th:text="${blog.manager.getNickname()}"  class="header"></a></div>
                         </div>
                         <div class="item">
                           <i class="calendar icon"></i><span th:text="${#dates.format(blog.updateTime, 'yyyy-MM-dd')}" ></span>
@@ -85,8 +85,6 @@
               </div>
             </div>
           </div>
-          <br>
-          <br>
           <div id="player"></div>
         </div>
 
@@ -156,10 +154,7 @@
 
   </div>
 
-  <br>
-  <br>
   <!--底部footer-->
-
   <div th:replace="~{fragements::foot}"></div>
 
 

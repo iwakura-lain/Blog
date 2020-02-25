@@ -22,7 +22,7 @@ public class ArchivesController {
 
         model.addAttribute("archMap", blogService.archivesMap());
         model.addAttribute("count", blogService.countBlog());
-        model.addAttribute("recommendBlog", blogService.getTop(4));
+        model.addAttribute("recommendBlog", blogService.getTop(3));
 
         return "archives";
     }

@@ -30,7 +30,7 @@ public class TagsController {
     private BlogService blogService;
 
     @GetMapping("/tags/{id}")
-    public String tags( @PathVariable Long id, @PageableDefault(size = 4,
+    public String tags( @PathVariable Long id, @PageableDefault(size = 2,
                         sort = {"updateTime"},
                         direction = Sort.Direction.DESC) Pageable pageable,
                         Model model ){
@@ -49,7 +49,7 @@ public class TagsController {
         //返回当前分类id，用于样式展示
         model.addAttribute("tagId", id);
         //推荐博客
-        model.addAttribute("recommendBlog", blogService.getTop(4));
+        model.addAttribute("recommendBlog", blogService.getTop(3));
         return "tags";
     }
 

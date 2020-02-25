@@ -19,6 +19,7 @@
 <nav th:fragment="top(n)" class="ui purple inverted attached segment m-padded-tb-mini m-shadow-small" >
     <div class="ui container">
         <div class="ui inverted secondary stackable menu">
+            <a th:href="@{/about/}" ><img class="ui circular image" th:src="@{/images/indexManager.jpg}" style="width: 60px"></a>
             <h2 th:text="${session.loginUser==null? 'Blog' : 'antigenMHC'}" class="ui blue header item"></h2>
             <a th:href="@{/}" class="m-item item m-mobile-hide" th:classappend="${n==1} ? 'active blue'"><i class="home icon"></i>首页</a>
             <a th:href="@{/types/}+${-1}" class="m-item item m-mobile-hide" th:classappend="${n==2} ? 'active blue'"><i class="idea icon"></i>分类</a>
@@ -43,8 +44,8 @@
 </nav>
 
 
-<footer style="opacity: 0.8;" th:fragment="foot" class="ui purple inverted vertical segment m-padded-tb-massive">
-    <div   class="ui center aligned container">
+<footer style="opacity: 0.8;" th:fragment="foot" class="ui purple inverted vertical segment m-padded-tb-small">
+    <div  class="ui center aligned container">
         <div class="ui inverted divided stackable grid">
             <div class="three wide column">
                 <div class="ui inverted link list">
@@ -72,7 +73,7 @@
             </div>
         </div>
         <div class="ui purple inverted section divider"></div>
-        <p class="m-text-thin m-text-spaced m-opacity-tiny">人生如钟摆，摇晃在无聊与厌倦两端</p>
+        <p class="m-text-thin m-text-spaced m-opacity-tiny">黔ICP备19005461号-2</p>
     </div>
 
 </footer>

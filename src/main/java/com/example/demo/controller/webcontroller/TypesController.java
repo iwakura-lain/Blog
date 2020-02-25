@@ -30,7 +30,7 @@ public class TypesController {
     BlogService blogService;
 
     @GetMapping("/types/{id}")
-    public String types(@PathVariable Long id, @PageableDefault(size = 4,
+    public String types(@PathVariable Long id, @PageableDefault(size = 2,
                         sort = {"updateTime"},
                         direction = Sort.Direction.DESC) Pageable pageable,
                         Model model){
@@ -47,7 +47,7 @@ public class TypesController {
         model.addAttribute("page", blogService.typeToBlog(pageable, id));
         //返回当前分类id，用于样式展示
         model.addAttribute("typeId", id);
-        model.addAttribute("recommendBlog", blogService.getTop(4));
+        model.addAttribute("recommendBlog", blogService.getTop(3));
         return "typess";
     }
 

@@ -2,6 +2,7 @@ package com.example.demo.controller.admincontroller;
 
 import com.example.demo.dao.CommentRepository;
 import com.example.demo.pojo.Comment;
+import com.example.demo.service.BlogService;
 import com.example.demo.service.CommentService;
 import org.dom4j.rule.Mode;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,13 +28,16 @@ import java.util.List;
 public class CommController {
 
     @Autowired
-    CommentService commentService;
+    private CommentService commentService;
+    @Autowired
+    private BlogService blogService;
 
     @GetMapping("/comment")
     public String toDelete(@PageableDefault(size = 7,
                          sort = {"creatTime"},
                          direction = Sort.Direction.DESC) Pageable pageable, Model model){
         model.addAttribute("page", commentService.getComments(pageable));
+        model.addAttribute("recommendBlog", blogService.getTop(3));
         return "admin/comments";
     }
 
